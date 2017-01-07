@@ -4,24 +4,31 @@ using Android.OS;
 using System;
 using SQLite;
 using System.IO;
-
+using Android.Views;
+using System.Net;
+using System.Linq;
+using System.Net.Sockets;
 
 namespace Thesis.Activites
 {
-    [Activity(Label = "Thesis", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "Thesis", MainLauncher = true, Icon = "@drawable/icon", Theme = "@style/MyCustomTheme")]
     public class MainActivity : Activity
     {
+       
 
         EditText txtusername;
         EditText txtPassword;
         Button btncreate;
         Button btnsign;
+        TextView labelLogin;
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+            Window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
 
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
+            
 
             // Get our button from the layout resource,  
             // and attach an event to it  
@@ -29,9 +36,11 @@ namespace Thesis.Activites
             btncreate = FindViewById<Button>(Resource.Id.btnRegister);
             txtusername = FindViewById<EditText>(Resource.Id.txtUsername);
             txtPassword = FindViewById<EditText>(Resource.Id.txtPassword);
+            labelLogin = FindViewById<TextView>(Resource.Id.labelLogin);
 
             btnsign.Click += Btnsign_Click;
             btncreate.Click += Btncreate_Click;
+
             CreateDB();
         }
 

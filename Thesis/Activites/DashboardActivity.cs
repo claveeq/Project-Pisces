@@ -16,12 +16,19 @@ namespace Thesis.Activities
     [Activity(Label = "DashboardActivity")]
     public class DashboardActivity : Activity
     {
+        TextView textStatus;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
             // Create your application here
             SetContentView(Resource.Layout.Dashboard);
+
+            textStatus = FindViewById<TextView>(Resource.Id.txtStatus);
+
+            ServerController.SetupServer(textStatus);
+            ServerController.CloseAllSockets();
+            
         }
     }
 }
