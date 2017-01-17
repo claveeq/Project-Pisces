@@ -13,7 +13,7 @@ using SQLite;
 
 namespace Thesis.Table
 {
-    class LoginTable
+    class TeacherLoginTable
     {
         [PrimaryKey, AutoIncrement, Column("_Id")]
 
@@ -26,5 +26,9 @@ namespace Thesis.Table
         [MaxLength(15)]
 
         public string password { get; set; }
+
+        [MaxLength(15)]
+
+        public DateTime dateCreated { get; set; }
     }
 }

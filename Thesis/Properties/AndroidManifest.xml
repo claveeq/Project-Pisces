@@ -5,5 +5,5 @@
 	<uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 	<uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-	<application android:label="Thesis" android:theme="@style/MyCustomTheme"></application>
+	<application android:label="Thesis" android:icon="@drawable/icon" android:theme="@style/MyTheme" />
 </manifest>

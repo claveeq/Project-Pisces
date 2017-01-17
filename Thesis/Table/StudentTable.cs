@@ -1,0 +1,25 @@
+using SQLite;
+
+namespace Thesis.Table
+{
+    class StudentTable
+    {
+        [PrimaryKey, AutoIncrement, Column("_Id")]
+
+        public int student_id { get; set; } // AutoIncrement and set primarykey  
+
+        [MaxLength(25)]
+
+        public string student_name { get; set; }
+
+        [MaxLength(25)]
+
+        public string student_passcode { get; set; }
+
+        [MaxLength(50)]
+
+        public string student_macAddress { get; set; }
+
+    
+    }
+}

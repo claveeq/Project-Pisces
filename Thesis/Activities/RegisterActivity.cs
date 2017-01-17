@@ -32,26 +32,17 @@ namespace Thesis.Activities
             btncreate = FindViewById<Button>(Resource.Id.btnRegCreate);
             txtusername = FindViewById<EditText>(Resource.Id.txtRegUsername);
             txtPassword = FindViewById<EditText>(Resource.Id.txtRegPassword);
+            // EventHandlers
             btncreate.Click += Btncreate_Click;
         }
 
         private void Btncreate_Click(object sender, EventArgs e)
         {
-            try
+            Teacher teacher = new Teacher(txtusername.Text, txtPassword.Text);
+            if(Auth.CreateTeacher(teacher, Application.Context))
             {
-                string dpPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "user.db3");
-                var db = new SQLiteConnection(dpPath);
-                db.CreateTable<LoginTable>();
-                LoginTable tbl = new LoginTable();
-                tbl.username = txtusername.Text;
-                tbl.password = txtPassword.Text;
-                db.Insert(tbl);
-                Toast.MakeText(this, "Record Added Successfully...,", ToastLength.Short).Show();
-            }
-            catch(Exception ex)
-            {
-                Toast.MakeText(this, ex.ToString(), ToastLength.Short).Show();
-            }
+                Finish();
+            } 
         }
     }
 }

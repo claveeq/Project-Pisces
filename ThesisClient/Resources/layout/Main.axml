@@ -3,23 +3,20 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
-        android:text="Text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textViewStatus" />
-    <Button
-        android:text="Start Client"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/buttonStart" />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textEditMessage" />
+        android:id="@+id/textEditIPAddress"
+        android:hint="Enter your Teacher's IP Address"
+        android:layout_gravity="center" />
     <Button
-        android:text="Send Request"
+        android:text="Connect Client"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/buttonSend" />
+        android:id="@+id/buttonConnect" />
+    <Button
+        android:text="Login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonJoin" />
 </LinearLayout>
