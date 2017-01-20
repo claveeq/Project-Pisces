@@ -22,7 +22,10 @@ namespace Thesis.Fragments
             // Create your fragment here
 
         }
-       
+        public override void OnActivityCreated(Bundle savedInstanceState)
+        {
+            base.OnActivityCreated(savedInstanceState); 
+        }
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             // Use this to return your custom view for this Fragment

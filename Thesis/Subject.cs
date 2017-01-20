@@ -12,35 +12,50 @@ using Android.Widget;
 
 namespace Thesis
 {
-    class Subject
+    public class Subject
     {
+        private int _ID;
+        private int _teacher_ID;
         private string _title;
-        private string _teacher;
-        private TimeSpan _timeLength;
-        private List<Student> _students;
 
-        private Quiz _quiz;
+        //private TimeSpan _timeLength;
+        //private List<Student> _students;
 
-        private DateTime _dateToday;
-        private DateTime _dateCreated;
+        //private Quiz _quiz;
 
-        private List<Assignment> _assignments;
-        private List<Lecture> _lectures;
+        //private DateTime _dateToday;
+        //private DateTime _dateCreated;
 
-        public Subject(string title, string teacher, TimeSpan timeLength, List<Student> students)
+        //private List<Assignment> _assignments;
+        //private List<Lecture> _lectures;
+        //for Reading subjects
+        public Subject(int id, string title, int teachers_id )
+        {
+            _ID = id;
+            _title = title;
+            _teacher_ID = teachers_id;
+        }
+        //for adding subject
+        public Subject(string title, int teachers_id)
         {
             _title = title;
-            _teacher = teacher;
-            _timeLength = timeLength;
-            _students = students;
-          //  _dateToday = DateTime.Now();
+            _teacher_ID = teachers_id;
         }
 
-        public Subject()
-        {
-        }
+        //public Subject(string title, string teacher, TimeSpan timeLength, List<Student> students)
+        //{
+        //    _title = title;
+        //    _teacher = teacher;
+        //    _timeLength = timeLength;
+        //    _students = students;
+        //  //  _dateToday = DateTime.Now();
+        //}
+        public int GetID { get { return _ID; }  }
+        public string GetTitle { get { return _title; } }
+        public int GetTeachersID { get { return _teacher_ID;  } }
 
         public List<Student> GetRegisteredStudents{ get; set; }
         public int MyProperty { get; set; }
+
     }
 }

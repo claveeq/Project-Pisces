@@ -2,14 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <Spinner
+    android:layout_height="match_parent"
+    android:minWidth="25px"
+    android:minHeight="25px">
+    <EditText
+      android:hint="Subject"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/spinner1" />
+        android:id="@+id/editTextSubject" />
     <Button
-        android:text="Start Class"
-        android:layout_width="match_parent"
+        android:text="Add"
         android:layout_height="wrap_content"
-        android:id="@+id/button1" />
+        android:layout_width="match_parent"
+        android:id="@+id/buttonAddSubject" />
 </LinearLayout>

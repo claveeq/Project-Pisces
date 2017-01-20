@@ -10,7 +10,11 @@ namespace Thesis.Table
 
         [MaxLength(25)]
 
-        public string student_name { get; set; }
+        public string student_firstname { get; set; }
+
+        [MaxLength(25)]
+
+        public string student_lastname { get; set; }
 
         [MaxLength(25)]
 
@@ -19,7 +23,5 @@ namespace Thesis.Table
         [MaxLength(50)]
 
         public string student_macAddress { get; set; }
-
-    
     }
 }

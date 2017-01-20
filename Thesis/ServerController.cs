@@ -126,25 +126,25 @@ namespace Thesis
             }
             else // this is for initializing task
             {
-                if(currentTask == task.login)
-                {
-                    student = (Student)BinarySerializer.ByteArrayToObject(recBuf);
-                    if (Auth.AuthStudent(student, context))
-                    {
-                        if(!Students.Contains(student))// If doesn't exist in the list, Add it to Regestered list
-                            Students.Add(student);
+                //if(currentTask == task.login)
+                //{
+                //    student = (Student)BinarySerializer.ByteArrayToObject(recBuf);
+                //    if(Auth.AuthStudent(student, context))
+                //    {
+                //        if(!Students.Contains(student))// If doesn't exist in the list, Add it to Regestered list
+                //            Students.Add(student);
 
-                        current.Send(Encoding.ASCII.GetBytes("true")); 
-                    }
-                    else
-                    {
-                        if(!Students.Contains(student)) // If doesn't exist in the list, Add it to Unregestered list
-                            UnregStudents.Add(student);
+                //        current.Send(Encoding.ASCII.GetBytes("true")); 
+                //    }
+                //    else
+                //    {
+                //        if(!Students.Contains(student)) // If doesn't exist in the list, Add it to Unregestered list
+                //            UnregStudents.Add(student);
                         
-                        current.Send(Encoding.ASCII.GetBytes("false"));
-                    }
-                    currentTask = task.none;
-                }
+                //        current.Send(Encoding.ASCII.GetBytes("false"));
+                //    }
+                //    currentTask = task.none;
+                //}
             }
             current.BeginReceive(buffer, 0, BUFFER_SIZE, SocketFlags.None, ReceiveCallback, current);
         }

@@ -12,7 +12,8 @@ using Toolbar = Android.Support.V7.Widget.Toolbar;
 using Android.Support.V7.App;
 using Android.Support.V4.Widget;
 using Android.Support.Design.Widget;
-
+using Android.Content;
+using Newtonsoft.Json;
 namespace Thesis.Activites
 {
     [Activity(Label = "Thesis", MainLauncher = true, Icon = "@drawable/icon")]
@@ -29,6 +30,7 @@ namespace Thesis.Activites
         //Toolbar toolbar;
         //MyActionBarDrawerToggle mDrawerToggle;
 
+        Teacher teacher;
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -105,21 +107,22 @@ namespace Thesis.Activites
             StartActivity(typeof(Activities.RegisterActivity));
         }
 
-        
         private void Btnsign_Click(object sender, EventArgs e)
         {
-            Teacher teacher = new Teacher(txtusername.Text, txtPassword.Text);
-            if(Auth.AuthTeacher(teacher))
+            Intent intent = new Intent(this, typeof(Activities.DashboardActivity));
+            //teacher = new Teacher(txtusername.Text, txtPassword.Text);
+            if(Auth.AuthTeacher(txtusername.Text, txtPassword.Text))
             {
-                StartActivity(typeof(Activities.DashboardActivity));
-                //string text = Intent.GetStringExtra("MyData") ?? "Data not available";
-
+                //intent.PutExtra("Teacher", JsonConvert.SerializeObject(teacher));
+                intent.PutExtra("username", txtusername.Text);
+                intent.PutExtra("password", txtPassword.Text);
+                StartActivity(intent);          
                 Finish();
             }
             else
             {
-                Snackbar.Make(btnsign, "Account doesn't exist", 0).Show();
                 teacher = null;
+                Snackbar.Make(btnsign, "Account doesn't exist", 0).Show();
             }
 
         }

@@ -18,8 +18,9 @@ namespace Thesis.Activities
     [Activity(Label = "RegisterActivity")]
     public class RegisterActivity : Activity
     {
-        EditText txtusername;
+        EditText txtUsername;
         EditText txtPassword;
+        EditText txtFullname;
         Button btncreate;
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -30,16 +31,17 @@ namespace Thesis.Activities
             SetContentView(Resource.Layout.Newuser);
             // Create your application here  
             btncreate = FindViewById<Button>(Resource.Id.btnRegCreate);
-            txtusername = FindViewById<EditText>(Resource.Id.txtRegUsername);
+            txtUsername = FindViewById<EditText>(Resource.Id.txtRegUsername);
             txtPassword = FindViewById<EditText>(Resource.Id.txtRegPassword);
+            txtFullname = FindViewById<EditText>(Resource.Id.txtRegFullName);
             // EventHandlers
             btncreate.Click += Btncreate_Click;
         }
 
         private void Btncreate_Click(object sender, EventArgs e)
         {
-            Teacher teacher = new Teacher(txtusername.Text, txtPassword.Text);
-            if(Auth.CreateTeacher(teacher, Application.Context))
+            Teacher teacher = new Teacher(txtUsername.Text, txtPassword.Text, txtFullname.Text);
+            if(Auth.CreateTeacher(teacher))
             {
                 Finish();
             } 

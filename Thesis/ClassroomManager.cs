@@ -2,62 +2,79 @@ using System.Collections.Generic;
 
 namespace Thesis
 {
-    internal class ClassroomManager
+    public class ClassroomManager
     {
         private Teacher _teacher;
-        private Subject _currentSubject;
-        private List<Student> _activeStudents;
-        private List<Student> _subjectStudents;
+        // List of the students registered in the app
 
-        public Subject SetCurrentSubject { set { _currentSubject = value;  } }
-        //need to continiously update na variable
-        public List<Student> SetStudent
-        {
-            private get
-            {
-                return _activeStudents;
-            }
-            set
-            {
-                _activeStudents = ServerController.GetActiveStudents;
-            }
-        }
+        private List<Student> _allStudents;//all registered students in the app
 
-        public void StartClass()
-        {
-            ServerController.SetupServer();
-           
-        }
+        private Subject _currentSubject = null;
+        private List<Subject> _teachersSubjects;
 
+        private List<Student> _activeStudents; //students who join the class
+        private List<Student> _subjectStudents;//students who are enrolled in a subject
+        
+        private bool classroomIsActive = false;
+
+        //instantiate the classroom class after authentication
         public ClassroomManager(Teacher teacher)
         {
-        //    _subjects = subject;
+            //_subjects = subject;
             _teacher = teacher;
+            //getting all the list of the teacher subjects
+            _teachersSubjects = _teacher.AllSubjects;
+            _allStudents = _teacher.AllStudents;
+           
         }
-
-        public void CreateSubject()
+        public Teacher GetTeacher { get { return _teacher; } }
+        //------------------------active--------------------------//
+        public List<Subject> GetSubjects{ get { return _teachersSubjects; } }
+        public void StartClass(Subject subject)
         {
+            ServerController.SetupServer();
             
         }
-        
+
+        // retrieving current subject
+        public Subject CurrentSubject
+        {
+            get { return _currentSubject; }
+            set { _currentSubject = value;  }
+        }
+  
+       
+        //public void CheckAttendance()
+        //{
+        //    ServerController.GetActiveStudents;
+        //    if(_currentSubject != null)
+        //    {
+
+        //        foreach(Student student in ActiveStudents)
+        //        {
+        //            if(_subjectStudents.Contains(student))
+        //            {
+        //                student.isPresent = true;
+        //            }
+        //        }
+        //    }
+        //}
+        //------------------------Inactive--------------------------//
+        public void AddStudent()
+        {
+
+        }
+        public void AddSubject(Subject subject)
+        {
+            _teacher.AddSubject(subject);
+        }
+        public void CreateSubject()
+        {
+
+        }
         public void RegisterUnregisteredStudents()
         {
 
-        }
-
-        public void CheckAttendance()
-        {
-            if(_currentSubject != null)
-            {
-                _activeStudents = ServerController.GetActiveStudents;
-                foreach(Student student in _activeStudents)
-                {
-                    if(_activeStudents.Contains(student))
-                    {
-                        student.isPresent = true;
-                    }
-                }
-            }
         }
     }
 }

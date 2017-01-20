@@ -4,30 +4,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <TextView
-        android:text="Register"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView1" />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/txtRegUsername"
-        android:hint="Username" />
+        android:id="@+id/txtUsername"
+        android:hint="" />
+    <TextView
+        android:text="Password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtPassword" />
     <EditText
         android:inputType="textPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/txtRegPassword"
-        android:hint="Password" />
+        android:id="@+id/editText2" />
+    <TextView
+        android:text="Full Name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView1" />
     <EditText
+        android:inputType="textPersonName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/txtRegFullName"
-        android:hint="Full Name" />
+        android:id="@+id/txtFullName" />
     <Button
-        android:text="Signup"
+        android:text="Save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btnRegCreate" />
+        android:id="@+id/buttonSave" />
 </LinearLayout>

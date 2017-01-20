@@ -13,7 +13,7 @@ using Toolbar = Android.Support.V7.Widget.Toolbar;
 using Android.Support.V7.App;
 using Android.Support.V4.Widget;
 using Android.Support.Design.Widget;
-
+using Newtonsoft.Json;
 namespace Thesis.Activities
 {
     [Activity(Label = "DashboardActivity")]
@@ -23,15 +23,23 @@ namespace Thesis.Activities
         NavigationView navigationView;
         Toolbar toolbar;
         MyActionBarDrawerToggle mDrawerToggle;
+        //fragments
+        public FragmentTransaction fragmentTx;
 
-        FragmentTransaction fragmentTx;
-        HomeFragment homeFragment;
-        StudentsFragment studentFragment;
-        Stack<Fragment> stackFragments;
-        Fragment currentFragment = new Fragment();
+        public HomeFragment homeFragment;
+        public StudentsFragment studentFragment;
+        public AccountFragment accountFragment;
+        public SubjectFragment subjectFragment;
+        public AddSubjectFragment AddSubjectFragment;
+
+
+        public Stack<Fragment> stackFragments;
+        public Fragment currentFragment = new Fragment();
         //Essential Classes
-        ClassroomManager CM;
-        Teacher teacher;
+        ClassroomManager classManager;
+        Teacher loggedOnUser;
+        List<Subject> Subjects;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -48,17 +56,39 @@ namespace Thesis.Activities
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
             //initializing fragments in dashboard
             fragmentTx = FragmentManager.BeginTransaction();
+
+            fragmentTx.Add(Resource.Id.fragmentContainer, accountFragment, "Account");
+            fragmentTx.Hide(accountFragment);
+            fragmentTx.Add(Resource.Id.fragmentContainer, subjectFragment, "Subjects");
+            fragmentTx.Hide(subjectFragment);
+            fragmentTx.Add(Resource.Id.fragmentContainer, AddSubjectFragment, "AddSubject");
+            fragmentTx.Hide(AddSubjectFragment);
             fragmentTx.Add(Resource.Id.fragmentContainer, studentFragment, "Students");
             fragmentTx.Hide(studentFragment);
             fragmentTx.Add(Resource.Id.fragmentContainer, homeFragment, "Home");
+
             fragmentTx.Commit();
             currentFragment = homeFragment;
             //Hanling events
             EventHanlders();
+           
             //Initializing Objects
-            CM = new ClassroomManager(teacher);
+            //Getting the loggedon Teacher from Authentication
+            //loggedOnUser = JsonConvert.DeserializeObject<Teacher>(Intent.GetStringExtra("Teacher"));
+            //loggedOnUser.retrieveUserDataFromDB();
+            string username = Intent.GetStringExtra("username") ?? "Data not available";
+            string password = Intent.GetStringExtra("password") ?? "Data not available";
+            loggedOnUser = new Teacher(username, password);
+            classManager = new ClassroomManager(loggedOnUser);
+
+            Toast.MakeText(this, "Welcome " + loggedOnUser.GetFullName + "!", ToastLength.Long).Show();
+            //var list = FragmentManager.FindFragmentById<SubjectFragment>(Resource.Layout.fragment_subjects); //for communicating with fragments
+          
+
         }
 
+        public ClassroomManager GetClassManager { get { return classManager; } }
+    
         private void EventHanlders()
         {
             navigationView.NavigationItemSelected += NavigationView_NavigationItemSelected;
@@ -70,14 +100,17 @@ namespace Thesis.Activities
             navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
             toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
 
-            homeFragment = new HomeFragment();
+            homeFragment = new HomeFragment();     
             studentFragment = new StudentsFragment();
+            accountFragment = new AccountFragment();
+            subjectFragment = new SubjectFragment();
+            AddSubjectFragment = new AddSubjectFragment();
+
             stackFragments = new Stack<Fragment>();
         }
 
-        private void ShowFragment(Fragment fragment)
+        public void ShowFragment(Fragment fragment)
         {
-
             if(fragment.IsVisible)
             {
                 return;
@@ -90,7 +123,6 @@ namespace Thesis.Activities
 
             fragmentTx.Hide(currentFragment);
             fragmentTx.Show(fragment);
-
             fragmentTx.AddToBackStack(null);
             stackFragments.Push(currentFragment);
             fragmentTx.Commit();
@@ -112,7 +144,7 @@ namespace Thesis.Activities
                 base.OnBackPressed();
             }
         }
-
+    
         private void NavigationView_NavigationItemSelected(object sender, NavigationView.NavigationItemSelectedEventArgs e)
         {
             e.MenuItem.SetChecked(true);
@@ -126,6 +158,15 @@ namespace Thesis.Activities
                 case (Resource.Id.nav_students):
                     ShowFragment(studentFragment);
                     SupportActionBar.Title = "Students";
+                    break;
+                case (Resource.Id.nav_class):
+                    ShowFragment(subjectFragment);
+                    SupportActionBar.Title = "Subjects";
+                    break;
+                case (Resource.Id.nav_Account):
+                    ShowFragment(accountFragment);
+                    accountFragment.Username = loggedOnUser.GetFullName;
+                    SupportActionBar.Title = "Account";
                     break;
             }
             drawerLayout.CloseDrawers();
