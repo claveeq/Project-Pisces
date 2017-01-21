@@ -11,17 +11,18 @@ namespace Thesis
 {
     public class Teacher
     {
-        int _ID = 1;
+        int _ID;
         string _username;
         string _password;
         string _fullName;
-
+         
         List<Subject> _allSubjects;
         List<Student> _allStudents;
 
         public string GetUsername { get{ return _username; } }
-        public string GetPassword { get { return _password; } }
+       // public string GetPassword { get { return _password; } }
         public string GetFullName { get { return _fullName; } }
+        public int GetID { get { return _ID; } }
 
         public Teacher()
         {
@@ -35,6 +36,19 @@ namespace Thesis
             item.fullname = fullname;
             db.Update(item);
             db.Close();
+        }
+
+        public List<Subject> AllSubjects
+        {
+            get { return _allSubjects; }
+            private set { _allSubjects = value; }
+        }
+
+
+        public List<Student> AllStudents //returns all students from teachers record
+        {
+            get { return _allStudents; }
+            private set { _allStudents = value; }
         }
 
         public Teacher(string name, string password)//forAuth
@@ -51,19 +65,7 @@ namespace Thesis
             _fullName = fullname;
         }
 
-        public int GetID { get { return _ID; } }
-        public List<Subject> AllSubjects
-        {
-            get { return _allSubjects; }
-            private set { _allSubjects = value; }
-        }
 
-
-        public List<Student> AllStudents //returns all students from teachers record
-        {
-            get { return _allStudents; }
-            private set { _allStudents = value; }
-        }
         public void retrieveUserDataFromDB()
         {
             string dpPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "local.db3"); //Call Database  

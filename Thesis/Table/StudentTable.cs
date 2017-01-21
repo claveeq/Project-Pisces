@@ -10,6 +10,14 @@ namespace Thesis.Table
 
         [MaxLength(25)]
 
+        public int student_teachers_id { get; set; }
+
+        [MaxLength(25)]
+
+        public int student_subject_id { get; set; }
+
+        [MaxLength(25)]
+
         public string student_firstname { get; set; }
 
         [MaxLength(25)]

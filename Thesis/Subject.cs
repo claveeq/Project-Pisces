@@ -57,5 +57,10 @@ namespace Thesis
         public List<Student> GetRegisteredStudents{ get; set; }
         public int MyProperty { get; set; }
 
+        //return title of the object
+        public override string ToString()
+        {
+            return _title; 
+        }
     }
 }

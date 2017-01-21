@@ -109,6 +109,7 @@
     <Compile Include="Activities\DashboardActivity.cs" />
     <Compile Include="Activities\RegisterActivity.cs" />
     <Compile Include="Adapter\SubjectAdapter.cs" />
+    <Compile Include="Adapter\SubjectSpinnerAdapter.cs" />
     <Compile Include="Assignment.cs" />
     <Compile Include="Auth.cs" />
     <Compile Include="BinarySerializer.cs" />
@@ -126,6 +127,7 @@
     <Compile Include="Subject.cs" />
     <Compile Include="Table\StudentTable.cs" />
     <Compile Include="Table\SubjectsTable.cs" />
+    <Compile Include="Table\SubjectStudentsTable.cs" />
     <Compile Include="Table\TeacherLoginTable.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />

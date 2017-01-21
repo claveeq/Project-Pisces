@@ -10,10 +10,11 @@ namespace Thesis
         private List<Student> _allStudents;//all registered students in the app
 
         private Subject _currentSubject = null;
+
         private List<Subject> _teachersSubjects;
 
         private List<Student> _activeStudents; //students who join the class
-        private List<Student> _subjectStudents;//students who are enrolled in a subject
+       // private List<Student> _subjectStudents;//students who are enrolled in a subject
         
         private bool classroomIsActive = false;
 
@@ -22,18 +23,20 @@ namespace Thesis
         {
             //_subjects = subject;
             _teacher = teacher;
-            //getting all the list of the teacher subjects
+            //getting the list of the teacher's subjects
             _teachersSubjects = _teacher.AllSubjects;
+            //getting the list of the teacher's students
             _allStudents = _teacher.AllStudents;
            
         }
+        //--
         public Teacher GetTeacher { get { return _teacher; } }
+        public List<Subject> GetSubjects { get { return _teachersSubjects; } }
         //------------------------active--------------------------//
-        public List<Subject> GetSubjects{ get { return _teachersSubjects; } }
+
         public void StartClass(Subject subject)
         {
             ServerController.SetupServer();
-            
         }
 
         // retrieving current subject
@@ -68,10 +71,7 @@ namespace Thesis
         {
             _teacher.AddSubject(subject);
         }
-        public void CreateSubject()
-        {
 
-        }
         public void RegisterUnregisteredStudents()
         {
 

@@ -49,7 +49,7 @@ namespace Thesis.Fragments
             DashActivity = (DashboardActivity)Activity;//communicating with activities
             
             classManager = DashActivity.GetClassManager;
-            listSubjects.Adapter = new SubjectAdapter(Activity, classManager.GetTeacher.AllSubjects);
+            listSubjects.Adapter = new SubjectAdapter(Activity, classManager.GetSubjects);
         }
 
         private void BtnToAddSubject_Click(object sender, EventArgs e)

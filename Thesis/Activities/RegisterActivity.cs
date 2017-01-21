@@ -40,8 +40,7 @@ namespace Thesis.Activities
 
         private void Btncreate_Click(object sender, EventArgs e)
         {
-            Teacher teacher = new Teacher(txtUsername.Text, txtPassword.Text, txtFullname.Text);
-            if(Auth.CreateTeacher(teacher))
+            if(Auth.CreateTeacher(txtUsername.Text, txtPassword.Text, txtFullname.Text))
             {
                 Finish();
             } 

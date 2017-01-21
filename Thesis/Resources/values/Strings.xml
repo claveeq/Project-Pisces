@@ -2,4 +2,13 @@
 <resources>
     <string name="Hello">Hello World, Click Me!</string>
     <string name="ApplicationName">Thesis</string>
+  <string-array name="counter">
+    <item>One</item>
+    <item>Two</item>
+    <item>Three</item>
+    <item>Four</item>
+    <item>Five</item>
+    <item>Six</item>
+    <item>Seven</item>
+  </string-array>
 </resources>

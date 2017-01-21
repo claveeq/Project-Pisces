@@ -16,6 +16,10 @@ namespace Thesis
             output += "Creating Databse if it doesnt exists";
             string dpPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "local.db3"); //Create New Database  
             var db = new SQLiteConnection(dpPath);
+            db.CreateTable<SubjectsTable>();
+            db.CreateTable<TeacherLoginTable>();
+            db.CreateTable<SubjectStudentsTable>();
+            db.CreateTable<StudentTable>();
             output += "\n Database Created....";
             return output;
         }
@@ -69,7 +73,7 @@ namespace Thesis
             }
         }
 
-        public static bool CreateTeacher(Teacher teacher)
+        public static bool CreateTeacher(string username, string password, string fullname)
         {
             try
             {
@@ -77,9 +81,9 @@ namespace Thesis
                 var db = new SQLiteConnection(dpPath);
                 db.CreateTable<TeacherLoginTable>();
                 TeacherLoginTable tbl = new TeacherLoginTable();
-                tbl.username = teacher.GetUsername;
-                tbl.password = teacher.GetPassword;
-                tbl.fullname = teacher.GetFullName;          
+                tbl.username = username;
+                tbl.password = password;
+                tbl.fullname = fullname;          
                 db.Insert(tbl);
                 return true;
             }

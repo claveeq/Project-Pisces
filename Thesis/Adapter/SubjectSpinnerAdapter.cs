@@ -1,30 +1,38 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+using Android.App;
 using Android.Content;
+using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using System.Collections.Generic;
 
 namespace Thesis.Adapter
 {
-    internal class SubjectAdapter : BaseAdapter
+    class SubjectSpinnerAdapter : BaseAdapter<Subject>
     {
+
         private Context context;
         private List<Subject> _subjects;
 
-        public SubjectAdapter(Context context, List<Subject> subject)
+        public SubjectSpinnerAdapter(Context context, List<Subject> subject)
         {
             this.context = context;
             _subjects = subject;
         }
-
-        public override Java.Lang.Object GetItem(int position)
+        public override Subject this[int position]
         {
-            return null;
+            get
+            {
+                return _subjects[position];
+            }
         }
 
         public override long GetItemId(int position)
         {
-       
             return _subjects[position].GetID;
         }
 
@@ -46,7 +54,6 @@ namespace Thesis.Adapter
                 holder.SubjectTitle = view.FindViewById<TextView>(Resource.Id.textView1);
                 view.Tag = holder;
             }
-
             //fill in your items
             holder.SubjectTitle.Text = _subjects[position].GetTitle;
 
@@ -61,18 +68,9 @@ namespace Thesis.Adapter
                 return _subjects.Count;
             }
         }
-    }
 
-    public static class ObjectTypeHelper
-    {
-        public static T Cast<T>(this Java.Lang.Object obj) where T : class
-        {
-            var propertyInfo = obj.GetType().GetProperty("Instance");
-            return propertyInfo == null ? null : propertyInfo.GetValue(obj, null) as T;
-        }
     }
-
-    internal class SubjectAdapterViewHolder : Java.Lang.Object
+    internal class SubjectSpinnerAdapterViewHolder : Java.Lang.Object
     {
         //Your adapter views to re-use
         public TextView SubjectTitle { get; set; }

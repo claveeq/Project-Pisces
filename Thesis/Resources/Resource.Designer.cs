@@ -92,6 +92,22 @@ namespace Thesis
 			}
 		}
 		
+		public partial class Array
+		{
+			
+			// aapt resource value: 0x7f0c0000
+			public const int counter = 2131492864;
+			
+			static Array()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Array()
+			{
+			}
+		}
+		
 		public partial class Attribute
 		{
 			
@@ -2227,9 +2243,6 @@ namespace Thesis
 			// aapt resource value: 0x7f060076
 			public const int fragmentContainer = 2131099766;
 			
-			// aapt resource value: 0x7f06008b
-			public const int gridView1 = 2131099787;
-			
 			// aapt resource value: 0x7f0600a0
 			public const int group_Main = 2131099808;
 			
@@ -2277,6 +2290,9 @@ namespace Thesis
 			
 			// aapt resource value: 0x7f06008e
 			public const int listSubjects = 2131099790;
+			
+			// aapt resource value: 0x7f06008b
+			public const int listView1 = 2131099787;
 			
 			// aapt resource value: 0x7f060044
 			public const int list_item = 2131099716;
@@ -2782,8 +2798,8 @@ namespace Thesis
 		public partial class Menu
 		{
 			
-			// aapt resource value: 0x7f0c0000
-			public const int nav_menu = 2131492864;
+			// aapt resource value: 0x7f0d0000
+			public const int nav_menu = 2131558400;
 			
 			static Menu()
 			{
