@@ -24,31 +24,83 @@ namespace Thesis
             return output;
         }
 
-//        public static bool AuthStudent(Student student, Context context)
-//        {
-//            try
-//            {
-//                string dpPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "local.db3"); //Call Database  
-//                var db = new SQLiteConnection(dpPath);
-//                var data = db.Table<StudentTable>(); //Call Table  
-///*                var data1 = data.Where(x => x.student_passcode == txtusername.Text && x.password == txtPassword.Text).FirstOrDefault(); *///Linq Query  
-//                var data1 = data.Where(x => x.student_passcode == student && x.student_macAddress == student.GetMacAddress).FirstOrDefault();
-//                if(data1 != null)
-//                {
-//                    return true;
-//                }
-//                else
-//                {
-//                    return false;
-//                }
-//            }
-//            catch(Exception ex)
-//            {
-//                Toast.MakeText(context, ex.ToString(), ToastLength.Short).Show();
-//                return false;
-//            }
-//        }
+        public static bool AuthStudent(Student student, Context context)
+        {
+            try
+            {
+                string dpPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "local.db3"); //Call Database  
+                var db = new SQLiteConnection(dpPath);
+                var data = db.Table<StudentTable>(); //Call Table  
+/*                var data1 = data.Where(x => x.student_passcode == txtusername.Text && x.password == txtPassword.Text).FirstOrDefault(); *///Linq Query  
+                var data1 = data.Where(x => x.student_passcode == student.GetPasscode && x.student_macAddress == student.GetMacAddress).FirstOrDefault();
+                if(data1 != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch(Exception ex)
+            {
+                Toast.MakeText(context, ex.ToString(), ToastLength.Short).Show();
+                return false;
+            }
+        }
+        public static bool StudentExist(string passcode)
+        {
+            try
+            {
+                string dpPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "local.db3"); //Call Database  
+                var db = new SQLiteConnection(dpPath);
+                var tbl = db.Table<StudentTable>(); //Call Table                           /*                var data1 = data.Where(x => x.student_passcode == txtusername.Text && x.password == txtPassword.Text).FirstOrDefault(); *///Linq Query  
+                var data1 = tbl.Where( x => x.student_passcode == passcode).FirstOrDefault();
+                //returns true if the account dosn't exist
+                if(data1 == null)
+                {
+                    return false;
+                } 
+                else
+                {
+                    return true;
+                }
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
+        }
+        public static bool CreateStudent(Student student, Teacher teacher)
+        {
+            //try
+            //{
+            string dpPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "local.db3");
+            var db = new SQLiteConnection(dpPath);
+            db.CreateTable<StudentTable>();
+            StudentTable studentTable = new StudentTable();
+            studentTable.student_firstname = student.GetFirstName;
+            studentTable.student_lastname= student.GetLastName;
+            studentTable.student_passcode = student.GetPasscode;
+            studentTable.student_teachers_id = student.Teachers_ID;
+            db.Insert(studentTable);
 
+            var data = db.Table<StudentTable>(); 
+            var data1 = data.Where(x => x.student_passcode == student.GetPasscode).FirstOrDefault();
+     
+            db.CreateTable<SubjectStudentsTable>();
+            SubjectStudentsTable subjStudentTable = new SubjectStudentsTable();
+            subjStudentTable.subj_stud_student_id = data1.student_id;
+            subjStudentTable.subj_stud_teachers_id = teacher.GetID;
+            db.Insert(subjStudentTable);
+            return true;
+            //}
+            //catch(SQLiteException ex)
+            //{
+            //    Toast.
+            //    return false;
+            //}
+        }
         public static bool AuthTeacher(string username, string password)
         {
             try
@@ -67,7 +119,7 @@ namespace Thesis
                     return false;
                 }
             }
-            catch(Exception)
+            catch(Exception ex)
             {
                 return false;
             }
@@ -91,27 +143,6 @@ namespace Thesis
             {       
                 return false;
             }
-        }
-
-        //public static bool CreateStudent(Student student, Context context)
-        //{
-        //    try
-        //    {
-        //        string dpPath = Path.Combine(Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "local.db3");
-        //        var db = new SQLiteConnection(dpPath);
-        //        db.CreateTable<StudentTable>();
-        //        StudentTable tbl = new StudentTable();
-        //        tbl.student_name = student.GetName;
-        //        tbl.student_passcode = student.GetPasscode;
-        //        tbl.student_macAddress = student.GetMacAddress;
-        //        db.Insert(tbl);
-        //        return true;
-        //    }
-        //    catch(Exception ex)
-        //    {
-        //        Toast.MakeText(context, ex.ToString(), ToastLength.Short).Show();
-        //        return false;
-        //    }
-        //}
+        } 
     }
 }

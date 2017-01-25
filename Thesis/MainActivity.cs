@@ -14,7 +14,7 @@ using Android.Support.V4.Widget;
 using Android.Support.Design.Widget;
 using Android.Content;
 using Newtonsoft.Json;
-namespace Thesis.Activites
+namespace Thesis
 {
     [Activity(Label = "Thesis", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity

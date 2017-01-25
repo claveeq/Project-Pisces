@@ -23,12 +23,24 @@ namespace Thesis.Adapter
             this.context = context;
             _subjects = subject;
         }
+
         public override Subject this[int position]
         {
             get
             {
                 return _subjects[position];
             }
+        }
+
+        public override Java.Lang.Object GetItem(int position)
+        {
+           
+            return new JavaObjectWrapper<Subject>()  { Obj = _subjects[position]  };
+        }
+
+        public Subject GetSubject(int position)
+        {
+            return _subjects[position];
         }
 
         public override long GetItemId(int position)
@@ -68,7 +80,10 @@ namespace Thesis.Adapter
                 return _subjects.Count;
             }
         }
-
+    }
+    public class JavaObjectWrapper<T> : Java.Lang.Object
+    {
+        public T Obj { get; set; }
     }
     internal class SubjectSpinnerAdapterViewHolder : Java.Lang.Object
     {

@@ -17,7 +17,7 @@ using Newtonsoft.Json;
 namespace Thesis.Activities
 {
     [Activity(Label = "DashboardActivity")]
-    public class DashboardActivity : ActionBarActivity
+    public class DashboardActivity : AppCompatActivity
     {
         DrawerLayout drawerLayout;
         NavigationView navigationView;
@@ -31,7 +31,7 @@ namespace Thesis.Activities
         public AccountFragment accountFragment;
         public SubjectFragment subjectFragment;
         public AddSubjectFragment AddSubjectFragment;
-
+        public AddStudentFragment AddStudentFragment;
 
         public Stack<Fragment> stackFragments;
         public Fragment currentFragment = new Fragment();
@@ -63,6 +63,8 @@ namespace Thesis.Activities
             fragmentTx.Hide(subjectFragment);
             fragmentTx.Add(Resource.Id.fragmentContainer, AddSubjectFragment, "AddSubject");
             fragmentTx.Hide(AddSubjectFragment);
+            fragmentTx.Add(Resource.Id.fragmentContainer, AddStudentFragment, "AddStudent");
+            fragmentTx.Hide(AddStudentFragment);
             fragmentTx.Add(Resource.Id.fragmentContainer, studentFragment, "Students");
             fragmentTx.Hide(studentFragment);
             fragmentTx.Add(Resource.Id.fragmentContainer, homeFragment, "Home");
@@ -83,7 +85,6 @@ namespace Thesis.Activities
 
             Toast.MakeText(this, "Welcome " + loggedOnUser.GetFullName + "!", ToastLength.Long).Show();
             //var list = FragmentManager.FindFragmentById<SubjectFragment>(Resource.Layout.fragment_subjects); //for communicating with fragments
-          
 
         }
 
@@ -105,6 +106,7 @@ namespace Thesis.Activities
             accountFragment = new AccountFragment();
             subjectFragment = new SubjectFragment();
             AddSubjectFragment = new AddSubjectFragment();
+            AddStudentFragment = new AddStudentFragment();
 
             stackFragments = new Stack<Fragment>();
         }

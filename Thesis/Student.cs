@@ -1,45 +1,83 @@
-﻿using System;
+﻿using SQLite;
+using System;
+using Thesis.Table;
 
 [Serializable]
 public class Student
 {
+    private int _ID; //Auto-Generated
     private string _firstName;
     private string _lastName;
-    private string _macAddress;
-    private string _passcode;
-    //private int  _age;
-    //private string _gender;
-    //private string _birthday;
-    private bool present;
-        
-    //public string GetName { get { return _name; } }
-    //public string GetMacAddress { get { return _macAddress; } }
-    //public string GetPasscode { get { return _passcode; } }
-    //public int GetAge { get { return _age; } }
-    //public string GetGender { get { return _gender; } }
-    //public string GetBirthday { get { return _birthday; } }
-    public bool isPresent
+    private string _macAddress; //Auto-Generated 
+    private string _passcode; //Auto-Generated but can be manually edit later
+    private int _teachers_ID;
+    private short _status = 1; //Default to 1 = Absent (2 = present, 3 = late)
+    private bool _inThisSubjects = false;
+
+    public int GetID { get { return _ID; } }
+    public string GetFirstName { get { return _firstName; } }
+    public string GetLastName { get { return _firstName; } }
+    public string GetMacAddress { get { return _macAddress; } }
+    public string GetPasscode { get { return _passcode; } }
+
+    public bool inThisSubjects
     {
-        get { return present; }
-        set { present = value; }
+        get { return _inThisSubjects; }
+        set { _inThisSubjects = value; }
     }
 
+    public int Teachers_ID {
+        get { return _teachers_ID; }
+        set { _teachers_ID = value; }
+    }
 
-    public Student( string macAddress, string passcode)
+    public short GetStatus {
+        get { return _status; }
+        private set { _status = value; }
+    }
+    //instantiation of students in db
+    public Student(int id)
     {
-        _macAddress = macAddress;
+        //_macAddress = macAddress;
+        //_passcode = passcode;
+        //_teachers_ID = teachersID;
+        _ID = id;
+        retrieveStudentDataFromDB();
+    }
+    //adding student to db
+    public Student(string passcode, string firstName, string lastName, int teachersID)
+    {
+        //_macAddress = macAddress;
         _passcode = passcode;
-        //_age = age;
-        //_gender = gender;
-        //_birthday = birthday;
+        _firstName = firstName;
+        _lastName = lastName;
+        _teachers_ID = teachersID;
+
+    }
+    private void retrieveStudentDataFromDB()
+    {
+        string dpPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "local.db3"); //Call Database  
+        var db = new SQLiteConnection(dpPath);
+        //Student's Data from the DB
+        var studentdata = db.Table<StudentTable>().Where(i => i.student_id == _ID).FirstOrDefault();
+        _teachers_ID = studentdata.student_teachers_id;
+        _firstName = studentdata.student_firstname;
+        _lastName = studentdata.student_lastname;
+        _passcode = studentdata.student_passcode;      
     }
 
-    public Student()
+    public Student()//for creating servers
     {
+        _firstName = string.Empty;
+        _lastName = string.Empty;
         _macAddress = string.Empty;
         _passcode = string.Empty;
     }
 
+    public override string ToString()
+    {
+        return _ID.ToString(); 
+    }
 }
 
     

@@ -19,7 +19,6 @@ namespace Thesis.Fragments
     {
         EditText editSearch;
         ListView listSubjects;
-        List<Subject> subjects;
         Button btnToAddSubject;
 
 
@@ -54,6 +53,7 @@ namespace Thesis.Fragments
 
         private void BtnToAddSubject_Click(object sender, EventArgs e)
         {
+        
             DashActivity.ShowFragment(DashActivity.AddSubjectFragment);
         }
 
