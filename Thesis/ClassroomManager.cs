@@ -46,7 +46,6 @@ namespace Thesis
             {
                 if(_currentActiveSubject != null)
                 {
-                    _currentActiveSubject.retrieveStudentsfromDB();
                     return _currentActiveSubject.RegisteredStudents;
                 }
                 return _allStudents;
@@ -69,55 +68,12 @@ namespace Thesis
         {
 
         }
-        //public void CheckAttendance()
-        //{
-        //    ServerController.GetActiveStudents;
-        //    if(_currentSubject != null)
-        //    {
 
-        //        foreach(Student student in ActiveStudents)
-        //        {
-        //            if(_subjectStudents.Contains(student))
-        //            {
-        //                student.isPresent = true;
-        //            }
-        //        }
-        //    }
-        //}
         public void RegisterUnregisteredStudents()
         {
 
         }
         //------------------------Inactive/Active--------------------------//
-        //retrieval of subjects a from DB
-        //public void StudentsInASubject(int subjectID)
-        //{
-        //    _currentActiveSubject = _teachersSubjects[subjectID];
-
-        //    string dpPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "local.db3"); //Call Database  
-        //    var db = new SQLiteConnection(dpPath);
-        //    All Teacher's Students from the DB
-        //    var subjectStudenttable = db.Table<SubjectStudentsTable>();
-        //    var subjectStudentData = subjectStudenttable.Where(i => i.subj_stud_teachers_id == _teacher.GetID && i.subj_stud_subject_id == subjectID);
-        //    _subjectStudents.Clear();
-
-        //    foreach(var item in _allStudents)
-        //    {
-        //        item.CurrentSubjectID = 0;
-        //    }
-        //    foreach(var subjectStudent in subjectStudentData)
-        //    {
-        //        foreach(var student in _allStudents)
-        //        {
-        //            if(subjectStudent.subj_stud_student_id == student.GetID)
-        //            {
-        //                student.CurrentSubjectID = subjectID;
-        //                _subjectStudents.Add(student);
-        //            }
-        //            _subjectStudents.Add(student);
-        //        }
-        //    }
-        //}
 
         public bool AddStudent(Student student)
         {

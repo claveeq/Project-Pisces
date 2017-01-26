@@ -21,7 +21,7 @@ namespace Thesis
         private string _title;
 
         //private TimeSpan _timeLength;
-        private List<Student> _registeredStudents;
+        private List<Student> _registeredStudents = new List<Student>();
 
         //private Quiz _quiz;
 
@@ -37,7 +37,6 @@ namespace Thesis
             _ID = id;
             _title = title;
             _teacher_ID = teachers_id;
-            _registeredStudents = new List<Student>();
         }
         //for creating a subject
         public Subject(string title, int teachers_id)
@@ -54,12 +53,20 @@ namespace Thesis
         //    _students = students;
         //  //  _dateToday = DateTime.Now();
         //}
-        public int GetID { get { return _ID; }  }
+        public int ID {
+            get { return _ID; }
+            set { _ID = value; }
+        }
         public string GetTitle { get { return _title; } }
         public int GetTeachersID { get { return _teacher_ID;  } }
         public List<Student> RegisteredStudents
         {
-            get { return _registeredStudents; }
+            get
+            {
+                _registeredStudents.Clear();
+                retrieveStudentsfromDB();
+                return _registeredStudents;
+            }
             set { _registeredStudents = value; }
         }
         public int MyProperty { get; set; }
@@ -71,26 +78,22 @@ namespace Thesis
             var db = new SQLiteConnection(dpPath);
             //All Teacher's Students from the DB
             var subjectStudenttable = db.Table<SubjectStudentsTable>();
-            var subjectStudentData = subjectStudenttable.Where(i => i.subj_stud_teachers_id == _teacher_ID);
-            foreach(var item in subjectStudentData)
+            var allstudents = subjectStudenttable.Where(i => i.subj_stud_teachers_id == _teacher_ID);
+            var registeredstudents = allstudents.Where(i => i.subj_stud_subject_id == _ID);
+            var unregisteredstudents = allstudents.Where(i => i.subj_stud_subject_id != _ID);
+
+            foreach(var item in registeredstudents)
             {
-                //if the student is registered in the subject
-                var data = _registeredStudents.Where(x => x.GetID == item.subj_stud_student_id).FirstOrDefault();
-                if(data == null)
-                {
-                    if(item.subj_stud_student_id == _ID)
-                    {
-                        Student student = new Student(item.subj_stud_student_id);
-                        student.inThisSubjects = true;
-                        _registeredStudents.Add(student);
-                    }
-                    else
-                    {
-                        _registeredStudents.Add(new Student(item.subj_stud_student_id));
-                    }
-                }            
+                Student student = new Student(item.subj_stud_student_id);
+                student.inThisSubjects = true;
+                _registeredStudents.Add(student);   
             }
-            
+            foreach(var item in unregisteredstudents)
+            {
+                Student student = new Student(item.subj_stud_student_id);
+                student.inThisSubjects = false;
+                _registeredStudents.Add(student);
+            }
             //_subjectStudents.Clear();
 
             //foreach(var item in _allStudents)
@@ -109,7 +112,7 @@ namespace Thesis
             //        _subjectStudents.Add(student);
             //    }
             //}
-        //}
+            //}
         }
 
         //return title of the object

@@ -79,8 +79,8 @@ namespace Thesis.Fragments
         private void Spinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
             //var spinner = (Spinner)sender;
-            string toast = string.Format(classManager.GetSubjects[e.Position].GetID.ToString());
-            Toast.MakeText(Activity, toast, ToastLength.Long).Show();
+            string toast = string.Format(classManager.GetSubjects[e.Position].ID.ToString());
+            Toast.MakeText(Activity, toast, ToastLength.Short).Show();
             //classManager.StudentsInASubject(classManager.GetSubjects[e.Position].GetID);
             var subject = classManager.GetSubjects[e.Position];
             classManager.CurrentSubject = subject;
@@ -91,7 +91,7 @@ namespace Thesis.Fragments
         {
             //var gridview = (GridView)sender;
             //   Toast.MakeText(Activity, gridview.GetItemAtPosition(e.Position).ToString(),ToastLength.Short).Show();
-            Toast.MakeText(Activity, classManager.GetSubjectStudents[e.Position].GetPasscode, ToastLength.Short).Show();
+            Toast.MakeText(Activity, classManager.GetSubjectStudents[e.Position].inThisSubjects.ToString(), ToastLength.Short).Show();
         }
 
 

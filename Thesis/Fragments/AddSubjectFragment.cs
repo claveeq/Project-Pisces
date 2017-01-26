@@ -43,6 +43,7 @@ namespace Thesis.Fragments
         private void BtnAddSubject_Click(object sender, EventArgs e)
         {
             Subject subject = new Subject(editSubject.Text, classManager.GetTeacher.GetID);
+            classManager.CurrentSubject = subject;
             classManager.AddSubject(subject);
             editSubject.Text = string.Empty;
             DashActivity.ShowFragment(DashActivity.subjectFragment);

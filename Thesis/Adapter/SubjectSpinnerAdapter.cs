@@ -45,7 +45,7 @@ namespace Thesis.Adapter
 
         public override long GetItemId(int position)
         {
-            return _subjects[position].GetID;
+            return _subjects[position].ID;
         }
 
         public override View GetView(int position, View convertView, ViewGroup parent)

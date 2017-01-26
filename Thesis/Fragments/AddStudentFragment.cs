@@ -51,7 +51,7 @@ namespace Thesis.Fragments
         {
             if(!Auth.StudentExist(txtPasscode.Text))
             {
-                student = new Student(txtPasscode.Text, txtfirstName.Text, txtlastName.Text, classManager.GetTeacher.GetID);
+                student = new Student(txtPasscode.Text, txtfirstName.Text, txtlastName.Text, classManager.GetTeacher.GetID);            
                 classManager.AddStudent(student);
                 Snackbar.Make(btnAddStudent, "Successfully Added!", Snackbar.LengthShort).Show();
             }

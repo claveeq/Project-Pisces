@@ -85,7 +85,13 @@ namespace Thesis
                 tbl.subject_title = subject.GetTitle;
                 tbl.subject_teachers_id = subject.GetTeachersID;
                 db.Insert(tbl);
-                _allSubjects.Add(subject);
+                //_allSubjects.Add(subject);
+                _allStudents.Clear();
+                db = new SQLiteConnection(dpPath);
+                //Teacher's Subjects from the DB
+                var subjecttbl = db.Table<SubjectsTable>();
+                var subjectdata = subjecttbl.Where(i => i.subject_title == subject.GetTitle).FirstOrDefault();
+                _allSubjects.Add(new Subject(subjectdata.subject_id, subjectdata.subject_title, _ID));
             }
         }
 
