@@ -11,6 +11,7 @@ using Android.Views;
 using Android.Widget;
 using Android.Graphics.Drawables;
 using Android.Util;
+using Android.Graphics;
 
 namespace Thesis.Adapter
 {
@@ -19,13 +20,18 @@ namespace Thesis.Adapter
         private Context context;
         private List<Student> _students;
         private ClassroomManager classManager;
-    
+        private bool _isActive = false;
+        int selected;
         public StudentAdapter(Context context, List<Student> students)
         {
             this.context = context;
             _students = students;
-
-
+        }
+        public StudentAdapter(Context context, List<Student> students, bool isActive)
+        {
+            this.context = context;
+            _students = students;
+            _isActive = isActive;
         }
         public StudentAdapter(Context context, List<Student> students, ClassroomManager classManager)
         {
@@ -39,6 +45,10 @@ namespace Thesis.Adapter
             {
                 return _students[position];
             }
+        }
+        public void selectedPosition(int postion)
+        {
+            selected = postion;
         }
         public override long GetItemId(int position)
         {
@@ -65,7 +75,7 @@ namespace Thesis.Adapter
                 view.Tag = holder;
             }
             //fill in your items
-            switch(_students[position].GetStatus)
+            switch(_students[position].Status)
             {
                 default:
                     holder.ImageStatus.SetImageResource(Resource.Drawable.ic_account_box_grey_800_24dp);
@@ -76,18 +86,22 @@ namespace Thesis.Adapter
                 case 3:
                     holder.ImageStatus.SetImageResource(Resource.Drawable.ic_account_box_amber_200_24dp);
                     break;
-
             }
 
-            //if(_students[position].CurrentSubjectID == classManager.CurrentSubject.GetID)
-            //    holder.ImageStatus.SetImageResource(Resource.Drawable.ic_account_box_lime_A700_24dp);
-            //else
-            //    holder.ImageStatus.SetImageResource(Resource.Drawable.ic_account_box_grey_800_24dp);
+                    if(position == selected)
+                        holder.ImageStatus.SetBackgroundColor(Color.ParseColor("#1565c0"));
+                    else
+                        holder.ImageStatus.SetBackgroundColor(Color.Transparent);
 
-            holder.Name.Text = _students[position].GetFirstName;
+                    //if(_students[position].CurrentSubjectID == classManager.CurrentSubject.GetID)
+                    //    holder.ImageStatus.SetImageResource(Resource.Drawable.ic_account_box_lime_A700_24dp);
+                    //else
+                    //    holder.ImageStatus.SetImageResource(Resource.Drawable.ic_account_box_grey_800_24dp);
 
-            return view;
-        }
+                    holder.Name.Text = _students[position].GetFirstName;
+
+                    return view;
+            }
        
         //Fill in cound here, currently 0
         public override int Count

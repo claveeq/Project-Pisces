@@ -54,7 +54,7 @@ namespace Thesis.Fragments
         private void BtnToAddSubject_Click(object sender, EventArgs e)
         {
         
-            DashActivity.ShowFragment(DashActivity.AddSubjectFragment);
+            DashActivity.ReplaceFragment(DashActivity.AddSubjectFragment);
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)

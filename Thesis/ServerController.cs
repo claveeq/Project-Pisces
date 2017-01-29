@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.Content;
+using Android.Net.Wifi;
 using Android.Widget;
 using System;
 using System.Collections.Generic;
@@ -13,35 +14,58 @@ namespace Thesis
     
     static class ServerController
     {
-        
-        private static readonly Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+        private static readonly Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, System.Net.Sockets.ProtocolType.Tcp);
         private static readonly List<Socket> clientSockets = new List<Socket>();
-        private static readonly List<Student> Students = new List<Student>();
-        private static readonly List<Student> UnregStudents = new List<Student>();
+        private static readonly List<AuthStudent> Students = new List<AuthStudent>();
+        private static readonly List<AuthStudent> UnregStudents = new List<AuthStudent>();
         private const int BUFFER_SIZE = 2048;
         private const int PORT = 8080; //NEW 100 before
         private static readonly byte[] buffer = new byte[BUFFER_SIZE];
         
         private static task currentTask = task.none;
-
+        public static ClassroomManager classManager;
         public static Context context;
 
-        public static List<Student> GetActiveStudents { get { return Students; } }
+        public static List<AuthStudent> GetActiveStudents {
+            get { return Students; }
+        }
 
-        public static void FireUp()
+        public static string GetIPAddress(Context context)
         {
-          //  status.Text += "Setting up server..." + Environment.NewLine;
+
+            WifiManager wifiManager = (WifiManager)context.GetSystemService(Service.WifiService);
+            int ip = wifiManager.ConnectionInfo.IpAddress;
+#pragma warning disable CS0618 // Type or member is obsolete
+            var ipaddress = Android.Text.Format.Formatter.FormatIpAddress(ip);
+#pragma warning restore CS0618 // Type or member is obsolete
+            if(ipaddress == "0.0.0.0")
+                return "You're not connected to the internet";
+            return ipaddress;
+        }
+        public static bool FireUp(string ip)
+        {
+            //  status.Text += "Setting up server..." + Environment.NewLine;
             //Custom IP
-            IPAddress ipaddress = IPAddress.Parse("192.168.254.104");
-            serverSocket.Bind(new IPEndPoint(ipaddress, PORT));
+            try
+            {
+                IPAddress ipaddress = IPAddress.Parse(ip);
+                serverSocket.Bind(new IPEndPoint(ipaddress, PORT));
 
-            //Establishing a Server Socket Connection
-            //serverSocket.Bind(new IPEndPoint(IPAddress.Any, PORT));
-            //listen to incoming client connection
-            serverSocket.Listen(0);
-            //Accepting client
-            serverSocket.BeginAccept(AcceptCallback, null);
+                //Establishing a Server Socket Connection
+                //serverSocket.Bind(new IPEndPoint(IPAddress.Any, PORT));
+                //listen to incoming client connection
+                serverSocket.Listen(0);
+                //Accepting client
+                serverSocket.BeginAccept(AcceptCallback, null);
+                return true;
+            }
+            catch(Exception)
+            {
 
+                return false;
+            }
+          
          //   status.Text += "Server setup complete" + Environment.NewLine;
         }
 
@@ -71,7 +95,7 @@ namespace Thesis
         private static void ReceiveCallback(IAsyncResult AR)
         {
             Socket current = (Socket)AR.AsyncState;
-            Student student = new Student();
+       
             int received;
 
             try
@@ -85,7 +109,7 @@ namespace Thesis
                 // Don't shutdown because the socket may be disposed and its disconnected anyway.
                 current.Close();
                 clientSockets.Remove(current);
-                Students.Remove(student);
+              //  Students.Remove(student);
                 return;
             }
 
@@ -127,9 +151,13 @@ namespace Thesis
             {
                 if(currentTask == task.login)
                 {
-                    student = (Student)BinarySerializer.ByteArrayToObject(recBuf);
-                    if(Auth.AuthStudent(student, context))
+                    AuthStudent student = new AuthStudent();
+                    student = (AuthStudent)BinarySerializer.ByteArrayToObject(recBuf);
+                    if(Auth.AuthStudent(student))
                     {
+                        var teachersstudent = classManager.GetSubjectStudents.Find(x => x.GetPasscode == student.GetPasscode);
+                        teachersstudent.Status = 2; //setting the student status to present
+
                         if(!Students.Contains(student))// If doesn't exist in the list, Add it to Regestered list
                             Students.Add(student);
 

@@ -4,19 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <EditText
+        android:hint="Passcode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textEditIPAddress"
-        android:hint="Enter your Teacher's IP Address"
-        android:layout_gravity="center" />
-    <Button
-        android:text="Connect Client"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/buttonConnect" />
+        android:id="@+id/editTextPasscode" />
     <Button
         android:text="Login"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/buttonJoin" />
+        android:id="@+id/buttonLogin"
+        android:layout_gravity="center" />
 </LinearLayout>

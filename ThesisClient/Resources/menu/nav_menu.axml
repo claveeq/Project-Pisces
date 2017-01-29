@@ -1,0 +1,38 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <group android:checkableBehavior="single" android:id="@+id/group_Main" >
+    <item
+      android:id="@+id/nav_home"
+      android:icon="@drawable/ic_home_grey_900_24dp"
+      android:title="Home" />
+    <item
+      android:id="@+id/nav_quiz"
+      android:icon="@drawable/ic_home_grey_900_24dp"
+      android:title="Quiz" />
+    <item
+      android:id="@+id/nav_lectures"
+      android:icon="@drawable/ic_home_grey_900_24dp"
+      android:title="Lectures" />
+    <item
+      android:id="@+id/nav_assignments"
+      android:icon="@drawable/ic_home_grey_900_24dp"
+      android:title="Assignments" />
+  </group>
+  <group android:checkableBehavior="single" android:id="@+id/group_SubMain">
+    <item
+      android:id="@+id/nav_Account"
+      android:icon="@drawable/ic_home_grey_900_24dp"
+      android:title="Account" />
+    <item
+      android:id="@+id/nav_Settings"
+      android:icon="@drawable/ic_home_grey_900_24dp"
+      android:title="Settings" />
+    <item
+      android:id="@+id/nav_HelpAndFeedback"
+      android:icon="@drawable/ic_home_grey_900_24dp"
+      android:title="Help &amp; Feedback" />
+    <item
+      android:id="@+id/nav_About"
+      android:icon="@drawable/ic_home_grey_900_24dp"
+      android:title="About" />
+  </group>
+</menu>

@@ -34,85 +34,38 @@ namespace Thesis
             private set { _allStudents = value; }
         }
         //For instantiation and retrieval of user's data from DB
-        public Teacher(string name, string password)
+        public Teacher(string username, string password)
         {
-            _username = name;
+            _username = username;
             _password = password;
+            _ID = DBManager.GetTeachersID(_username);
+            _fullName = DBManager.GetTeachersFullname(_ID);
+
             _allSubjects = new List<Subject>();
+            _allSubjects = DBManager.GetTeachersSubjects(_ID);
             _allStudents = new List<Student>();
-            retrieveUserDataFromDB();
+            _allStudents = DBManager.GetTeachersStudents(_ID);
         }
-        //retrieval of user's data from DB
-        public void retrieveUserDataFromDB()
-        {
-            string dpPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "local.db3"); //Call Database  
-            var db = new SQLiteConnection(dpPath);
-            //Teacher's Data from the DB
-            var teachersdata = db.Table<TeacherLoginTable>().Where(i => i.username == _username).FirstOrDefault();
-            _fullName = teachersdata.fullname;
-            _ID = teachersdata.id;
-            //Teacher's Subjects from the DB
-            var subjecttbl = db.Table<SubjectsTable>(); 
-            var subjectdata = subjecttbl.Where(i => i.subject_teachers_id == _ID);
-            foreach(var item in subjectdata)
-                _allSubjects.Add(new Subject(item.subject_id, item.subject_title, item.subject_teachers_id));
-            //All Teacher's Students from the DB
-            var studentsTable = db.Table<StudentTable>();
-            var studentData = studentsTable.Where(i => i.student_teachers_id == _ID);
-            foreach(var item in studentData)
-                _allStudents.Add(new Student(item.student_id));
+        public void AddStudent(Student student)
+        {// Adding subject to db 
+            DBManager.InsertStudent(student, _ID); 
         }
-        // Adding student to db and student list 
-        public bool AddStudent(Student student)
-        {
-            student.Teachers_ID = _ID;
-            if(Auth.CreateStudent(student, this))
-            {
-                _allStudents.Add(student);
-                return true;
-            }
-            return false;
+
+        public void DeleteStudent(Student student)
+        {// Deleting subject from db 
+            DBManager.DeleteStudent(student);
         }
-        // Adding subject to db and subject list 
+
         public void AddSubject(Subject subject)
-        {
-            if(!_allSubjects.Contains(subject))
-            {
-                string dpPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "local.db3");
-                var db = new SQLiteConnection(dpPath);
-                db.CreateTable<SubjectsTable>();
-                SubjectsTable tbl = new SubjectsTable();
-                tbl.subject_title = subject.GetTitle;
-                tbl.subject_teachers_id = subject.GetTeachersID;
-                db.Insert(tbl);
-                //_allSubjects.Add(subject);
-                _allStudents.Clear();
-                db = new SQLiteConnection(dpPath);
-                //Teacher's Subjects from the DB
-                var subjecttbl = db.Table<SubjectsTable>();
-                var subjectdata = subjecttbl.Where(i => i.subject_title == subject.GetTitle).FirstOrDefault();
-                _allSubjects.Add(new Subject(subjectdata.subject_id, subjectdata.subject_title, _ID));
-            }
+        {// Adding subject to db and subject list 
+            DBManager.InsertSubject(subject);
+            _allSubjects.Add(DBManager.GetSubject(subject.GetTitle,_ID));
         }
 
-        public void updateFullnameDb(string fullname)
-        {
-            string dpPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "local.db3"); //Call Database  
-            var db = new SQLiteConnection(dpPath);
-            var item = db.Get<TeacherLoginTable>(_username);
-            item.fullname = fullname;
-            db.Update(item);
-            db.Close();
-        }
-
-        private void SerializeAllStudentsToXml()
-        {
-
-        }
-
-        private void DeserializeAllStudentsFromXml()
-        {
-
+        public void DeleteSubject(Subject subject)
+        {// Deleting subject from db and subject list 
+            DBManager.DeleteSubject(subject);
+            _allSubjects.Remove(DBManager.GetSubject(subject.GetTitle, _ID));
         }
     }
 }

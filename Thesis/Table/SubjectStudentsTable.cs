@@ -15,6 +15,10 @@ namespace Thesis.Table
 {
     class SubjectStudentsTable
     {
+        [PrimaryKey, AutoIncrement, Column("_Id")]
+
+        public int subj_stud_id { get; set; }
+
         [MaxLength(25)]
 
         public int subj_stud_teachers_id { get; set; }

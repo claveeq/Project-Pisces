@@ -11,6 +11,7 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Thesis.Activities;
+using Android.Support.Design.Widget;
 
 namespace Thesis.Fragments
 {
@@ -42,11 +43,20 @@ namespace Thesis.Fragments
 
         private void BtnAddSubject_Click(object sender, EventArgs e)
         {
-            Subject subject = new Subject(editSubject.Text, classManager.GetTeacher.GetID);
-            classManager.CurrentSubject = subject;
-            classManager.AddSubject(subject);
-            editSubject.Text = string.Empty;
-            DashActivity.ShowFragment(DashActivity.subjectFragment);
+            if(!Auth.SubjectExist(editSubject.Text))
+            {
+                Subject subject = new Subject(editSubject.Text, classManager.GetTeacher.GetID);
+                classManager.CurrentSubject = subject;
+                classManager.AddSubject(subject);
+                editSubject.Text = string.Empty;
+                Snackbar.Make(btnAddSubject, "Successfully Added!", Snackbar.LengthShort).Show();
+                DashActivity.ReplaceFragment(DashActivity.subjectFragment);
+            }
+            else
+            {
+                Snackbar.Make(btnAddSubject, "Subject already exist!", Snackbar.LengthShort).Show();
+            }
+          
 
         }
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <GridView
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:numColumns="auto_fit"
+        android:columnWidth="110dp"
+        android:gravity="center"
+        android:id="@+id/gridView_Students"
+        android:layout_weight="1" />
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/fragment_students_active_toolbar_bottom"
+        android:minHeight="?android:attr/actionBarSize"
+        android:background="?android:attr/colorAccent"
+        android:theme="@android:style/ThemeOverlay.Material.Dark.ActionBar"
+        android:popupTheme="@android:style/ThemeOverlay.Material.Light"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

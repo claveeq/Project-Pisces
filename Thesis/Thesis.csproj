@@ -32,6 +32,14 @@
     <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
     <AndroidLinkMode>None</AndroidLinkMode>
     <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
+    <BundleAssemblies>False</BundleAssemblies>
+    <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
+    <JavaMaximumHeapSize>1G</JavaMaximumHeapSize>
+    <Debugger>Xamarin</Debugger>
+    <AotAssemblies>False</AotAssemblies>
+    <EnableLLVM>False</EnableLLVM>
+    <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
+    <EnableProguard>False</EnableProguard>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>PdbOnly</DebugType>
@@ -113,18 +121,21 @@
     <Compile Include="Adapter\SubjectSpinnerAdapter.cs" />
     <Compile Include="Assignment.cs" />
     <Compile Include="Auth.cs" />
+    <Compile Include="AuthStudent.cs" />
     <Compile Include="BinarySerializer.cs" />
     <Compile Include="ClassroomManager.cs" />
+    <Compile Include="DBManager.cs" />
     <Compile Include="Fragments\AccountFragment.cs" />
+    <Compile Include="Fragments\ActiveHomeFragment.cs" />
+    <Compile Include="Fragments\ActiveStudentsFragment.cs" />
     <Compile Include="Fragments\AddStudentFragment.cs" />
     <Compile Include="Fragments\AddSubjectFragment.cs" />
     <Compile Include="Fragments\HomeFragment.cs" />
     <Compile Include="Fragments\StudentsFragment.cs" />
     <Compile Include="Fragments\SubjectFragment.cs" />
-    <Compile Include="Lecture.cs" />
-    <Compile Include="MyActionBarDrawerToggle.cs" />
-    <Compile Include="Quiz.cs" />
-    <Compile Include="QuizItem.cs" />
+    <Compile Include="Model\Lecture.cs" />
+    <Compile Include="Model\Quiz.cs" />
+    <Compile Include="Model\QuizItem.cs" />
     <Compile Include="Student.cs" />
     <Compile Include="Subject.cs" />
     <Compile Include="Table\StudentTable.cs" />
@@ -135,7 +146,7 @@
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerController.cs" />
-    <Compile Include="TakeQuiz.cs" />
+    <Compile Include="Model\TakeQuiz.cs" />
     <Compile Include="Teacher.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -185,6 +196,9 @@
     <AndroidResource Include="Resources\layout\fragment_add_student.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\fragment_students_active.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Authentication.axml">
@@ -202,9 +216,7 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Model\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <AndroidResource Include="Resources\values\colors.xml">
       <SubType>Designer</SubType>

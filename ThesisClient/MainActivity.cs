@@ -6,56 +6,50 @@ using System.Net.Sockets;
 using System;
 using System.Text;
 using Android.Support.Design.Widget;
+using ThesisClient.Activities;
 
 namespace ThesisClient
 {
-    [Activity(Label = "ThesisClient",
-        MainLauncher = true,
-        Icon = "@drawable/icon")]
-    public class MainActivity : Activity
+    [Activity(Label = "Student Passcode")]
+    public class MainActivity2 : Activity
     {
-        EditText txtIPAddress;
-        Button btnconnect;
-        Button btnjoin;
-        Student student;
-        private static readonly Socket ClientSocket = new Socket
-            (AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
-        private const int PORT = 8080;
-
+        EditText txtPasscode;
+        Button btnLogin;
+     
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
 
             // Set our view from the "main" layout resource
-            SetContentView(Resource.Layout.Main);
+            SetContentView(Resource.Layout.Account);
             //
-            txtIPAddress = FindViewById<EditText>(Resource.Id.textEditIPAddress);
-            btnconnect = FindViewById<Button>(Resource.Id.buttonConnect);
-            btnjoin = FindViewById<Button>(Resource.Id.buttonJoin);
+            txtPasscode = FindViewById<EditText>(Resource.Id.editTextPasscode);
+            btnLogin = FindViewById<Button>(Resource.Id.buttonLogin);
+
+            //
+            btnLogin.Click += BtnLogin_Click;
+            //
+            //student = new Student("Clave", "1234", "1234");
            
-            //
-            btnconnect.Click += Btnconnect_Click;
-            btnjoin.Click += Btnjoin_Click;
-            //
-            student = new Student("Clave", "1234", "1234");
-            
- 
-
         }
 
-        private void Btnjoin_Click(object sender, EventArgs e)
+        private void BtnLogin_Click(object sender, EventArgs e)
         {
-            ClientController.Student = student;
-            ClientController.context = this;
-            ClientController.SendRequest(Task.login);
-
+            StartActivity(typeof(DashboardActivity));
         }
 
-        private void Btnconnect_Click(object sender, EventArgs e)
-        {
-            ClientController.ConnectToServer(btnconnect);
-        }
+        //private void Btnjoin_Click(object sender, EventArgs e)
+        //{
+        //    ClientController.Student = student;
+        //    ClientController.context = this;
+        //    ClientController.SendRequest(Task.login);
+
+        //}
+
+        //    private void Btnconnect_Click(object sender, EventArgs e)
+        //    {
+        //        ClientController.ConnectToServer(btnconnect);
+        //    }
     }
 }
 

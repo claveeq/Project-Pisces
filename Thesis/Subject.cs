@@ -20,7 +20,8 @@ namespace Thesis
         private int _teacher_ID;
         private string _title;
 
-        //private TimeSpan _timeLength;
+        private TimeSpan _timeLength;
+        private TimeSpan _lateIn;
         private List<Student> _registeredStudents = new List<Student>();
 
         //private Quiz _quiz;
@@ -43,6 +44,7 @@ namespace Thesis
         {
             _title = title;
             _teacher_ID = teachers_id;
+
         }
 
         //public Subject(string title, string teacher, TimeSpan timeLength, List<Student> students)
@@ -63,7 +65,7 @@ namespace Thesis
         {
             get
             {
-                _registeredStudents.Clear();
+             //   _registeredStudents.Clear();
                 retrieveStudentsfromDB();
                 return _registeredStudents;
             }
@@ -86,33 +88,25 @@ namespace Thesis
             {
                 Student student = new Student(item.subj_stud_student_id);
                 student.inThisSubjects = true;
-                _registeredStudents.Add(student);   
+                student.CurrentSubjectID = _ID;
+                var studentexist = _registeredStudents.Where(x => x.GetID == item.subj_stud_student_id).FirstOrDefault();
+                if(studentexist == null)
+                {
+                    _registeredStudents.Add(student);
+                }
             }
             foreach(var item in unregisteredstudents)
             {
                 Student student = new Student(item.subj_stud_student_id);
                 student.inThisSubjects = false;
-                _registeredStudents.Add(student);
+                student.CurrentSubjectID = _ID;
+                var studentexist = _registeredStudents.Where(x => x.GetID == item.subj_stud_student_id).FirstOrDefault();
+                //   if(!_registeredStudents.Contains(student))
+                if(studentexist == null)
+                {
+                    _registeredStudents.Add(student);
+                }
             }
-            //_subjectStudents.Clear();
-
-            //foreach(var item in _allStudents)
-            //{
-            //    item.CurrentSubjectID = 0;
-            //}
-            //foreach(var subjectStudent in subjectStudentData)
-            //{
-            //    foreach(var student in _allStudents)
-            //    {
-            //        if(subjectStudent.subj_stud_student_id == student.GetID)
-            //        {
-            //            student.CurrentSubjectID = subjectID;
-            //            _subjectStudents.Add(student);
-            //        }
-            //        _subjectStudents.Add(student);
-            //    }
-            //}
-            //}
         }
 
         //return title of the object

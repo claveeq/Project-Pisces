@@ -13,18 +13,21 @@ using Android.Widget;
 using Thesis.Activities;
 using Thesis.Adapter;
 using Toolbar = Android.Support.V7.Widget.Toolbar;
+using Android.Support.Design.Widget;
+
 namespace Thesis.Fragments
 {
     public class StudentsFragment : Fragment
     {
         Spinner spinner;
         GridView gridViewStudents;
-        private ActionMode mActionMode;
         StudentAdapter studentAdapter;
 
         ClassroomManager classManager;
         DashboardActivity dashActivity;
         SubjectSpinnerAdapter adapter;
+        Student selectedStudent;
+
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -47,16 +50,12 @@ namespace Thesis.Fragments
 
             gridViewStudents = View.FindViewById<GridView>(Resource.Id.gridView_Students);
             studentAdapter = new StudentAdapter(Activity, classManager.GetSubjectStudents, classManager);
-            gridViewStudents.Adapter = studentAdapter;
-            gridViewStudents.ItemClick += GridViewStudents_ItemClick;
 
+            gridViewStudents.Adapter = studentAdapter;
+            
+            gridViewStudents.ItemClick += GridViewStudents_ItemClick;
             Toolbar toolbarBottom = View.FindViewById<Toolbar>(Resource.Id.toolbar_bottom);
             toolbarBottom.InflateMenu(Resource.Menu.students_tools_menu);
-            //Add menu click handler
-            //toolbarBottom.MenuItemClick += (sender, e) => {
-            //    Toast.MakeText(Activity, "Bottom toolbar pressed: " + e.Item.TitleFormatted, ToastLength.Short).Show();
-
-            //};
             toolbarBottom.MenuItemClick += ToolbarBottom_MenuItemClick;
         }
 
@@ -66,10 +65,11 @@ namespace Thesis.Fragments
             switch(e.Item.ItemId)
             {
                 case (Resource.Id.nav_add):
-                    dashActivity.ShowFragment(dashActivity.AddStudentFragment);
+                    dashActivity.ReplaceFragment(dashActivity.AddStudentFragment);
                     break;
                 case (Resource.Id.nav_delete):
                     //dashActivity.ShowFragment(dashActivity.AddSubjectFragment);
+                    classManager.DeleteStudent(selectedStudent);
                     break;
                 case (Resource.Id.nav_edit):
                     //dashActivity.ShowFragment(dashActivity.AddSubjectFragment);
@@ -79,19 +79,23 @@ namespace Thesis.Fragments
         private void Spinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
             //var spinner = (Spinner)sender;
-            string toast = string.Format(classManager.GetSubjects[e.Position].ID.ToString());
-            Toast.MakeText(Activity, toast, ToastLength.Short).Show();
+            //string toast = string.Format(classManager.GetSubjects[e.Position].ID.ToString());
+            //Toast.MakeText(Activity, toast, ToastLength.Short).Show();
             //classManager.StudentsInASubject(classManager.GetSubjects[e.Position].GetID);
             var subject = classManager.GetSubjects[e.Position];
             classManager.CurrentSubject = subject;
-            studentAdapter = new StudentAdapter(Activity, classManager.GetSubjectStudents);
-            gridViewStudents.Adapter = studentAdapter;
+            //refreashing the spinners
+            studentAdapter.NotifyDataSetChanged();
         }
         private void GridViewStudents_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
             //var gridview = (GridView)sender;
             //   Toast.MakeText(Activity, gridview.GetItemAtPosition(e.Position).ToString(),ToastLength.Short).Show();
+            classManager.GetSubjectStudents[e.Position].toggleInThisSubject();
             Toast.MakeText(Activity, classManager.GetSubjectStudents[e.Position].inThisSubjects.ToString(), ToastLength.Short).Show();
+            selectedStudent =  classManager.GetSubjectStudents[e.Position];
+            studentAdapter.selectedPosition(e.Position);
+            studentAdapter.NotifyDataSetChanged();
         }
 
 
