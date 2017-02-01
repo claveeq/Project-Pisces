@@ -36,6 +36,7 @@ namespace Thesis.Activities
             txtFullname = FindViewById<EditText>(Resource.Id.txtRegFullName);
             // EventHandlers
             btncreate.Click += Btncreate_Click;
+            Theme.ApplyStyle(Resource.Style.MyTheme, true);
         }
 
         private void Btncreate_Click(object sender, EventArgs e)

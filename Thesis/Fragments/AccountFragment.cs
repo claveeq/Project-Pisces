@@ -15,10 +15,10 @@ namespace Thesis.Fragments
 {
     public class AccountFragment : Fragment
     {
-        EditText txtUsername;
-        EditText txtPassword;
-        EditText txtfullName;
-        Button btnSave;
+        EditText student;
+        EditText subject;
+        EditText studentsubject;
+        Button refresh;
 
         Teacher teacher;
 
@@ -41,17 +41,31 @@ namespace Thesis.Fragments
         public override void OnActivityCreated(Bundle savedInstanceState)
         {
             base.OnActivityCreated(savedInstanceState);
-            txtUsername = View.FindViewById<EditText>(Resource.Id.txtUsername);
+
+            student = View.FindViewById<EditText>(Resource.Id.et_studenttable);
+            subject = View.FindViewById<EditText>(Resource.Id.et_subjecttable);
+            studentsubject = View.FindViewById<EditText>(Resource.Id.et_tudentsubjec);
+            refresh = View.FindViewById<Button>(Resource.Id.btn_refresh);
+
+            refresh.Click += Refresh_Click;
         }
-        public string Username
+
+        private void Refresh_Click(object sender, EventArgs e)
         {
-            get { return username; }
-            set
-            {
-                username = value;
-                txtUsername.Text = username;
-            }
+            student.Text = DBManager.CountStudentTable().ToString();
+            subject.Text = DBManager.CountSubjectTable().ToString();
+            studentsubject.Text = DBManager.CountSubjectStudentTable().ToString();
         }
+
+        //public string Username
+        //{
+        //    get { return username; }
+        //    set
+        //    {
+        //        username = value;
+        //        txtUsername.Text = username;
+        //    }
+        //}
         //public string Password
         //{
         //    get { return password; }
@@ -70,11 +84,6 @@ namespace Thesis.Fragments
         //        txtfullName.Text = fullName;
         //    }
         //}
-
-        private void BtnSave_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {

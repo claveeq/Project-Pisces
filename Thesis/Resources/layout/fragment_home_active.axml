@@ -7,10 +7,10 @@
         android:text="Dismiss Class"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/button1" />
+        android:id="@+id/fragment_home_active_btnEndClass" />
     <Button
         android:text="Start Quiz"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/button2" />
+        android:id="@+id/fragment_home_active_btnStartQuiz" />
 </LinearLayout>

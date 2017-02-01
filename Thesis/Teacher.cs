@@ -46,6 +46,19 @@ namespace Thesis
             _allStudents = new List<Student>();
             _allStudents = DBManager.GetTeachersStudents(_ID);
         }
+        public void AddSubject(Subject subject)
+        {// Adding subject to db and subject list 
+            DBManager.InsertSubject(subject);
+            _allSubjects.Add(DBManager.GetSubject(subject.GetTitle, _ID));
+        }
+
+        public void DeleteSubject(Subject subject)
+        {// Deleting subject from db and subject list 
+
+            DBManager.DeleteSubject(subject);
+            _allSubjects.Remove(subject);
+            //_allSubjects.Remove(DBManager.GetSubject(subject.GetTitle, _ID));
+        }
         public void AddStudent(Student student)
         {// Adding subject to db 
             DBManager.InsertStudent(student, _ID); 
@@ -53,19 +66,10 @@ namespace Thesis
 
         public void DeleteStudent(Student student)
         {// Deleting subject from db 
+            
             DBManager.DeleteStudent(student);
         }
 
-        public void AddSubject(Subject subject)
-        {// Adding subject to db and subject list 
-            DBManager.InsertSubject(subject);
-            _allSubjects.Add(DBManager.GetSubject(subject.GetTitle,_ID));
-        }
-
-        public void DeleteSubject(Subject subject)
-        {// Deleting subject from db and subject list 
-            DBManager.DeleteSubject(subject);
-            _allSubjects.Remove(DBManager.GetSubject(subject.GetTitle, _ID));
-        }
+   
     }
 }

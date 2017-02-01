@@ -4,27 +4,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <TextView
-        android:text="Username"
+        android:text="Students Table"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView1" />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/txtUsername"
+        android:id="@+id/et_studenttable"
         android:hint="" />
     <TextView
-        android:text="Password"
+        android:text="Subjects Table"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/txtPassword" />
     <EditText
-        android:inputType="textPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText2" />
+        android:id="@+id/et_subjecttable" />
     <TextView
-        android:text="Full Name"
+        android:text="Student Subjects Table"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView1" />
@@ -32,10 +31,10 @@
         android:inputType="textPersonName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/txtFullName" />
+        android:id="@+id/et_tudentsubjec" />
     <Button
-        android:text="Save"
+        android:text="refresh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/buttonSave" />
+        android:id="@+id/btn_refresh" />
 </LinearLayout>

@@ -19,7 +19,7 @@ namespace Thesis
     {
         //SQLite Configurations
         private static string dpPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "local.db3"); //Calling Database
-        private static SQLiteConnection db  = new SQLiteConnection(dpPath);
+        private static SQLiteConnection db = new SQLiteConnection(dpPath);
 
         public static bool init(Teacher teacher)
         {
@@ -108,7 +108,7 @@ namespace Thesis
         }
         public static Student GetStudent(string passcode, int teachersID)
         {
-            var studentTable= db.Table<StudentTable>();
+            var studentTable = db.Table<StudentTable>();
             var studentdata = studentTable.Where(i => i.student_passcode == passcode).FirstOrDefault();
             return new Student(studentdata.student_id);
         }
@@ -130,7 +130,7 @@ namespace Thesis
             var studentsdata = db.Table<StudentTable>().Where(i => i.student_id == id).FirstOrDefault();
             return studentsdata.student_lastname;
         }
-        public static int GetStudentTeachersID(int id) 
+        public static int GetStudentTeachersID(int id)
         {
             var studentsdata = db.Table<StudentTable>().Where(i => i.student_id == id).FirstOrDefault();
             return studentsdata.student_teachers_id;
@@ -142,28 +142,79 @@ namespace Thesis
         }
         //End Student Data
         //Subject Data
-        public static void ToggleStudentInASubject(int teachersID, int subjectID, int studentsID, bool inThisSubject)
+        public static bool ToggleStudentInASubject(Student student)
         {
-            SubjectStudentsTable subjectStudentsTable = new SubjectStudentsTable();
-            subjectStudentsTable.subj_stud_teachers_id = teachersID;
-            subjectStudentsTable.subj_stud_subject_id = subjectID;
-            subjectStudentsTable.subj_stud_student_id = studentsID;
-            if(inThisSubject)
+         
+            var studentsubjectdata = db.Table<SubjectStudentsTable>()
+                           .Where(i => i.subj_stud_teachers_id == student.Teachers_ID &&
+                           i.subj_stud_subject_id == student.CurrentSubjectID &&
+                           i.subj_stud_student_id == student.GetID).FirstOrDefault();
+            if(studentsubjectdata == null)
             {
-                db.Delete(subjectStudentsTable);
+                SubjectStudentsTable subjectStudentsTable = new SubjectStudentsTable();
+                subjectStudentsTable.subj_stud_teachers_id = student.Teachers_ID;
+                subjectStudentsTable.subj_stud_subject_id = student.CurrentSubjectID;
+                subjectStudentsTable.subj_stud_student_id = student.GetID;
+                db.Insert(subjectStudentsTable);
+                return true;
             }
             else
             {
-                db.Insert(subjectStudentsTable);
+                db.Delete(studentsubjectdata);
+                return false;
             } 
         }
-        internal static void DeleteStudent(Student student)
-        {
-            throw new NotImplementedException();
+        public static void DeleteStudent(Student student)
+        {//allstudents
+            var allstudent = db.Table<SubjectStudentsTable>()
+                .Where(i => i.subj_stud_student_id == student.GetID && 
+                i.subj_stud_teachers_id == student.Teachers_ID);
+            foreach(var item in allstudent)
+            {
+                db.Delete(item);
+            }
+            //var othersubject = db.Table<SubjectStudentsTable>()//subject
+            //    .Where(i => i.subj_stud_student_id == student.GetID && i.subj_stud_teachers_id == student.Teachers_ID).FirstOrDefault();
+            //db.Delete(othersubject);
+            //// SubjectStudentsTable subjectStudentsTable = new SubjectStudentsTable();
+            //// subjectStudentsTable.subj_stud_teachers_id = student.Teachers_ID;
+            ////// subjectStudentsTable.subj_stud_subject_id = student.CurrentSubjectID;
+            //// subjectStudentsTable.subj_stud_student_id = student.GetID;
+
+            var studentsdata = db.Table<StudentTable>().Where(i => i.student_id == student.GetID).FirstOrDefault();
+            db.Delete(studentsdata);
+
         }
-        internal static void DeleteSubject(Subject subject)
+        public static void DeleteSubject(Subject subject)
         {
-            throw new NotImplementedException();
+            var allsubjects = db.Table<SubjectStudentsTable>()
+           .Where(i => i.subj_stud_teachers_id == subject.GetTeachersID &&
+           i.subj_stud_subject_id == subject.ID);
+            foreach(var item in allsubjects)
+            {
+                db.Delete(item);
+            }
+            var subject_id = db.Table<SubjectsTable>()
+                .Where(i => i.subject_id == subject.ID).FirstOrDefault();
+            db.Delete(subject_id);
+
+        }
+
+        //other utilities
+        public static int CountStudentTable()
+        {
+            var students= db.Table<StudentTable>();
+            return students.Count();
+        }
+        public static int CountSubjectTable()
+        {
+            var subjects = db.Table<SubjectsTable>();
+            return subjects.Count();
+        }
+        public static int CountSubjectStudentTable()
+        {
+            var subjectstudents = db.Table<SubjectStudentsTable>();
+            return subjectstudents.Count();
         }
     }
 }

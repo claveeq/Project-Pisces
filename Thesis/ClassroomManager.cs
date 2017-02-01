@@ -2,22 +2,25 @@ using SQLite;
 using System;
 using System.Collections.Generic;
 using Thesis.Table;
+using System.Timers;
 namespace Thesis
 {
     public class ClassroomManager
     {
+        //Attendance Timer
+        private Timer timer;
+        public int timeCounter = 0;
+        public bool activateIsLate = false;
+        private int lateIn = 5;
+        //Objects
         private Teacher _teacher;
         // the only instance of the teacher and 
         //responsible for the retrieval of student and subject data to list
         private List<Student> _allStudents; //all registered students in the app
-
         private List<Subject> _teachersSubjects; //all registered subjects in the app; 
-
         private Subject _currentActiveSubject; //TO BE ADDED
         private List<Student> _activeStudents; //students who joined the class
-       
         private List<Student> _subjectStudents; //students who are enrolled in a subject
-        
         private bool classroomIsActive = false; //active is when the teacher starts the server
 
         //instantiate the classroom class after the authentication of the teacher
@@ -33,8 +36,6 @@ namespace Thesis
             _teachersSubjects.Add(allstudentssubject);
             _currentActiveSubject = allstudentssubject;
    
-            //_allStudents = _teacher.AllStudents;
-
             //instanting empty list for students in a subject
             _subjectStudents = new List<Student>();
             //_currentActiveSubject = null;
@@ -47,24 +48,59 @@ namespace Thesis
         public Teacher GetTeacher { get { return _teacher; } }
         public List<Subject> GetSubjects { get { return _teachersSubjects; } }
         public List<Student> GetTeachersStudents { get { return _allStudents; } }
+
         public List<Student> GetSubjectStudents
         {
-            get
+            get {  return _currentActiveSubject.RegisteredStudents;   }
+        }
+
+        public void ToggleInThisSubject(Student selectedStudent)
+        {
+            DBManager.ToggleStudentInASubject(selectedStudent);
+        }
+
+        //------------------------active--------------------------//
+        public bool StartClass(string ipaddress, int lateIn)
+        {
+            if(ServerController.FireUp(ipaddress))
             {
-                if(_currentActiveSubject != null)
-                {
-                    return _currentActiveSubject.RegisteredStudents;
-                }
-                return _allStudents;
+                this.lateIn = lateIn;
+               ClassroomIsActive = true;
+                timer = new Timer(60000);
+
+                // Hook up the Elapsed event for the timer.
+                timer.Elapsed += OnTimedEvent;
+                timer.Enabled = true;
+                timer.Start();
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
-        //------------------------active--------------------------//
 
+        private void OnTimedEvent(object sender, ElapsedEventArgs e)
+        {
+            timeCounter++;
+           // Console.WriteLine("Counter:{}", timeCounter);
+            if(timeCounter == lateIn)
+            {
+                timer.Stop();
+                activateIsLate = true;
+              
+                timeCounter = 0;
+                timer.Enabled = false;
+                ServerController.isLate = activateIsLate;
+               // Console.WriteLine("Status:{}", attendancestatus);
+            }
+        }
         // retrieving current subject
+
         public Subject CurrentSubject
         {
             get { return _currentActiveSubject; }
-            set { _currentActiveSubject = value;  }
+            set { _currentActiveSubject = value; }
         }
         public void GetStudentsInASubject(int subject_id) {     }
 
@@ -75,6 +111,7 @@ namespace Thesis
         public void DeleteStudent(Student student)
         {
             _teacher.DeleteStudent(student);
+            GetSubjectStudents.Remove(student);
         }
         public void DeleteSubject(Subject subject)
         {

@@ -7,7 +7,8 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-
+using System.Threading;
+using System.Timers;
 namespace Thesis
 {
     enum task { login, quiz, assignments, letures, none, exit }
@@ -26,7 +27,9 @@ namespace Thesis
         private static task currentTask = task.none;
         public static ClassroomManager classManager;
         public static Context context;
-
+        public static System.Timers.Timer timer;
+        public static bool isLate = false;
+        //public static  AttendanceTimer timer;
         public static List<AuthStudent> GetActiveStudents {
             get { return Students; }
         }
@@ -57,7 +60,11 @@ namespace Thesis
                 //listen to incoming client connection
                 serverSocket.Listen(0);
                 //Accepting client
+
                 serverSocket.BeginAccept(AcceptCallback, null);
+                //timer = new AttendanceTimer(60);
+                //timer.start();
+               
                 return true;
             }
             catch(Exception)
@@ -75,6 +82,7 @@ namespace Thesis
             try
             {
                 socket = serverSocket.EndAccept(AR);
+
             }
             catch(ObjectDisposedException) // I cannot seem to avoid this (on exit when properly closing sockets)
             {
@@ -127,7 +135,7 @@ namespace Thesis
                     currentTask = task.login;
                     //txtbx.Text += "sent: ok" + Environment.NewLine;
                     byte[] data = Encoding.ASCII.GetBytes("ok");
-                    current.Send(data);
+                    current.Send(data);  
 
                 }
                 else if(text.ToLower() == "exit") // Client wants to exit gracefully
@@ -156,7 +164,10 @@ namespace Thesis
                     if(Auth.AuthStudent(student))
                     {
                         var teachersstudent = classManager.GetSubjectStudents.Find(x => x.GetPasscode == student.GetPasscode);
-                        teachersstudent.Status = 2; //setting the student status to present
+                        if(isLate) //setting the student status to present
+                            teachersstudent.Status = 3;
+                        else
+                            teachersstudent.Status = 2;
 
                         if(!Students.Contains(student))// If doesn't exist in the list, Add it to Regestered list
                             Students.Add(student);

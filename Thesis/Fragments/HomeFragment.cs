@@ -13,6 +13,7 @@ using Android.App;
 using Thesis.Activities;
 using Thesis.Adapter;
 using Android.Support.Design.Widget;
+using System.Timers;
 
 namespace Thesis.Fragments
 {
@@ -23,7 +24,7 @@ namespace Thesis.Fragments
         TextView ipaddress;
         ClassroomManager classManager;
         DashboardActivity dashActivity;
-
+        System.Timers.Timer timer;
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -61,9 +62,8 @@ namespace Thesis.Fragments
 
         private void BtnStartClass_Click(object sender, EventArgs e)
         {
-            if(ServerController.FireUp(ipaddress.Text))
+            if(classManager.StartClass(ipaddress.Text, 5))//TO Be Added
             {
-                classManager.ClassroomIsActive = true;
                 dashActivity.ReplaceFragment(dashActivity.activeHomeFragment);
             }
             else
@@ -72,13 +72,11 @@ namespace Thesis.Fragments
             }     
 
         }
+
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             // Use this to return your custom view for this Fragme
-           
             View view = inflater.Inflate(Resource.Layout.fragment_home, container, false);
-            // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
-            // return inflater.Inflate()
             return view;
         }
     }

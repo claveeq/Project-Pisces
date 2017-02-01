@@ -3,17 +3,29 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <ImageView
-        android:src="@android:drawable/ic_menu_gallery"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="15dp"
-        android:id="@+id/imageStudentStatus"
-        android:layout_gravity="center" />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+        <ImageView
+            android:src="@android:drawable/ic_menu_gallery"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="15dp"
+            android:id="@+id/imageStudentStatus"
+            android:layout_gravity="center" />
+        <ImageView
+            android:id="@+id/inThisSubject"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ic_check_circle_purple_dark_24dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="60dp" />
+    </RelativeLayout>
     <TextView
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textStudentName" 
-        android:layout_gravity="center"/>
+        android:id="@+id/textStudentName"
+        android:layout_gravity="center" />
 </LinearLayout>

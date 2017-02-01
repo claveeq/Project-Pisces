@@ -27,7 +27,7 @@ namespace Thesis.Fragments
         DashboardActivity dashActivity;
         SubjectSpinnerAdapter adapter;
         Student selectedStudent;
-
+        Subject selectedSubject;
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -42,18 +42,19 @@ namespace Thesis.Fragments
             classManager = dashActivity.GetClassManager;
 
             spinner = View.FindViewById<Spinner>(Resource.Id.spinner_Subjects);
+            gridViewStudents = View.FindViewById<GridView>(Resource.Id.gridView_Students);
             //spinner.Prompt = "Choose Subject...";
-            var adapter = new SubjectSpinnerAdapter(Activity, classManager.GetSubjects);
+            adapter = new SubjectSpinnerAdapter(Activity, classManager.GetSubjects);
             spinner.Adapter = adapter;
-            
             spinner.ItemSelected += Spinner_ItemSelected;
 
-            gridViewStudents = View.FindViewById<GridView>(Resource.Id.gridView_Students);
+         
             studentAdapter = new StudentAdapter(Activity, classManager.GetSubjectStudents, classManager);
-
+            
             gridViewStudents.Adapter = studentAdapter;
             
             gridViewStudents.ItemClick += GridViewStudents_ItemClick;
+
             Toolbar toolbarBottom = View.FindViewById<Toolbar>(Resource.Id.toolbar_bottom);
             toolbarBottom.InflateMenu(Resource.Menu.students_tools_menu);
             toolbarBottom.MenuItemClick += ToolbarBottom_MenuItemClick;
@@ -64,53 +65,63 @@ namespace Thesis.Fragments
             //react to click here and swap fragments or navigate
             switch(e.Item.ItemId)
             {
+                case (Resource.Id.nav_toggle):
+                    //toggle student if he/she is in the class or not
+                    if(selectedSubject.ID == 0)
+                    {
+                        Snackbar.Make(View, "Try changing subject first :)", Snackbar.LengthShort).Show();
+                        return;
+                    }
+                    selectedStudent.toggleInThisSubject();
+                    studentAdapter.NotifyDataSetChanged();
+                    break;
                 case (Resource.Id.nav_add):
+                    //navigate to add fragment
                     dashActivity.ReplaceFragment(dashActivity.AddStudentFragment);
                     break;
                 case (Resource.Id.nav_delete):
-                    //dashActivity.ShowFragment(dashActivity.AddSubjectFragment);
-                    classManager.DeleteStudent(selectedStudent);
+                    var builder = new AlertDialog.Builder(Activity);
+                    builder.SetTitle("Confirm delete");
+                    builder.SetMessage("Are you sure you want to delete " + selectedStudent.GetFirstName +"?");
+                    builder.SetPositiveButton("Delete", (senderAlert, args) => {
+                        classManager.DeleteStudent(selectedStudent);
+                        studentAdapter.NotifyDataSetChanged();
+                        Snackbar.Make(View, "Student Deleted", Snackbar.LengthShort).Show();
+                    });
+
+                    builder.SetNegativeButton("Cancel", (senderAlert, args) => {
+                        Snackbar.Make(View, "Canceled", Snackbar.LengthShort).Show();
+                    });
+
+                    Dialog dialog = builder.Create();
+                    dialog.Show();
                     break;
                 case (Resource.Id.nav_edit):
-                    //dashActivity.ShowFragment(dashActivity.AddSubjectFragment);
+                    dashActivity.ShowFragment(dashActivity.AddSubjectFragment);
                     break;
             }
         }
         private void Spinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
-            //var spinner = (Spinner)sender;
-            //string toast = string.Format(classManager.GetSubjects[e.Position].ID.ToString());
-            //Toast.MakeText(Activity, toast, ToastLength.Short).Show();
-            //classManager.StudentsInASubject(classManager.GetSubjects[e.Position].GetID);
-            var subject = classManager.GetSubjects[e.Position];
-            classManager.CurrentSubject = subject;
+            //setting up current subject in classmanager
+            selectedSubject = classManager.GetSubjects[e.Position];
+            if(selectedSubject == classManager.CurrentSubject)
+            {
+                return;
+            }
+            classManager.CurrentSubject = selectedSubject;
             //refreashing the spinners
+            studentAdapter.RefreshList(classManager.GetSubjectStudents);
             studentAdapter.NotifyDataSetChanged();
         }
         private void GridViewStudents_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
             //var gridview = (GridView)sender;
             //   Toast.MakeText(Activity, gridview.GetItemAtPosition(e.Position).ToString(),ToastLength.Short).Show();
-            classManager.GetSubjectStudents[e.Position].toggleInThisSubject();
-            Toast.MakeText(Activity, classManager.GetSubjectStudents[e.Position].inThisSubjects.ToString(), ToastLength.Short).Show();
             selectedStudent =  classManager.GetSubjectStudents[e.Position];
             studentAdapter.selectedPosition(e.Position);
             studentAdapter.NotifyDataSetChanged();
         }
-
-
-
-        //private void Spinner_Click(object sender, EventArgs e)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //private void spinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
-        //{
-        //    var spinner = sender as Spinner;
-        //    //Toast.MakeText(Activity, "You chosed:" + spinner.GetItemAtPosition(e.Position), ToastLength.Short).Show();
-        //    Toast.MakeText(Activity, "You chosed:" + spinner.Adapter.GetItem(e.Position), ToastLength.Short).Show();
-        //}
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {

@@ -22,10 +22,10 @@ namespace Thesis.Fragments
         SubjectFragment subjectFragment;
         DashboardActivity DashActivity;
         ClassroomManager classManager;
+
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
             // Create your fragment here
         }
         public override void OnActivityCreated(Bundle savedInstanceState)

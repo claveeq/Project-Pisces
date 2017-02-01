@@ -13,6 +13,8 @@ using Android.Widget;
 using Thesis.Adapter;
 using Thesis.Activities;
 using Toolbar = Android.Support.V7.Widget.Toolbar;
+using Android.Support.Design.Widget;
+
 namespace Thesis.Fragments
 {
     public class ActiveStudentsFragment : Fragment
@@ -53,22 +55,45 @@ namespace Thesis.Fragments
             //react to click here and swap fragments or navigate
             switch(e.Item.ItemId)
             {
+                case (Resource.Id.nav_toggle):
+                    //toggle student if he/she is in the class or not
+                    if(classManager.CurrentSubject.ID == 0)
+                    {
+                        Snackbar.Make(View, "Sorry. Can't do that here, remember:)", Snackbar.LengthShort).Show();
+                        return;
+                    }
+                    selectedStudent.toggleInThisSubject();
+                    studentAdapter.NotifyDataSetChanged();
+                    break;
                 case (Resource.Id.nav_add):
+                    //navigate to add fragment
                     dashActivity.ReplaceFragment(dashActivity.AddStudentFragment);
                     break;
                 case (Resource.Id.nav_delete):
-                    //dashActivity.ShowFragment(dashActivity.AddSubjectFragment);
+                    var builder = new AlertDialog.Builder(Activity);
+                    builder.SetTitle("Confirm delete");
+                    builder.SetMessage("Sure you want to delete " + selectedStudent.GetFirstName + "?");
+                    builder.SetPositiveButton("Delete", (senderAlert, args) => {
+                        classManager.DeleteStudent(selectedStudent);
+                        studentAdapter.NotifyDataSetChanged();
+                        Snackbar.Make(View, "Student Deleted", Snackbar.LengthShort).Show();
+                    });
+
+                    builder.SetNegativeButton("Cancel", (senderAlert, args) => {
+                        Snackbar.Make(View, "Canceled", Snackbar.LengthShort).Show();
+                    });
+
+                    Dialog dialog = builder.Create();
+                    dialog.Show();
                     break;
                 case (Resource.Id.nav_edit):
-                    //dashActivity.ShowFragment(dashActivity.AddSubjectFragment);
+                    dashActivity.ShowFragment(dashActivity.AddSubjectFragment);
                     break;
             }
         }
 
         private void GridViewStudents_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            classManager.GetSubjectStudents[e.Position].toggleInThisSubject();
-            Toast.MakeText(Activity, classManager.GetSubjectStudents[e.Position].inThisSubjects.ToString(), ToastLength.Short).Show();
             selectedStudent = classManager.GetSubjectStudents[e.Position];
             studentAdapter.selectedPosition(e.Position);
             studentAdapter.NotifyDataSetChanged();

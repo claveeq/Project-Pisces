@@ -21,7 +21,7 @@ namespace Thesis.Adapter
         private List<Student> _students;
         private ClassroomManager classManager;
         private bool _isActive = false;
-        int selected;
+        int selected = -1; // select nothing
         public StudentAdapter(Context context, List<Student> students)
         {
             this.context = context;
@@ -55,6 +55,12 @@ namespace Thesis.Adapter
             return _students[position].GetID;
         }
 
+        public void RefreshList(List<Student> List)
+        {
+            _students.Clear();
+            _students = List;
+            selected = -1;
+        }
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
             var view = convertView;
@@ -71,6 +77,7 @@ namespace Thesis.Adapter
                 //comment back in
                 view = inflater.Inflate(Resource.Layout.item_students, parent, false);
                 holder.ImageStatus = view.FindViewById<ImageView>(Resource.Id.imageStudentStatus);
+                holder.inTheSubject = view.FindViewById<ImageView>(Resource.Id.inThisSubject);
                 holder.Name = view.FindViewById<TextView>(Resource.Id.textStudentName);
                 view.Tag = holder;
             }
@@ -87,21 +94,30 @@ namespace Thesis.Adapter
                     holder.ImageStatus.SetImageResource(Resource.Drawable.ic_account_box_amber_200_24dp);
                     break;
             }
-
-                    if(position == selected)
-                        holder.ImageStatus.SetBackgroundColor(Color.ParseColor("#1565c0"));
-                    else
-                        holder.ImageStatus.SetBackgroundColor(Color.Transparent);
-
-                    //if(_students[position].CurrentSubjectID == classManager.CurrentSubject.GetID)
-                    //    holder.ImageStatus.SetImageResource(Resource.Drawable.ic_account_box_lime_A700_24dp);
-                    //else
-                    //    holder.ImageStatus.SetImageResource(Resource.Drawable.ic_account_box_grey_800_24dp);
-
-                    holder.Name.Text = _students[position].GetFirstName;
-
-                    return view;
+            //if a student is selected
+            if(position == selected)
+            {
+                holder.ImageStatus.SetBackgroundColor(Color.ParseColor("#bbdefb"));
             }
+            else
+            {
+                holder.ImageStatus.SetBackgroundColor(Color.Transparent);
+            }
+
+            //If the student is in the subject
+            if(_students[position].inThisSubjects == true)
+            {
+                holder.inTheSubject.Visibility = ViewStates.Visible;
+            }
+            else
+            {
+                holder.inTheSubject.Visibility = ViewStates.Invisible;
+            }
+
+            holder.Name.Text = _students[position].GetFirstName;
+
+            return view;
+        }
        
         //Fill in cound here, currently 0
         public override int Count
@@ -117,6 +133,7 @@ namespace Thesis.Adapter
     {
         //Your adapter views to re-use
         public ImageView ImageStatus { get; set; }
+        public ImageView inTheSubject { get; set; }
         public TextView Name { get; set; }
     }
 }

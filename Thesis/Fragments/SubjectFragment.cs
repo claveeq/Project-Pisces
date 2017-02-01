@@ -13,6 +13,8 @@ using Android.Widget;
 using Newtonsoft.Json;
 using Thesis.Activities;
 using Thesis.Adapter;
+using Toolbar = Android.Support.V7.Widget.Toolbar;
+
 namespace Thesis.Fragments
 {
     public class SubjectFragment : Fragment
@@ -20,9 +22,9 @@ namespace Thesis.Fragments
         EditText editSearch;
         ListView listSubjects;
         Button btnToAddSubject;
-
-
-        DashboardActivity DashActivity;
+        Subject selectedSubject;
+        SubjectAdapter subjectAdapter;
+        DashboardActivity dashActivity;
         ClassroomManager classManager;
         string[] data = { };
         public override void OnCreate(Bundle savedInstanceState)
@@ -44,22 +46,53 @@ namespace Thesis.Fragments
 
             //   subjects = JsonConvert.DeserializeObject<List<Subject>>("subjects");
             //listSubjects.Adapter = new ArrayAdapter(Activity, Resource.Layout.item_subject, Resource.Id.textView1, data);
-      
-            DashActivity = (DashboardActivity)Activity;//communicating with activities
+
+            dashActivity = (DashboardActivity)Activity;//communicating with activities
             
-            classManager = DashActivity.GetClassManager;
-            listSubjects.Adapter = new SubjectAdapter(Activity, classManager.GetSubjects);
+            classManager = dashActivity.GetClassManager;
+            subjectAdapter = new SubjectAdapter(Activity, classManager.GetSubjects);
+            listSubjects.Adapter = subjectAdapter;
+            listSubjects.ItemClick += ListSubjects_ItemClick;
+                  
+            Toolbar toolbarBottom = View.FindViewById<Toolbar>(Resource.Id.toolbar_bottom);
+            toolbarBottom.InflateMenu(Resource.Menu.subject_tools_menu);
+            toolbarBottom.MenuItemClick += ToolbarBottom_MenuItemClick;
+        }
+
+        private void ListSubjects_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            selectedSubject = classManager.GetSubjects[e.Position];
+            subjectAdapter.selectedPosition(e.Position);
+            subjectAdapter.NotifyDataSetChanged();
+        }
+
+        private void ToolbarBottom_MenuItemClick(object sender, Toolbar.MenuItemClickEventArgs e)
+        {
+            switch(e.Item.ItemId)
+            {
+                case (Resource.Id.nav_add):
+                    dashActivity.ReplaceFragment(dashActivity.AddStudentFragment);
+                    break;
+                case (Resource.Id.nav_delete):
+                    //dashActivity.ShowFragment(dashActivity.AddSubjectFragment);
+                    classManager.DeleteSubject(selectedSubject);
+                   classManager.GetSubjects.Remove(selectedSubject);
+                    subjectAdapter.NotifyDataSetChanged();
+                    break;
+                case (Resource.Id.nav_edit):
+                    //dashActivity.ShowFragment(dashActivity.AddSubjectFragment);
+                    break;
+            }
         }
 
         private void BtnToAddSubject_Click(object sender, EventArgs e)
         {
         
-            DashActivity.ReplaceFragment(DashActivity.AddSubjectFragment);
+            dashActivity.ReplaceFragment(dashActivity.AddSubjectFragment);
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-
             // Use this to return your custom view for this Fragment
             return inflater.Inflate(Resource.Layout.fragment_subjects, container, false); 
         }

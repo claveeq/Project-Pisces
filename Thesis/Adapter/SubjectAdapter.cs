@@ -3,13 +3,16 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using System.Collections.Generic;
+using System;
+using Android.Graphics;
 
 namespace Thesis.Adapter
 {
-    internal class SubjectAdapter : BaseAdapter
+    internal class SubjectAdapter : BaseAdapter<Subject>
     {
         private Context context;
         private List<Subject> _subjects;
+        int selected;
 
         public SubjectAdapter(Context context, List<Subject> subject)
         {
@@ -24,8 +27,12 @@ namespace Thesis.Adapter
 
         public override long GetItemId(int position)
         {
-       
             return _subjects[position].ID;
+        }
+
+        public void selectedPosition(int postion)
+        {
+            selected = postion;
         }
 
         public override View GetView(int position, View convertView, ViewGroup parent)
@@ -50,6 +57,11 @@ namespace Thesis.Adapter
             //fill in your items
             holder.SubjectTitle.Text = _subjects[position].GetTitle;
 
+            if(position == selected)
+                holder.SubjectTitle.SetBackgroundColor(Color.ParseColor("#1565c0"));
+            else
+                holder.SubjectTitle.SetBackgroundColor(Color.Transparent);
+
             return view;
         }
 
@@ -59,6 +71,14 @@ namespace Thesis.Adapter
             get
             {
                 return _subjects.Count;
+            }
+        }
+
+        public override Subject this[int position]
+        {
+            get
+            {
+                return _subjects[position];
             }
         }
     }

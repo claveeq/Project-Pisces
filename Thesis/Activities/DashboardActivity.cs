@@ -199,7 +199,6 @@ namespace Thesis.Activities
                     break;
                 case (Resource.Id.nav_Account):
                     ReplaceFragment(accountFragment);
-                    accountFragment.Username = loggedOnUser.GetFullName;
                     SupportActionBar.Title = "Account";
                     break;
             }

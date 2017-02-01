@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -15,8 +16,16 @@
     <ListView
         android:minWidth="25px"
         android:minHeight="25px"
+        android:layout_height="0dp"
+        android:layout_width="fill_parent"
+        android:id="@+id/listSubjects"
+        android:layout_weight="1" />
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_bottom"
+        android:minHeight="?android:attr/actionBarSize"
+        android:background="?android:attr/colorAccent"
+        android:theme="@android:style/ThemeOverlay.Material.Dark.ActionBar"
+        android:popupTheme="@android:style/ThemeOverlay.Material.Light"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/listSubjects" />
-
+        android:layout_height="wrap_content" />
 </LinearLayout>

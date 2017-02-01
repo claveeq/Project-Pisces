@@ -29,18 +29,12 @@ public class Student
 
     public bool inThisSubjects
     {
-        get
-        {
-            return _inThisSubjects;
-        }
-        set
-        {     
-            _inThisSubjects = value;
-        }
+        get { return _inThisSubjects; }
+        set { _inThisSubjects = value; }
     }
     public void toggleInThisSubject()
     {
-          DBManager.ToggleStudentInASubject(_teachers_ID, _currentsubject_ID, _ID, _inThisSubjects);
+        inThisSubjects = DBManager.ToggleStudentInASubject(this);
     }
 
     public int Teachers_ID {

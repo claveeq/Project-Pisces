@@ -10,16 +10,33 @@ using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using Thesis.Activities;
 
 namespace Thesis.Fragments
 {
     public class ActiveHomeFragment : Fragment
     {
+        ClassroomManager classManager;
+        DashboardActivity dashActivity;
+        Button buttond;
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
             // Create your fragment here
+        }
+        public override void OnActivityCreated(Bundle savedInstanceState)
+        {
+            base.OnActivityCreated(savedInstanceState);
+            dashActivity = Activity as DashboardActivity;
+            classManager = dashActivity.GetClassManager;
+
+            buttond = View.FindViewById<Button>(Resource.Id.fragment_home_active_btnEndClass);
+            buttond.Click += Buttond_Click;
+        }
+
+        private void Buttond_Click(object sender, EventArgs e)
+        {
+            Toast.MakeText(dashActivity, classManager.activateIsLate.ToString(), ToastLength.Short).Show();
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
