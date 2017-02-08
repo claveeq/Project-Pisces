@@ -14,7 +14,7 @@ using System.IO;
 
 namespace Thesis
 {
-    public enum quizitemNavigation { next, previous, add }
+    public enum quizitemNavigation { next, previous, add ,delete}
     public class QuizManager
     {
         int _teachersID; //get the teachers id
@@ -22,7 +22,7 @@ namespace Thesis
         List<string> quiznames;
         Quiz quiz;
 
-        public int currentItemNo = 0;
+        public int currentItemNo = 1;
 
         public Quiz Quiz { get { return quiz; } }
 
@@ -56,9 +56,23 @@ namespace Thesis
                 case quizitemNavigation.add:
                     currentItemNo = GetQuizItems.Count + 1;
                     break;
+                case quizitemNavigation.delete:
+                    //if(1 < currentItemNo)
+                    //    currentItemNo -= 1;
+                    break;
             }
-            var quizitem = Quiz.GetQuizitems.Where(x => x.ItemNo == currentItemNo).FirstOrDefault();
+            QuizItem quizitem = Quiz.GetQuizitems.Where(x => x.ItemNo == currentItemNo).FirstOrDefault();
             return quizitem;
+        }
+        public void DeleteItem(int itemNo)
+        {
+            var item = quiz.GetQuizitems.Where(x => x.ItemNo == itemNo).FirstOrDefault();
+            quiz.GetQuizitems.Remove(item);
+            int y = 1;
+            foreach(var quizitem in quiz.GetQuizitems)
+            {
+                quizitem.ItemNo = y++;
+            }
         }
         public void AddItem(string question, string a, string b, string c, string d, string answer)
         {

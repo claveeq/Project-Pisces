@@ -42,7 +42,8 @@ namespace Thesis.QuizFragments
             if(quizManager.Quiz != null)
             {
                 etTitle.Text = quizManager.Quiz.Title;
-                spSubjects.Enabled = false;
+                int position =  quizManager.GetTeachersSubjects().FindIndex(x => x.GetTitle == quizManager.Quiz.Subject);
+                spSubjects.SetSelection(position);
             }
             btnNext.Click += BtnNext_Click;
             spSubjects.ItemSelected += SpSubjects_ItemSelected;
@@ -69,7 +70,10 @@ namespace Thesis.QuizFragments
             if(quizManager.Quiz == null)
                 quizManager.CreateQuiz(etTitle.Text, selectedSubject.GetTitle);
             else
+            {
                 quizManager.Quiz.Title = etTitle.Text;
+                quizManager.Quiz.Subject = selectedSubject.GetTitle;
+            }
 
 
             quizActivity.ReplaceFragment(quizActivity.questionItemFragment);

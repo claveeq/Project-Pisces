@@ -103,8 +103,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activities\DashboardActivity.cs" />
+    <Compile Include="Activities\QuizActivity.cs" />
     <Compile Include="BinarySerializer.cs" />
     <Compile Include="ClientController.cs" />
+    <Compile Include="Fragment\AccountFragment.cs" />
+    <Compile Include="Fragment\AccountSetupFragment.cs" />
     <Compile Include="Fragment\ActiveHomeFragment.cs" />
     <Compile Include="Fragment\AssignmentFragment.cs" />
     <Compile Include="Fragment\HomeFragment.cs" />
@@ -112,6 +115,11 @@
     <Compile Include="Fragment\QuizFragment.cs" />
     <Compile Include="Fragment\SettingsFragment.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="Model\Settings.cs" />
+    <Compile Include="QuizFragments\EndQuizFragment.cs" />
+    <Compile Include="QuizFragments\QuizInfoFragment.cs" />
+    <Compile Include="QuizFragments\QuizItemFragment.cs" />
+    <Compile Include="QuizFragments\ScanQuizFragment.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AuthStudent.cs" />
@@ -147,6 +155,18 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\fragment_home_active.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\fragment_accountSetUp.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\fragment_account.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Quiz.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\fragment_quiz_scanQuiz.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -314,6 +334,7 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_remove_white_24dp.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Android.Support.Vector.Drawable.24.2.1\build\Xamarin.Android.Support.Vector.Drawable.targets" Condition="Exists('..\packages\Xamarin.Android.Support.Vector.Drawable.24.2.1\build\Xamarin.Android.Support.Vector.Drawable.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -81,16 +81,16 @@ namespace Thesis.Adapter
                 holder.Name = view.FindViewById<TextView>(Resource.Id.textStudentName);
                 view.Tag = holder;
             }
-            //fill in your items
+            //fill in your items //attendance status
             switch(_students[position].Status)
             {
-                default:
+                default://absebt
                     holder.ImageStatus.SetImageResource(Resource.Drawable.ic_account_box_grey_800_24dp);
                     break;
-                case 2:
+                case 2://present
                     holder.ImageStatus.SetImageResource(Resource.Drawable.ic_account_box_amber_900_24dp);
                     break;
-                case 3:
+                case 3://late
                     holder.ImageStatus.SetImageResource(Resource.Drawable.ic_account_box_amber_200_24dp);
                     break;
             }
@@ -103,7 +103,7 @@ namespace Thesis.Adapter
             {
                 holder.ImageStatus.SetBackgroundColor(Color.Transparent);
             }
-
+    
             //If the student is in the subject
             if(_students[position].inThisSubjects == true)
             {

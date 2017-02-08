@@ -138,6 +138,17 @@ namespace Thesis
                     current.Send(data);  
 
                 }
+                else if(text.ToLower() == "quiz") // Client wants to exit gracefully
+                {
+                    // Always Shutdown before closing
+                    currentTask = task.quiz;
+                    //txtbx.Text += "sent: ok" + Environment.NewLine;
+                    byte[] data = Encoding.ASCII.GetBytes("ok");
+                    current.Send(data);
+
+                    //Console.WriteLine("Client disconnected");
+                    return;
+                }
                 else if(text.ToLower() == "exit") // Client wants to exit gracefully
                 {
                     // Always Shutdown before closing
@@ -157,6 +168,7 @@ namespace Thesis
             }
             else // this is for initializing task
             {
+                //Login
                 if(currentTask == task.login)
                 {
                     AuthStudent student = new AuthStudent();
@@ -182,6 +194,11 @@ namespace Thesis
                         current.Send(Encoding.ASCII.GetBytes("false"));
                     }
                     currentTask = task.none;
+                }
+                //Quiz
+                else if(currentTask == task.quiz)
+                {
+                    
                 }
             }
             current.BeginReceive(buffer, 0, BUFFER_SIZE, SocketFlags.None, ReceiveCallback, current);

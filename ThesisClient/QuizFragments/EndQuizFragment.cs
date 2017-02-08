@@ -11,9 +11,9 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 
-namespace ThesisClient.Fragment
+namespace ThesisClient.QuizFragments
 {
-    public class ActiveHomeFragment : Android.App.Fragment
+    public class EndQuizFragment : Android.App.Fragment
     {
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -24,8 +24,9 @@ namespace ThesisClient.Fragment
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             // Use this to return your custom view for this Fragment
-            View view = inflater.Inflate(Resource.Layout.fragment_home_active, container, false);
-            return view;
+            // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
+
+            return base.OnCreateView(inflater, container, savedInstanceState);
         }
     }
 }

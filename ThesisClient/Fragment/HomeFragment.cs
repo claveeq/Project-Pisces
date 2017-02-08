@@ -23,7 +23,6 @@ namespace ThesisClient.Fragment
         Button btnJoinClass;
 
         DashboardActivity dashActivity;
-        StudentManager studentManager;
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -36,7 +35,6 @@ namespace ThesisClient.Fragment
             base.OnActivityCreated(savedInstanceState);
             initViews();
             dashActivity = (DashboardActivity)Activity;
-            //studentManager = dashActivity.;
             btnJoinClass.Click += BtnJoinClass_Click;
         }
 
@@ -48,6 +46,8 @@ namespace ThesisClient.Fragment
                 ClientController.context = dashActivity;
                 ClientController.Student = new AuthStudent("Clave", etPasscode.Text);
                 ClientController.SendRequest(Task.login);
+                dashActivity.studentManager.Status = appStatus.active;
+                dashActivity.ReplaceFragment(dashActivity.activeHomeFragment);
             }
             else
             {

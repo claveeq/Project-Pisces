@@ -38,7 +38,10 @@ namespace Thesis
         }
         public List<QuizItem> GetQuizitems { get { return _items; } }
         public int GetCurrentNumber { get { return item_id; }  }
-        public string GetSubject { get { return _subject; } }
+        public string Subject {
+            get { return _subject; }
+            set { _subject = value; }
+        }
         public string Title {
             get { return _title; }
             set { _title = value; }

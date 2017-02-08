@@ -19,17 +19,12 @@ namespace ThesisClient
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-
-            // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Account);
-            //
             txtPasscode = FindViewById<EditText>(Resource.Id.editTextPasscode);
             btnLogin = FindViewById<Button>(Resource.Id.buttonLogin);
 
-            //
+
             btnLogin.Click += BtnLogin_Click;
-            //
-            //student = new Student("Clave", "1234", "1234");
            
         }
 
@@ -37,19 +32,6 @@ namespace ThesisClient
         {
             StartActivity(typeof(DashboardActivity));
         }
-
-        //private void Btnjoin_Click(object sender, EventArgs e)
-        //{
-        //    ClientController.Student = student;
-        //    ClientController.context = this;
-        //    ClientController.SendRequest(Task.login);
-
-        //}
-
-        //    private void Btnconnect_Click(object sender, EventArgs e)
-        //    {
-        //        ClientController.ConnectToServer(btnconnect);
-        //    }
     }
 }
 

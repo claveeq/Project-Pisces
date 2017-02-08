@@ -11,40 +11,40 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using ThesisClient.Activities;
+
 namespace ThesisClient.Fragment
 {
-    public class QuizFragment : Android.App.Fragment
+    public class AccountFragment : Android.App.Fragment
     {
-        Intent intent;
-        Button btnTakeQuiz;
+        EditText etPasscode;
+        Button btnSetup;
+        DashboardActivity dashActivity;
+        StudentManager studentManager;
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+        }
 
+        private void initViews()
+        {
             // Create your fragment here
+            etPasscode = View.FindViewById<EditText>(Resource.Id.fragment_account_etPasscode);
+            btnSetup = View.FindViewById<Button>(Resource.Id.fragment_account_btnSave);
         }
 
         public override void OnActivityCreated(Bundle savedInstanceState)
         {
             base.OnActivityCreated(savedInstanceState);
+            initViews();
 
-            btnTakeQuiz = View.FindViewById<Button>(Resource.Id.fragment_quiz_btnTakeQuiz);
-            btnTakeQuiz.Click += BtnTakeQuiz_Click;
-
+            dashActivity = Activity as DashboardActivity;
+            //      studentManager = dashActivity.sub
+            etPasscode.Text = dashActivity.settings.Passcode;
         }
-
-        private void BtnTakeQuiz_Click(object sender, EventArgs e)
-        {
-            intent = new Intent(Activity, typeof(QuizActivity));
-            StartActivity(intent);
-        }
-
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            // Use this to return your custom view for this Fragment
-            View view = inflater.Inflate(Resource.Layout.fragment_quiz, container, false);
+            View view = inflater.Inflate(Resource.Layout.fragment_account, container, false);
             return view;
-
         }
     }
 }

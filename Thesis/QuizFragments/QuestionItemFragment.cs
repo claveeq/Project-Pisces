@@ -23,6 +23,7 @@ namespace Thesis.QuizFragments
         EditText etB;
         EditText etC;
         EditText etD;
+        TextView tvNo;
         RadioGroup rgChoices;
         Button btnNext;
         Button btnPrevious;
@@ -42,6 +43,7 @@ namespace Thesis.QuizFragments
     
         private void initViews()
         {
+            tvNo = View.FindViewById<TextView>(Resource.Id.fragment_questionItem_tvItemNo);
             etQuestion = View.FindViewById<EditText>(Resource.Id.fragment_questionItem_etQuestion);
             etA = View.FindViewById<EditText>(Resource.Id.fragment_questionItem_etA);
             etB = View.FindViewById<EditText>(Resource.Id.fragment_questionItem_etB);
@@ -52,17 +54,20 @@ namespace Thesis.QuizFragments
             btnEnd = View.FindViewById<Button>(Resource.Id.fragment_questionItem_btnEnd);
             btnDelete = View.FindViewById<Button>(Resource.Id.fragment_questionItem_btnDelete);
             rgChoices = View.FindViewById<RadioGroup>(Resource.Id.fragment_questionItem_rgChoices);
-            ClearItems();
+
         }
 
         private void ClearItems()
         {
+            string no = quizManager.currentItemNo + @"/" + quizManager.GetQuizItems.Count; 
+            tvNo.Text = no;
             etQuestion.Text = string.Empty;
             etA.Text = string.Empty;
             etB.Text = string.Empty;
             etC.Text = string.Empty;
             etD.Text = string.Empty;
             rgChoices.ClearCheck();
+
         }
         private void PopulateViews(QuizItem quiz)
         {
@@ -85,6 +90,9 @@ namespace Thesis.QuizFragments
                 rbChoices = View.FindViewById<RadioButton>(Resource.Id.fragment_questionItem_rbD);
             rbChoices.Checked = true;
 
+            string no = quiz.ItemNo + @"/" + quizManager.GetQuizItems.Count;
+            tvNo.Text = no;
+
         }
         private void UpdateQuizItem(QuizItem quiz)
         {
@@ -106,10 +114,21 @@ namespace Thesis.QuizFragments
 
             quizActivity = Activity as CreateQuizActivity;
             quizManager = quizActivity.quizManager;
-
             btnNext.Click += BtnNext_Click;
             btnEnd.Click += BtnEnd_Click;
             btnPrevious.Click += BtnPrevious_Click;
+            btnDelete.Click += BtnDelete_Click;
+            ClearItems();
+            if(quizManager.Quiz != null)//if managing quiz
+                PopulateViews(quizManager.itemNavigation(quizitemNavigation.previous));
+
+        }
+
+        private void BtnDelete_Click(object sender, EventArgs e)
+        {
+            quizManager.DeleteItem(quizManager.currentItemNo);
+            ClearItems();
+            PopulateViews(quizManager.itemNavigation(quizitemNavigation.delete));
         }
 
         private void BtnNext_Click(object sender, EventArgs e)
@@ -125,7 +144,6 @@ namespace Thesis.QuizFragments
                 return;
             }
             var quizCount = quizManager.GetQuizItems.Count;//total count of quizitems
-            var quiz = quizManager.GetQuizItems.Where(x => x.ItemNo == quizManager.currentItemNo).FirstOrDefault();
             if(quizCount == 0 || quizCount < quizManager.currentItemNo)
             {
                 quizManager.AddItem(etQuestion.Text, etA.Text, etB.Text, etC.Text, etD.Text, correctAnswer);
@@ -140,6 +158,9 @@ namespace Thesis.QuizFragments
                 var quizitem = quizManager.itemNavigation(quizitemNavigation.next);
                 PopulateViews(quizitem);
             }
+            string no = quizManager.currentItemNo + @"/" + quizManager.GetQuizItems.Count;
+            tvNo.Text = no;
+            
         }
         
         private void BtnPrevious_Click(object sender, EventArgs e)

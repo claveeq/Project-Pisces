@@ -14,6 +14,7 @@ using Android.Support.V4.Widget;
 using Android.Support.Design.Widget;
 using Toolbar = Android.Support.V7.Widget.Toolbar;
 using ThesisClient.Fragment;
+using ThesisClient.Model;
 
 namespace ThesisClient.Activities
 {
@@ -26,21 +27,34 @@ namespace ThesisClient.Activities
         public FragmentTransaction fragmentTx;
         public Stack<Android.App.Fragment> stackFragments;
         public Android.App.Fragment currentFragment = new Android.App.Fragment();
-        HomeFragment homeFragment;
-        QuizFragment quizFragment;
-        ActiveHomeFragment activeHomeFragment;
-
-        StudentManager studentManager;
+        //Fragments
+        public HomeFragment homeFragment;
+        public QuizFragment quizFragment;
+        public ActiveHomeFragment activeHomeFragment;
+        public SettingsFragment settingsFragment;
+        public AccountSetupFragment accountSetupFragment;
+        public StudentManager studentManager;
+        public AccountFragment accountFragment;
 
         public AuthStudent student;
-
+        public Settings settings;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.Dashboard);
+          
+            //Create your application here
+     
+            if(BinarySerializer.SettingsExist())
+            {
+                settings = BinarySerializer.DeserializeSettings();
+            }
+            if(settings != null)
+            {
+                studentManager = new StudentManager(settings);
+            }
             initViews();
             eventHandlers();
-            //Create your application here
         }
         private void initViews()
         {
@@ -54,57 +68,39 @@ namespace ThesisClient.Activities
             //instantiate fragments
             homeFragment = new HomeFragment();
             activeHomeFragment = new ActiveHomeFragment();
+            settingsFragment = new SettingsFragment();
             quizFragment = new QuizFragment();
-
+            accountSetupFragment = new AccountSetupFragment();
+            accountFragment = new AccountFragment();
             fragmentTx = FragmentManager.BeginTransaction();
-            //fragmentTx.Add(Resource.Id.fragmentContainer, quizFragment, "Students");
-            //fragmentTx.Hide(quizFragment);
-            fragmentTx.Add(Resource.Id.fragmentContainer, homeFragment, "Home");
 
+            if(settings != null)
+            {
+                fragmentTx.Add(Resource.Id.fragmentContainer, homeFragment, "Home");
+                currentFragment = homeFragment;
+            }
+            else
+            {
+                fragmentTx.Add(Resource.Id.fragmentContainer, accountSetupFragment, "Setup");
+                currentFragment = accountSetupFragment;
+            }
+           
             fragmentTx.Commit();
-
-            currentFragment = homeFragment;
             stackFragments = new Stack<Android.App.Fragment>();
         }
 
-        private void ReplaceFragment(Android.App.Fragment fragment)
+        public void ReplaceFragment(Android.App.Fragment fragment)
         {
             if(fragment.IsVisible)
-            {
                 return;
-            }
 
             var trans = FragmentManager.BeginTransaction();
             trans.Replace(Resource.Id.fragmentContainer, fragment);
             trans.AddToBackStack(null);
             trans.Commit();
-
             currentFragment = fragment; 
-            
         }
-
-        private void ShowFragment(Android.App.Fragment fragment)
-        {
-            if(fragment.IsVisible)
-            {
-                return;
-            }
-            var trans = FragmentManager.BeginTransaction();
-
-            fragment.View.BringToFront();
-            currentFragment.View.BringToFront();
-
-            trans.Hide(currentFragment);
-            trans.Show(fragment);
-
-            trans.AddToBackStack(null);
-            stackFragments.Push(currentFragment);
-            trans.Commit();
-
-            currentFragment = fragment;
-        }
-
-     
+    
         private void eventHandlers()
         {
             navigationView.NavigationItemSelected += NavigationView_NavigationItemSelected;
@@ -130,12 +126,26 @@ namespace ThesisClient.Activities
             {
                 case (Resource.Id.nav_home):
                     //   ShowFragment(homeFragment);
-                    ReplaceFragment(homeFragment);
+                    if(studentManager.Status == appStatus.inactive)
+                    {
+                        if(BinarySerializer.SettingsExist())
+                            ReplaceFragment(homeFragment);
+                        else
+                            ReplaceFragment(accountSetupFragment);
+                    }
+                    else
+                    {
+                        ReplaceFragment(activeHomeFragment);
+                    }
                     SupportActionBar.Title = "Dashboard";
                     break;
                 case (Resource.Id.nav_quiz):
                     ReplaceFragment(quizFragment);
                     SupportActionBar.Title = "Quiz";
+                    break;
+                case (Resource.Id.nav_Account):
+                    ReplaceFragment(accountFragment);
+                    SupportActionBar.Title = "Account";
                     break;
             }
             drawerLayout.CloseDrawers();
