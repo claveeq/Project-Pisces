@@ -1,0 +1,66 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+using Android.App;
+using Android.Content;
+using Android.OS;
+using Android.Runtime;
+using Android.Util;
+using Android.Views;
+using Android.Widget;
+using Thesis.Activities;
+using Android.Support.V7.App;
+namespace Thesis.Fragments
+{
+    public class QuizFragment : Fragment
+    {
+        Button btnCreateQuiz;
+        Button btnManageQuizzes;
+        ClassroomManager classManager;
+        DashboardActivity dashActivity;
+        Intent intent;
+        public override void OnCreate(Bundle savedInstanceState)
+        {
+            base.OnCreate(savedInstanceState);
+
+            // Create your fragment here
+
+
+        }
+
+        public override void OnActivityCreated(Bundle savedInstanceState)
+        {
+            base.OnActivityCreated(savedInstanceState);
+            btnCreateQuiz = View.FindViewById<Button>(Resource.Id.fragment_quiz_btnCreateQuiz);
+            btnManageQuizzes = View.FindViewById<Button>(Resource.Id.fragment_quiz_btnManageQuizzes);
+
+            dashActivity = Activity as DashboardActivity;
+            classManager = dashActivity.GetClassManager;
+
+            btnCreateQuiz.Click += delegate
+            {
+                intent = new Intent(dashActivity, typeof(CreateQuizActivity));
+                intent.PutExtra("teachersID", classManager.GetTeacher.GetID);
+                StartActivity(intent);
+            };
+
+            btnManageQuizzes.Click += delegate
+            {
+                intent = new Intent(dashActivity, typeof(CreateQuizActivity));
+                intent.PutExtra("teachersID", classManager.GetTeacher.GetID);
+                intent.PutExtra("manage", true);
+                StartActivity(intent);
+            };
+           
+        }
+        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+        {
+            // Use this to return your custom view for this Fragment
+            // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
+            View view = inflater.Inflate(Resource.Layout.fragment_quiz, container, false);
+            return view;
+        }
+    }
+}

@@ -23,7 +23,6 @@ namespace Thesis.Activities
         Toolbar toolbar;
         //fragments
         public FragmentTransaction fragmentTx;
-
         public HomeFragment homeFragment;
         public ActiveHomeFragment activeHomeFragment;
         public StudentsFragment studentFragment;
@@ -32,7 +31,8 @@ namespace Thesis.Activities
         public SubjectFragment subjectFragment;
         public AddSubjectFragment AddSubjectFragment;
         public AddStudentFragment AddStudentFragment;
-
+        public QuizFragment QuizFragment;
+        public AttendanceFragment AttendanceFragment;
         public Stack<Fragment> stackFragments;
         public Fragment currentFragment = new Fragment();
         //Essential Classes
@@ -55,7 +55,6 @@ namespace Thesis.Activities
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
             //initializing fragments in dashboard
             fragmentTx = FragmentManager.BeginTransaction();
-
             //fragmentTx.Add(Resource.Id.fragmentContainer, accountFragment, "Account");
             //fragmentTx.Hide(accountFragment);
             //fragmentTx.Add(Resource.Id.fragmentContainer, subjectFragment, "Subjects");
@@ -107,9 +106,11 @@ namespace Thesis.Activities
             subjectFragment = new SubjectFragment();
             AddSubjectFragment = new AddSubjectFragment();
             AddStudentFragment = new AddStudentFragment();
-
+            QuizFragment = new QuizFragment();
+            AttendanceFragment = new AttendanceFragment();
             stackFragments = new Stack<Fragment>();
         }
+
         public void ReplaceFragment(Fragment fragment)
         {
             if(fragment.IsVisible)
@@ -146,7 +147,6 @@ namespace Thesis.Activities
             fragmentTx.Commit();
 
             currentFragment = fragment;
-
         }
 
         public override void OnBackPressed()
@@ -197,6 +197,14 @@ namespace Thesis.Activities
                     ReplaceFragment(subjectFragment);
                     SupportActionBar.Title = "Subjects";
                     break;
+                case (Resource.Id.nav_quiz):
+                    ReplaceFragment(QuizFragment);
+                    SupportActionBar.Title = "Quiz";
+                    break;
+                case (Resource.Id.nav_attendance):
+                    ReplaceFragment(AttendanceFragment);
+                    SupportActionBar.Title = "Attendance";
+                    break;
                 case (Resource.Id.nav_Account):
                     ReplaceFragment(accountFragment);
                     SupportActionBar.Title = "Account";
@@ -204,7 +212,6 @@ namespace Thesis.Activities
             }
             drawerLayout.CloseDrawers();
         }
-
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
@@ -219,7 +226,6 @@ namespace Thesis.Activities
         private void BtnStart_Click(object sender, EventArgs e)
         {
           //  ServerController.SetupServer();
-  
         }
     }
 }

@@ -22,27 +22,27 @@
             android:layout_height="wrap_content"
             android:id="@+id/labelLogin"
             android:gravity="center" />
-      <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <EditText
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/txtUsername"
-            android:hint="Username"
-            android:layout_gravity="center" />
-      </android.support.design.widget.TextInputLayout>
-      <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <EditText
-            android:inputType="textPassword"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/txtPassword"
-            android:hint="Password"
-            android:layout_gravity="center" />
-      </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtUsername"
+                android:hint="Username"
+                android:layout_gravity="center" />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:inputType="textPassword"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtPassword"
+                android:hint="Password"
+                android:layout_gravity="center" />
+        </android.support.design.widget.TextInputLayout>
         <Button
             android:text="Login"
             android:layout_width="300dp"

@@ -12,7 +12,7 @@ using Android.Widget;
 using SQLite;
 using System.IO;
 using Thesis.Table;
-
+using SQLite;
 namespace Thesis
 {
     public static class DBManager
@@ -53,11 +53,13 @@ namespace Thesis
             var teachersdata = db.Table<TeacherLoginTable>().Where(i => i.username == username).FirstOrDefault();
             return teachersdata.id;
         }
+
         public static string GetTeachersFullname(int id)
         {
             var teachersdata = db.Table<TeacherLoginTable>().Where(i => i.id == id).FirstOrDefault();
             return teachersdata.fullname;
         }
+
         public static List<Subject> GetTeachersSubjects(int id)
         {
             List<Subject> subjects = new List<Subject>();
@@ -140,6 +142,16 @@ namespace Thesis
             var studentsdata = db.Table<StudentTable>().Where(i => i.student_id == id).FirstOrDefault();
             return studentsdata.student_passcode;
         }
+        public static void InsertStudentAttendance(Student student, string date, string time)
+        {    
+            AttendanceTable attendance = new AttendanceTable();
+            attendance.attendace_student_id = student.GetID;
+            attendance.attendace_subjects_id = student.CurrentSubjectID;
+            attendance.attendace_teachers_id = student.Teachers_ID;
+            attendance.attendace_date = date;
+            attendance.attendace_time = time;
+            db.Insert(attendance);
+        }   
         //End Student Data
         //Subject Data
         public static bool ToggleStudentInASubject(Student student)
@@ -165,7 +177,7 @@ namespace Thesis
             } 
         }
         public static void DeleteStudent(Student student)
-        {//allstudents
+        {
             var allstudent = db.Table<SubjectStudentsTable>()
                 .Where(i => i.subj_stud_student_id == student.GetID && 
                 i.subj_stud_teachers_id == student.Teachers_ID);
@@ -173,14 +185,6 @@ namespace Thesis
             {
                 db.Delete(item);
             }
-            //var othersubject = db.Table<SubjectStudentsTable>()//subject
-            //    .Where(i => i.subj_stud_student_id == student.GetID && i.subj_stud_teachers_id == student.Teachers_ID).FirstOrDefault();
-            //db.Delete(othersubject);
-            //// SubjectStudentsTable subjectStudentsTable = new SubjectStudentsTable();
-            //// subjectStudentsTable.subj_stud_teachers_id = student.Teachers_ID;
-            ////// subjectStudentsTable.subj_stud_subject_id = student.CurrentSubjectID;
-            //// subjectStudentsTable.subj_stud_student_id = student.GetID;
-
             var studentsdata = db.Table<StudentTable>().Where(i => i.student_id == student.GetID).FirstOrDefault();
             db.Delete(studentsdata);
 

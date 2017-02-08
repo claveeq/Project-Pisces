@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/fragment_questionItem_tvItemNo" />
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:hint="Question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fragment_questionItem_etQuestion" />
+    </android.support.design.widget.TextInputLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="280dp"
+            android:layout_height="fill_parent">
+            <EditText
+                android:hint="A"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/fragment_questionItem_etA" />
+            <EditText
+                android:hint="B"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/fragment_questionItem_etB" />
+            <EditText
+                android:hint="C"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/fragment_questionItem_etC" />
+            <EditText
+                android:hint="D"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/fragment_questionItem_etD" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+            <RadioGroup
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/fragment_questionItem_rgChoices">
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fragment_questionItem_rbA"
+                    android:layout_margin="5dp" />
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fragment_questionItem_rbB"
+                    android:layout_margin="5dp" />
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fragment_questionItem_rbC"
+                    android:layout_margin="5dp" />
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fragment_questionItem_rbD"
+                    android:layout_margin="5dp" />
+            </RadioGroup>
+        </LinearLayout>
+    </LinearLayout>
+    <Button
+        android:text="Next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/fragment_questionItem_btnNext" />
+    <Button
+        android:text="Previous"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/fragment_questionItem_btnPrevious" />
+    <Button
+        android:text="End"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/fragment_questionItem_btnEnd" />
+    <Button
+        android:text="Delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/fragment_questionItem_btnDelete" />
+</LinearLayout>

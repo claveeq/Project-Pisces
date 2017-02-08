@@ -12,19 +12,15 @@
     <item
       android:id="@+id/nav_class"
       android:icon="@drawable/ic_home_grey_900_24dp"
-      android:title="Class" />
+      android:title="Subject" />
+    <item
+      android:id="@+id/nav_attendance"
+      android:icon="@drawable/ic_home_grey_900_24dp"
+      android:title="Attendance" />
     <item
       android:id="@+id/nav_quiz"
       android:icon="@drawable/ic_home_grey_900_24dp"
       android:title="Quiz" />
-    <item
-      android:id="@+id/nav_lectures"
-      android:icon="@drawable/ic_home_grey_900_24dp"
-      android:title="Lectures" />
-    <item
-      android:id="@+id/nav_assignments"
-      android:icon="@drawable/ic_home_grey_900_24dp"
-      android:title="Assignments" />
   </group>
   <group android:checkableBehavior="single" android:id="@+id/group_SubMain">
     <item
@@ -35,10 +31,6 @@
       android:id="@+id/nav_Settings"
       android:icon="@drawable/ic_home_grey_900_24dp"
       android:title="Settings" />
-    <item
-      android:id="@+id/nav_HelpAndFeedback"
-      android:icon="@drawable/ic_home_grey_900_24dp"
-      android:title="Help &amp; Feedback" />
     <item
       android:id="@+id/nav_About"
       android:icon="@drawable/ic_home_grey_900_24dp"

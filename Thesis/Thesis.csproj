@@ -55,6 +55,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
+    <Reference Include="Mono.Android.Export" />
     <Reference Include="mscorlib" />
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
@@ -114,8 +115,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activities\CreateQuizActivity.cs" />
     <Compile Include="Activities\DashboardActivity.cs" />
     <Compile Include="Activities\RegisterActivity.cs" />
+    <Compile Include="Adapter\QuizAdapter.cs" />
     <Compile Include="Adapter\StudentAdapter.cs" />
     <Compile Include="Adapter\SubjectAdapter.cs" />
     <Compile Include="Adapter\SubjectSpinnerAdapter.cs" />
@@ -125,20 +128,30 @@
     <Compile Include="AuthStudent.cs" />
     <Compile Include="BinarySerializer.cs" />
     <Compile Include="ClassroomManager.cs" />
+    <Compile Include="DataContractAttribute.cs" />
     <Compile Include="DBManager.cs" />
     <Compile Include="Fragments\AccountFragment.cs" />
     <Compile Include="Fragments\ActiveHomeFragment.cs" />
     <Compile Include="Fragments\ActiveStudentsFragment.cs" />
     <Compile Include="Fragments\AddStudentFragment.cs" />
     <Compile Include="Fragments\AddSubjectFragment.cs" />
+    <Compile Include="Fragments\AttendanceFragment.cs" />
     <Compile Include="Fragments\HomeFragment.cs" />
+    <Compile Include="Fragments\QuizFragment.cs" />
     <Compile Include="Fragments\StudentsFragment.cs" />
     <Compile Include="Fragments\SubjectFragment.cs" />
+    <Compile Include="Model\Attendance.cs" />
     <Compile Include="Model\Lecture.cs" />
     <Compile Include="Model\Quiz.cs" />
     <Compile Include="Model\QuizItem.cs" />
+    <Compile Include="QuizFragments\FinilizeQuizFragment.cs" />
+    <Compile Include="QuizFragments\ManageQuizzesFragment.cs" />
+    <Compile Include="QuizFragments\QuestionItemFragment.cs" />
+    <Compile Include="QuizFragments\QuizInfoFragment.cs" />
+    <Compile Include="QuizManager.cs" />
     <Compile Include="Student.cs" />
     <Compile Include="Subject.cs" />
+    <Compile Include="Table\AttendanceTable.cs" />
     <Compile Include="Table\StudentTable.cs" />
     <Compile Include="Table\SubjectsTable.cs" />
     <Compile Include="Table\SubjectStudentsTable.cs" />
@@ -204,6 +217,30 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\menu\students_tools_menu_active.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\fragment_attendance.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\CreateQuiz.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\fragment_quiz_quizInfo.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\fragment_quiz_questionItem.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\fragment_quiz_finilizeQuiz.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\fragment_quiz.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\fragment_quiz_manageQuizzes.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\item_quiz.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

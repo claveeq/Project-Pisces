@@ -3,15 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Threading;
-using System.Timers;
+using System.Runtime.Serialization;
 namespace Timer
-{ 
-    class Program
+{
+    [DataContract]
+    class Attendace
     {
-        static void Main(string[] args)
-        {
-
-        }
     }
 }

@@ -78,7 +78,6 @@ namespace Thesis.Fragments
                         studentAdapter.NotifyDataSetChanged();
                         Snackbar.Make(View, "Student Deleted", Snackbar.LengthShort).Show();
                     });
-
                     builder.SetNegativeButton("Cancel", (senderAlert, args) => {
                         Snackbar.Make(View, "Canceled", Snackbar.LengthShort).Show();
                     });

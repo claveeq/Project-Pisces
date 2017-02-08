@@ -12,12 +12,36 @@ using Android.Widget;
 
 namespace Thesis
 {
-    class Quiz
+    [Serializable]
+    public class Quiz
     {
+        private int _teachersID;
         private string _title;
+        private string _subject;
         private DateTime _dateCreated;
-        private string _fileLocation;
+        int item_id;
         //
         private List<QuizItem> _items;
+
+        public Quiz(int teachersID,string title, DateTime datecreated, List<QuizItem> items, string subject)
+        {
+            _teachersID = teachersID;
+            _title = title;
+            _dateCreated = datecreated;
+            _items = items;
+            _subject = subject;
+        }
+
+        internal void AddItem(QuizItem item)
+        {
+            _items.Add(item);
+        }
+        public List<QuizItem> GetQuizitems { get { return _items; } }
+        public int GetCurrentNumber { get { return item_id; }  }
+        public string GetSubject { get { return _subject; } }
+        public string Title {
+            get { return _title; }
+            set { _title = value; }
+        }
     }
 }

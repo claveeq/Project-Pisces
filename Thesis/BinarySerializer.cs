@@ -49,7 +49,6 @@ namespace Thesis
 
         // Dezerialize a byte array to an Object
         public static object ByteArrayToObject(byte[] arrBytes)
-
         {
             BinaryFormatter binForm = new BinaryFormatter();
             binForm.Binder = new PreMergeToMergedDeserializationBinder();
@@ -62,6 +61,50 @@ namespace Thesis
                 obj = binForm.Deserialize(memStream);
             }
             return obj;
+        }
+
+        public static void QuizObjToDataFile(Quiz quiz)
+        {
+            if(quiz == null)
+                return;
+
+            string folderlocation;
+            if(Android.OS.Environment.ExternalStorageState.Equals(Android.OS.Environment.MediaMounted))
+                folderlocation = Android.OS.Environment.ExternalStorageDirectory.Path;
+            else
+                folderlocation = Android.OS.Environment.DirectoryDocuments;
+
+            folderlocation += @"/Quizzes";
+            if(!Directory.Exists(folderlocation))
+                Directory.CreateDirectory(folderlocation);
+
+            string file = @"/" + quiz.Title + ".dat";
+            using(Stream stream = File.Create(folderlocation + file))
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+                bf.Serialize(stream, quiz);
+            }  
+        }
+        public static Quiz DataFileToQuizObj(string filename)
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            bf.Binder = new PreMergeToMergedDeserializationBinder();
+            string folderlocation;
+            if(Android.OS.Environment.ExternalStorageState.Equals(Android.OS.Environment.MediaMounted))
+                folderlocation = Android.OS.Environment.ExternalStorageDirectory.Path;
+            else
+                folderlocation = Android.OS.Environment.DirectoryDocuments;
+
+            folderlocation += @"/Quizzes";
+            if(!Directory.Exists(folderlocation))
+                Directory.CreateDirectory(folderlocation);
+
+            string file = @"/" + filename + ".dat";
+            using(Stream stream = File.OpenRead(folderlocation + file))
+            {
+                Quiz quiz = (Quiz)bf.Deserialize(stream);
+                return quiz;
+            }
         }
     }
 }

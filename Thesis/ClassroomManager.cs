@@ -3,10 +3,15 @@ using System;
 using System.Collections.Generic;
 using Thesis.Table;
 using System.Timers;
+using System.IO;
+
 namespace Thesis
 {
     public class ClassroomManager
     {
+        //Attendance
+        private DateTime todaysDate;
+        private DateTime timeStarted;
         //Attendance Timer
         private Timer timer;
         public int timeCounter = 0;
@@ -19,7 +24,7 @@ namespace Thesis
         private List<Student> _allStudents; //all registered students in the app
         private List<Subject> _teachersSubjects; //all registered subjects in the app; 
         private Subject _currentActiveSubject; //TO BE ADDED
-        private List<Student> _activeStudents; //students who joined the class
+      //  private List<Student> _activeStudents; //students who joined the class
         private List<Student> _subjectStudents; //students who are enrolled in a subject
         private bool classroomIsActive = false; //active is when the teacher starts the server
 
@@ -66,12 +71,17 @@ namespace Thesis
             {
                 this.lateIn = lateIn;
                ClassroomIsActive = true;
-                timer = new Timer(60000);
 
+                //Initializing Attendance
+                todaysDate = DateTime.Now;
+                timeStarted = DateTime.Now;
+                //Initializing Attandance Timer
+                 timer = new Timer(60000);
                 // Hook up the Elapsed event for the timer.
                 timer.Elapsed += OnTimedEvent;
                 timer.Enabled = true;
                 timer.Start();
+                SaveAttendanceToCSV();
                 return true;
             }
             else
@@ -105,8 +115,68 @@ namespace Thesis
         public void GetStudentsInASubject(int subject_id) {     }
 
         public void RegisterUnregisteredStudents() {  }
+
+        public void SaveAttendance()
+        {
+            foreach(var student in _subjectStudents)
+            {
+                if(student.inThisSubjects)
+                {
+                    DBManager.InsertStudentAttendance(student, todaysDate.ToString(), timeStarted.ToString());
+                }
+            }
+        }
+        public void SaveAttendanceToCSV()//
+        {
+            //foreach(var student in _subjectStudents)
+            //{
+            //check if external storage exist
+            //if true, check if folder exist
+            //if true, check if file already exist
+            //if true, ammend 
+            //write using stream
+            string folderlocation;
+            if(Android.OS.Environment.ExternalStorageState.Equals(Android.OS.Environment.MediaMounted))
+                folderlocation = Android.OS.Environment.ExternalStorageDirectory.Path;
+            else
+                folderlocation = Android.OS.Environment.DirectoryDocuments;
+
+            folderlocation += @"/PICAttendance";
+            if(!Directory.Exists(folderlocation))
+                Directory.CreateDirectory(folderlocation);
+
+            StreamWriter writer;
+            string file = @"/" + todaysDate.ToString("yyyy-MM-dd") + " " + CurrentSubject + ".csv";
+            using(writer = new StreamWriter(folderlocation + file , false))
+            {
+                writer.WriteLine("DATE: "+todaysDate);
+                writer.WriteLine("Subject: "+CurrentSubject);
+                writer.WriteLine("Teacher: "+_teacher.GetFullName);
+                writer.WriteLine();
+                writer.WriteLine("ID,Student Name,Status");
+                int id = 1;
+                foreach(var student in GetSubjectStudents)
+                {
+                    string fullname = student.GetFirstName + " " + student.GetLastName;
+                    string status;
+                    switch(student.Status)
+                    {
+                        case 2:
+                            status = "Present";
+                            break;
+                        case 3:
+                            status = "Late";
+                            break;
+                        default:
+                            status = "Absent";
+                            break;
+                    }
+                    writer.WriteLine("{0},{1},{2}", id++, fullname, status);
+                }
+            }
+        }
+    
         //------------------------Inactive/Active--------------------------//
-        public void SerializedAttendance(){}
 
         public void DeleteStudent(Student student)
         {
