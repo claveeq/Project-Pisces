@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:local="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:background="#F5F5F5">
 <!-- your content layout -->
     <LinearLayout
         android:orientation="vertical"
@@ -10,7 +11,7 @@
         android:layout_height="match_parent"
         android:id="@+id/main_content">
         <ImageView
-            android:src="@drawable/classroom"
+            android:src="@drawable/PICA"
             android:layout_width="wrap_content"
             android:layout_height="215.0dp"
             android:id="@+id/imageView1"
@@ -21,10 +22,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/labelLogin"
-            android:gravity="center" />
+            android:gravity="center"
+            android:layout_margin="10dp" />
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
             <EditText
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
@@ -34,7 +37,8 @@
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
             <EditText
                 android:inputType="textPassword"
                 android:layout_width="300dp"
@@ -48,12 +52,14 @@
             android:id="@+id/btnLogin"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:background="@drawable/buttonshape" />
         <Button
             android:text="Signup"
             android:layout_width="300.0dp"
             android:layout_height="wrap_content"
             android:id="@+id/btnRegister"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:background="@drawable/buttonshape" />
     </LinearLayout>
 </RelativeLayout>

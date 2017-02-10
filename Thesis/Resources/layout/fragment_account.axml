@@ -2,39 +2,49 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+              >
     <TextView
         android:text="Students Table"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView1" />
+        android:id="@+id/textView1"
+        android:layout_margin="5dp"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/et_studenttable"
-        android:hint="" />
+        android:hint=""
+        android:layout_margin="5dp"/>
     <TextView
         android:text="Subjects Table"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/txtPassword" />
+        android:id="@+id/txtPassword"
+        android:layout_margin="5dp"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/et_subjecttable" />
+        android:id="@+id/et_subjecttable"
+        android:layout_margin="5dp"/>
     <TextView
         android:text="Student Subjects Table"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView1" />
+        android:id="@+id/textView1"
+        android:layout_margin="5dp"/>
     <EditText
         android:inputType="textPersonName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/et_tudentsubjec" />
+        android:id="@+id/et_tudentsubjec"
+        android:layout_margin="5dp"/>
     <Button
         android:text="refresh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btn_refresh" />
+        android:id="@+id/btn_refresh"
+        android:layout_margin="10dp"
+        android:background="@drawable/buttonshape"/>
 </LinearLayout>
