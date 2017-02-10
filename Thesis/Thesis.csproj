@@ -105,6 +105,10 @@
       <HintPath>..\packages\Xamarin.Android.Support.v7.AppCompat.24.2.1\lib\MonoAndroid70\Xamarin.Android.Support.v7.AppCompat.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Xamarin.Android.Support.v7.CardView, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.Android.Support.v7.CardView.24.2.1\lib\MonoAndroid70\Xamarin.Android.Support.v7.CardView.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Xamarin.Android.Support.v7.RecyclerView, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Xamarin.Android.Support.v7.RecyclerView.24.2.1\lib\MonoAndroid70\Xamarin.Android.Support.v7.RecyclerView.dll</HintPath>
       <Private>True</Private>
@@ -118,7 +122,9 @@
     <Compile Include="Activities\CreateQuizActivity.cs" />
     <Compile Include="Activities\DashboardActivity.cs" />
     <Compile Include="Activities\RegisterActivity.cs" />
+    <Compile Include="Adapter\AttendanceAdapter.cs" />
     <Compile Include="Adapter\QuizAdapter.cs" />
+    <Compile Include="Adapter\QuizSpinnerAdapter.cs" />
     <Compile Include="Adapter\StudentAdapter.cs" />
     <Compile Include="Adapter\SubjectAdapter.cs" />
     <Compile Include="Adapter\SubjectSpinnerAdapter.cs" />
@@ -140,9 +146,12 @@
     <Compile Include="Fragments\QuizFragment.cs" />
     <Compile Include="Fragments\StudentsFragment.cs" />
     <Compile Include="Fragments\SubjectFragment.cs" />
+    <Compile Include="JsonSerializer.cs" />
     <Compile Include="Model\Attendance.cs" />
+    <Compile Include="Model\QuizData.cs" />
     <Compile Include="Model\Lecture.cs" />
     <Compile Include="Model\Quiz.cs" />
+    <Compile Include="Model\QuizDataItem.cs" />
     <Compile Include="Model\QuizItem.cs" />
     <Compile Include="QuizFragments\FinilizeQuizFragment.cs" />
     <Compile Include="QuizFragments\ManageQuizzesFragment.cs" />
@@ -243,6 +252,9 @@
     <AndroidResource Include="Resources\layout\item_quiz.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\item_attendance.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Authentication.axml">
@@ -282,10 +294,10 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\_void_drawable-mdpi\ic_menu_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_menu_white_24dp.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\_void_drawable-hdpi\ic_menu_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_menu_white_24dp.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xhdpi\ic_menu_white_24dp.png" />
@@ -297,10 +309,10 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_menu_white_24dp.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\_void_drawable-mdpi\ic_home_grey_900_24dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_home_grey_900_24dp.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\_void_drawable-hdpi\ic_home_grey_900_24dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_home_grey_900_24dp.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xhdpi\ic_home_grey_900_24dp.png" />
@@ -312,10 +324,10 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_home_grey_900_24dp.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\_void_drawable-mdpi\ic_account_box_grey_800_24dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_account_box_grey_800_24dp.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\_void_drawable-hdpi\ic_account_box_grey_800_24dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_account_box_grey_800_24dp.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xhdpi\ic_account_box_grey_800_24dp.png" />
@@ -327,10 +339,10 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_account_box_grey_800_24dp.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\_void_drawable-mdpi\ic_account_box_amber_900_24dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_account_box_amber_900_24dp.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\_void_drawable-hdpi\ic_account_box_amber_900_24dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_account_box_amber_900_24dp.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xhdpi\ic_account_box_amber_900_24dp.png" />
@@ -342,10 +354,10 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_account_box_amber_900_24dp.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\_void_drawable-mdpi\ic_account_box_amber_200_24dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_account_box_amber_200_24dp.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\_void_drawable-hdpi\ic_account_box_amber_200_24dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_account_box_amber_200_24dp.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xhdpi\ic_account_box_amber_200_24dp.png" />
@@ -357,10 +369,10 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_account_box_amber_200_24dp.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\_void_drawable-mdpi\ic_add_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_add_white_24dp.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\_void_drawable-hdpi\ic_add_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_add_white_24dp.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xhdpi\ic_add_white_24dp.png" />
@@ -372,10 +384,10 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_add_white_24dp.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\_void_drawable-mdpi\ic_remove_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_remove_white_24dp.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\_void_drawable-hdpi\ic_remove_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_remove_white_24dp.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xhdpi\ic_remove_white_24dp.png" />
@@ -387,10 +399,10 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_remove_white_24dp.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\_void_drawable-mdpi\ic_edit_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_edit_white_24dp.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\_void_drawable-hdpi\ic_edit_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_edit_white_24dp.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xhdpi\ic_edit_white_24dp.png" />
@@ -402,10 +414,10 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_edit_white_24dp.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\_void_drawable-mdpi\ic_account_box_lime_A700_24dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_account_box_lime_A700_24dp.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\_void_drawable-hdpi\ic_account_box_lime_A700_24dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_account_box_lime_A700_24dp.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xhdpi\ic_account_box_lime_A700_24dp.png" />
@@ -427,6 +439,14 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_check_circle_purple_dark_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\classMenu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\buttonshape.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Android.Support.Vector.Drawable.24.2.1\build\Xamarin.Android.Support.Vector.Drawable.targets" Condition="Exists('..\packages\Xamarin.Android.Support.Vector.Drawable.24.2.1\build\Xamarin.Android.Support.Vector.Drawable.targets')" />

@@ -10,41 +10,39 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-namespace Thesis
+
+[Serializable]
+public class Quiz
 {
-    [Serializable]
-    public class Quiz
+    private int _teachersID;
+    private string _title;
+    private string _subject;
+    private DateTime _dateCreated;
+    int item_id;
+    //
+    private List<QuizItem> _items;
+
+    public Quiz(int teachersID,string title, DateTime datecreated, List<QuizItem> items, string subject)
     {
-        private int _teachersID;
-        private string _title;
-        private string _subject;
-        private DateTime _dateCreated;
-        int item_id;
-        //
-        private List<QuizItem> _items;
+        _teachersID = teachersID;
+        _title = title;
+        _dateCreated = datecreated;
+        _items = items;
+        _subject = subject;
+    }
 
-        public Quiz(int teachersID,string title, DateTime datecreated, List<QuizItem> items, string subject)
-        {
-            _teachersID = teachersID;
-            _title = title;
-            _dateCreated = datecreated;
-            _items = items;
-            _subject = subject;
-        }
-
-        internal void AddItem(QuizItem item)
-        {
-            _items.Add(item);
-        }
-        public List<QuizItem> GetQuizitems { get { return _items; } }
-        public int GetCurrentNumber { get { return item_id; }  }
-        public string Subject {
-            get { return _subject; }
-            set { _subject = value; }
-        }
-        public string Title {
-            get { return _title; }
-            set { _title = value; }
-        }
+    internal void AddItem(QuizItem item)
+    {
+        _items.Add(item);
+    }
+    public List<QuizItem> GetQuizitems { get { return _items; } }
+    public int GetCurrentNumber { get { return item_id; }  }
+    public string Subject {
+        get { return _subject; }
+        set { _subject = value; }
+    }
+    public string Title {
+        get { return _title; }
+        set { _title = value; }
     }
 }

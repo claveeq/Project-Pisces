@@ -14,6 +14,7 @@ using Thesis.Activities;
 using Thesis.Adapter;
 using Android.Support.Design.Widget;
 using System.Timers;
+using System.IO;
 
 namespace Thesis.Fragments
 {
@@ -22,6 +23,7 @@ namespace Thesis.Fragments
         Spinner spinnerSubject;
         Button btnStartClass;
         TextView ipaddress;
+        Button btnOpenAttendanceFolder;
         ClassroomManager classManager;
         DashboardActivity dashActivity;
         System.Timers.Timer timer;
@@ -39,11 +41,11 @@ namespace Thesis.Fragments
             spinnerSubject = View.FindViewById<Spinner>(Resource.Id.spinnerSubjectsHome);
             btnStartClass = View.FindViewById<Button>(Resource.Id.buttonStartClass);
             ipaddress = View.FindViewById<TextView>(Resource.Id.fragment_home_ipaddress);
-
+            btnOpenAttendanceFolder = View.FindViewById<Button>(Resource.Id.fragment_btnOpenAttendanceDirectory);
             dashActivity = (DashboardActivity)Activity;
             classManager = dashActivity.GetClassManager;
- 
- 
+
+
             spinnerSubject.Prompt = "Select Subject...";
 
             var adapter = new SubjectSpinnerAdapter(Activity, classManager.GetSubjects);
@@ -51,7 +53,23 @@ namespace Thesis.Fragments
 
             btnStartClass.Click += BtnStartClass_Click;
             spinnerSubject.ItemSelected += SpinnerSubject_ItemSelected;
+            btnOpenAttendanceFolder.Click += delegate
+             {
+                 string folderlocation;
+                 if(Android.OS.Environment.ExternalStorageState.Equals(Android.OS.Environment.MediaMounted))
+                     folderlocation = Android.OS.Environment.ExternalStorageDirectory.Path;
+                 else
+                     folderlocation = Android.OS.Environment.DirectoryDocuments;
 
+                 folderlocation += @"/PICAttendance";
+                 if(!Directory.Exists(folderlocation))
+                     Directory.CreateDirectory(folderlocation);
+
+                 Intent intent = new Intent(Intent.ActionView);
+                 var uri = Android.Net.Uri.Parse(folderlocation);
+                 intent.SetDataAndType(uri, "resource/folder");
+                 StartActivity(Intent.CreateChooser(intent, "Attendance Folder"));
+             };
             ipaddress.Text = ServerController.GetIPAddress(Activity);
         }
 

@@ -2,6 +2,7 @@
 using Android.Content;
 using Android.Net.Wifi;
 using Android.Widget;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -9,9 +10,13 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Timers;
+using Thesis.Model;
+
 namespace Thesis
 {
-    enum task { login, quiz, assignments, letures, none, exit }
+    enum task { login, quiz, assignments, letures, none, exit,
+        quizAccept
+    }
     
     static class ServerController
     {
@@ -30,6 +35,8 @@ namespace Thesis
         public static System.Timers.Timer timer;
         public static bool isLate = false;
         //public static  AttendanceTimer timer;
+        //QUIZ
+        public static QuizData quizData;
         public static List<AuthStudent> GetActiveStudents {
             get { return Students; }
         }
@@ -138,16 +145,24 @@ namespace Thesis
                     current.Send(data);  
 
                 }
-                else if(text.ToLower() == "quiz") // Client wants to exit gracefully
+                else if(text.ToLower() == "quiz") // Send ok and Send Quiz
                 {
-                    // Always Shutdown before closing
-                    currentTask = task.quiz;
-                    //txtbx.Text += "sent: ok" + Environment.NewLine;
+                    if(quizData != null)
+                    {      
+                        byte[] data = Encoding.ASCII.GetBytes("yes");
+                        current.Send(data);
+                    }
+                    else
+                    {
+                        byte[] data = Encoding.ASCII.GetBytes("no");
+                        current.Send(data);
+                    }
+                }
+                else if(text.ToLower() == "quizaccept")
+                {
                     byte[] data = Encoding.ASCII.GetBytes("ok");
                     current.Send(data);
-
-                    //Console.WriteLine("Client disconnected");
-                    return;
+                    currentTask = task.quizAccept;
                 }
                 else if(text.ToLower() == "exit") // Client wants to exit gracefully
                 {
@@ -171,7 +186,7 @@ namespace Thesis
                 //Login
                 if(currentTask == task.login)
                 {
-                    AuthStudent student = new AuthStudent();
+                    AuthStudent student;
                     student = (AuthStudent)BinarySerializer.ByteArrayToObject(recBuf);
                     if(Auth.AuthStudent(student))
                     {
@@ -196,9 +211,25 @@ namespace Thesis
                     currentTask = task.none;
                 }
                 //Quiz
-                else if(currentTask == task.quiz)
+                else if(currentTask == task.quizAccept)
                 {
+                    string text = Encoding.ASCII.GetString(recBuf);
+                    if(text == "accepted")
+                    {
+                        //byte[] quizdata = BinarySerializer.QuiztoByteArray(quizData);
+                        //var ndew = BinarySerializer.ByteArrayToQuiz(quizdata);
                     
+                       var json = JsonConvert.SerializeObject(quizData);
+                       //var account = JsonConvert.DeserializeObject<QuizData>(json);
+          
+                        // var item = JsonConvert.DeserializeObject<QuizData>(json);
+                        current.Send(Encoding.ASCII.GetBytes(json));
+
+                    }
+                    else if(text == "done")
+                    {
+                        currentTask = task.none;
+                    } 
                 }
             }
             current.BeginReceive(buffer, 0, BUFFER_SIZE, SocketFlags.None, ReceiveCallback, current);

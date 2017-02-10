@@ -13,11 +13,16 @@ using Toolbar = Android.Support.V7.Widget.Toolbar;
 using Android.Support.V7.App;
 using Android.Support.V4.Widget;
 using Android.Support.Design.Widget;
+using static Android.App.DatePickerDialog;
+
 namespace Thesis.Activities
 {
     [Activity(Label = "DashboardActivity")]
-    public class DashboardActivity : AppCompatActivity
+    public class DashboardActivity : AppCompatActivity, IOnDateSetListener
     {
+        //       
+        public const int DATE_DIALOG = 1;
+        private int year, month, day;
         DrawerLayout drawerLayout;
         NavigationView navigationView;
         Toolbar toolbar;
@@ -110,7 +115,28 @@ namespace Thesis.Activities
             AttendanceFragment = new AttendanceFragment();
             stackFragments = new Stack<Fragment>();
         }
+        protected override Dialog OnCreateDialog(int id)
+        {
+            switch(id)
+            {
+                case DATE_DIALOG:
+                    {
+                        return new DatePickerDialog(this, this, year, month, day);
+                    }
+                    break;
+                default:
+                    break;
+            }
+            return null;
+        }
 
+        public void OnDateSet(DatePicker view, int year, int month, int dayOfMonth)
+        {
+            this.year = year;
+            this.month = month;
+            day = dayOfMonth;
+            Toast.MakeText(this, "you have selected" + (month + 1) + day + "/" + year, ToastLength.Short).Show();
+        }
         public void ReplaceFragment(Fragment fragment)
         {
             if(fragment.IsVisible)
@@ -201,10 +227,10 @@ namespace Thesis.Activities
                     ReplaceFragment(QuizFragment);
                     SupportActionBar.Title = "Quiz";
                     break;
-                case (Resource.Id.nav_attendance):
-                    ReplaceFragment(AttendanceFragment);
-                    SupportActionBar.Title = "Attendance";
-                    break;
+                //case (Resource.Id.nav_attendance):
+                //    ReplaceFragment(AttendanceFragment);
+                //    SupportActionBar.Title = "Attendance";
+                //    break;
                 case (Resource.Id.nav_Account):
                     ReplaceFragment(accountFragment);
                     SupportActionBar.Title = "Account";

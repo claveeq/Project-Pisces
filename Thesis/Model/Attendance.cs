@@ -14,11 +14,11 @@ namespace Thesis.Model
 {
     class Attendance
     {
-        public int student_id { get; set; }
 
-        public string student_name { get; set; }
 
-        public string studnet_status { get; set; }
+        public string student_ { get; set; }
+
+        public List<Student> studnet_students { get; set; }
 
 
     }

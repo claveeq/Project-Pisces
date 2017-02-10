@@ -20,7 +20,6 @@ namespace ThesisClient.Activities
         public Stack<Android.App.Fragment> stackFragments;
         public Android.App.Fragment currentFragment = new Android.App.Fragment();
         //Fragments
-        public ScanQuizFragment scanQuizFragment;
         public QuizInfoFragment quizInfoFragment;
         public QuizItemFragment quizItemFragment;
         public EndQuizFragment endQuizFragment;
@@ -35,14 +34,13 @@ namespace ThesisClient.Activities
 
         private void initViews()
         {
-            scanQuizFragment = new ScanQuizFragment();
             quizInfoFragment = new QuizInfoFragment();
             quizItemFragment = new QuizItemFragment();
             endQuizFragment = new EndQuizFragment();
 
             trans = FragmentManager.BeginTransaction();
-            trans.Add(Resource.Id.quiz_flQuizContainer, scanQuizFragment, "scanQuiz");
-            currentFragment = scanQuizFragment;
+            trans.Add(Resource.Id.quiz_flQuizContainer, quizInfoFragment, "quizInfo");
+            currentFragment = quizInfoFragment;
             trans.Commit();
 
             stackFragments = new Stack<Android.App.Fragment>();

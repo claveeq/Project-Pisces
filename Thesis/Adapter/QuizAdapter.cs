@@ -35,7 +35,6 @@ namespace Thesis.Adapter
         public string GetQuizName(int position)
         {
             return quizzes[position].ToString();
-
         }
         public override View GetView(int position, View convertView, ViewGroup parent)
         {

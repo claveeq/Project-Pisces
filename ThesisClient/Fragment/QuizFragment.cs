@@ -35,8 +35,11 @@ namespace ThesisClient.Fragment
 
         private void BtnTakeQuiz_Click(object sender, EventArgs e)
         {
-            intent = new Intent(Activity, typeof(QuizActivity));
-            StartActivity(intent);
+            // intent = new Intent(Activity, typeof(QuizActivity));
+            // StartActivity(intent);
+            ClientController.SendRequest(Task.quiz);
+
+            
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)

@@ -24,9 +24,11 @@ namespace Thesis
         private List<Student> _allStudents; //all registered students in the app
         private List<Subject> _teachersSubjects; //all registered subjects in the app; 
         private Subject _currentActiveSubject; //TO BE ADDED
-      //  private List<Student> _activeStudents; //students who joined the class
+        //private List<Student> _activeStudents; //students who joined the class
         private List<Student> _subjectStudents; //students who are enrolled in a subject
         private bool classroomIsActive = false; //active is when the teacher starts the server
+        //FOR QUIZ
+
 
         //instantiate the classroom class after the authentication of the teacher
         public ClassroomManager(Teacher teacher)
@@ -90,6 +92,35 @@ namespace Thesis
             }
         }
 
+        public List<string> GetAllQuizzes()
+        {
+            string folderlocation;
+            if(Android.OS.Environment.ExternalStorageState.Equals(Android.OS.Environment.MediaMounted))
+                folderlocation = Android.OS.Environment.ExternalStorageDirectory.Path;
+            else
+                folderlocation = Android.OS.Environment.DirectoryDocuments;
+
+            folderlocation += @"/Quizzes/";
+            if(!Directory.Exists(folderlocation))
+                Directory.CreateDirectory(folderlocation);
+
+            // string file = @"/*.dat";
+
+            string filepath = folderlocation;
+            //DirectoryInfo d = new DirectoryInfo(folderlocation);
+            string[] files = Directory.GetFiles(folderlocation);
+            var quiznames = new List<string>();
+            if(files != null)
+            {
+                foreach(var file in files)
+                {
+                    FileInfo fi = new FileInfo(file);
+                    //  fi.Name.Replace(fi.Extension, "");
+                    quiznames.Add(fi.Name.Replace(fi.Extension, ""));
+                }
+            }
+            return quiznames;
+        }
         private void OnTimedEvent(object sender, ElapsedEventArgs e)
         {
             timeCounter++;
@@ -115,26 +146,9 @@ namespace Thesis
         public void GetStudentsInASubject(int subject_id) {     }
 
         public void RegisterUnregisteredStudents() {  }
-
-        public void SaveAttendance()
+   
+        public void SaveAttendanceToCSV()
         {
-            foreach(var student in _subjectStudents)
-            {
-                if(student.inThisSubjects)
-                {
-                    DBManager.InsertStudentAttendance(student, todaysDate.ToString(), timeStarted.ToString());
-                }
-            }
-        }
-        public void SaveAttendanceToCSV()//
-        {
-            //foreach(var student in _subjectStudents)
-            //{
-            //check if external storage exist
-            //if true, check if folder exist
-            //if true, check if file already exist
-            //if true, ammend 
-            //write using stream
             string folderlocation;
             if(Android.OS.Environment.ExternalStorageState.Equals(Android.OS.Environment.MediaMounted))
                 folderlocation = Android.OS.Environment.ExternalStorageDirectory.Path;
@@ -146,7 +160,7 @@ namespace Thesis
                 Directory.CreateDirectory(folderlocation);
 
             StreamWriter writer;
-            string file = @"/" + todaysDate.ToString("yyyy-MM-dd") + " " + CurrentSubject + ".csv";
+            string file = @"/" + todaysDate.ToString("yyyy-MM-dd") + "_" + timeStarted.ToString("h-mm-tt") + "_" +CurrentSubject + ".csv";
             using(writer = new StreamWriter(folderlocation + file , false))
             {
                 writer.WriteLine("DATE: "+todaysDate);

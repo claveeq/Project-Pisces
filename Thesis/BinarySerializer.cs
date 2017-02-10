@@ -39,13 +39,43 @@ namespace Thesis
                 return null;
 
             BinaryFormatter bf = new BinaryFormatter();
+            bf.Binder = new PreMergeToMergedDeserializationBinder();
             using(MemoryStream ms = new MemoryStream())
             {
                 bf.Serialize(ms, obj);
                 return ms.ToArray();
             }      
         }
+        // Serialize an Quiz to a byte array
+        public static byte[] QuiztoByteArray(QuizData obj)
+        {
+            if(obj == null)
+                return null;
 
+            BinaryFormatter bf = new BinaryFormatter();
+            bf.Binder = new PreMergeToMergedDeserializationBinder();
+            using(MemoryStream ms = new MemoryStream())
+            {
+                bf.Serialize(ms, obj);
+                return ms.ToArray();
+            }
+        }
+
+        // Dezerialize a byte array to an Object
+        public static QuizData ByteArrayToQuiz(byte[] arrBytes)
+        {
+            BinaryFormatter binForm = new BinaryFormatter();
+            binForm.Binder = new PreMergeToMergedDeserializationBinder();
+            QuizData obj;
+            using(MemoryStream memStream = new MemoryStream())
+            {
+                memStream.Write(arrBytes, 0, arrBytes.Length);
+                memStream.Seek(0, SeekOrigin.Begin);
+
+                obj = (QuizData)binForm.Deserialize(memStream);
+            }
+            return obj;
+        }
 
         // Dezerialize a byte array to an Object
         public static object ByteArrayToObject(byte[] arrBytes)
@@ -82,6 +112,7 @@ namespace Thesis
             using(Stream stream = File.Create(folderlocation + file))
             {
                 BinaryFormatter bf = new BinaryFormatter();
+                bf.Binder = new PreMergeToMergedDeserializationBinder();
                 bf.Serialize(stream, quiz);
             }  
         }

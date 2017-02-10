@@ -37,6 +37,7 @@ namespace Thesis.QuizFragments
             lvQuizzes = View.FindViewById<ListView>(Resource.Id.fragment_manageQuizzes_lvQuizzes);
             quizAdapter = new QuizAdapter(quizActivity, quizManager.GetAllQuizzes());
             lvQuizzes.Adapter = quizAdapter;
+
             lvQuizzes.ItemClick += LvQuizzes_ItemClick;
         }
 

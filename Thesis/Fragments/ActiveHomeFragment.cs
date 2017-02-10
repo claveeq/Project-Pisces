@@ -11,6 +11,7 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Thesis.Activities;
+using Thesis.Adapter;
 
 namespace Thesis.Fragments
 {
@@ -18,7 +19,12 @@ namespace Thesis.Fragments
     {
         ClassroomManager classManager;
         DashboardActivity dashActivity;
-        Button buttond;
+        Button btnEnd;
+        Button btnStartQuiz;
+        Spinner spQuizzes;
+        QuizSpinnerAdapter quizSpinnerAdapter;
+        QuizManager quizManager;
+        string quizName;
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -29,13 +35,41 @@ namespace Thesis.Fragments
             base.OnActivityCreated(savedInstanceState);
             dashActivity = Activity as DashboardActivity;
             classManager = dashActivity.GetClassManager;
+            quizManager = new QuizManager(classManager.GetTeacher.GetID);
 
-            buttond = View.FindViewById<Button>(Resource.Id.fragment_home_active_btnEndClass);
-            buttond.Click += Buttond_Click;
+            btnStartQuiz = View.FindViewById<Button>(Resource.Id.fragment_home_active_btnStartQuiz);
+            btnEnd = View.FindViewById<Button>(Resource.Id.fragment_home_active_btnEndClass);
+            spQuizzes = View.FindViewById<Spinner>(Resource.Id.fragment_home_active_spQuizzes);
+            quizSpinnerAdapter = new QuizSpinnerAdapter(dashActivity, quizManager.GetAllQuizzes());
+            spQuizzes.Adapter = quizSpinnerAdapter;
+
+            btnStartQuiz.Click += BtnStartQuiz_Click;
+            btnEnd.Click += Buttond_Click;
+            spQuizzes.ItemSelected += SpQuizzes_ItemSelected;
+        }
+
+        private void SpQuizzes_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+            var teachersSubject = quizManager.GetTeachersSubjects();
+            quizName = quizSpinnerAdapter.GetQuizName(e.Position);
+        }
+
+        private void BtnStartQuiz_Click(object sender, EventArgs e)
+        {
+            if(classManager.ClassroomIsActive)
+            {
+                quizManager.DeserializeQuiz(quizName);
+                quizManager.StartQuiz();
+           
+            }
         }
 
         private void Buttond_Click(object sender, EventArgs e)
         {
+            classManager.SaveAttendanceToCSV();
+            classManager.ClassroomIsActive = false;
+            ServerController.CloseAllSockets();
+            dashActivity.ReplaceFragment(dashActivity.homeFragment);
             Toast.MakeText(dashActivity, classManager.activateIsLate.ToString(), ToastLength.Short).Show();
         }
 

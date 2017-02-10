@@ -11,16 +11,22 @@ using Android.Views;
 using Android.Widget;
 using System.Collections;
 using System.IO;
+using Thesis.Model;
+using Newtonsoft.Json;
 
 namespace Thesis
 {
     public enum quizitemNavigation { next, previous, add ,delete}
+    /*The most important thing in this object is to set the field quiz because
+     * to avoid error. The said field is commonly used in most of the methods;
+    */
     public class QuizManager
     {
+        Quiz quiz;
         int _teachersID; //get the teachers id
         DateTime _dateCreated;
         List<string> quiznames;
-        Quiz quiz;
+      
 
         public int currentItemNo = 1;
 
@@ -73,6 +79,18 @@ namespace Thesis
             {
                 quizitem.ItemNo = y++;
             }
+        }
+
+        public void StartQuiz()
+        {
+            QuizData quizdata = new QuizData(quiz.Title, quiz.GetQuizitems);
+            var dfdf = JsonConvert.SerializeObject(quiz.GetQuizitems);
+            var dfsd = JsonConvert.DeserializeObject<List<QuizItem>>(dfdf);
+            ServerController.quizData = quizdata; //to start the quiz, set it to the server
+        }
+        public void CheckQuiz()
+        {
+
         }
         public void AddItem(string question, string a, string b, string c, string d, string answer)
         {

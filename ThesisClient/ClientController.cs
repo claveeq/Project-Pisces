@@ -7,10 +7,14 @@ using Android.Support.Design.Widget;
 using Android.Views;
 using Android.App;
 using Android.Content;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace ThesisClient
 { 
-    enum Task { login, none, exit}
+    enum Task { login, quiz, none, exit,
+        quizAccept
+    }
 
     static class ClientController
     {  
@@ -24,6 +28,8 @@ namespace ThesisClient
 
         private static Task currentTask = Task.none;
 
+        public static QuizData quiz;
+        public static bool QuizIsAvailable = false;
         public static bool ConnectToServer(string iPddress)
         {
             //int attempts = 0;
@@ -73,26 +79,19 @@ namespace ThesisClient
                 SendString("login");
                 ReceiveResponse(currentTask);
             }
-            if(task == Task.exit)
+            else if(task == Task.quiz)
+            {
+                currentTask = Task.quiz;
+                SendString("quiz");
+                ReceiveResponse(currentTask);
+            }
+            else if(task == Task.exit)
             {
                 Exit();
             }
            // Student person = new Student("1", 1, "1", "1");
         }
-        /// <summary>
-        /// Sends a string to the server with ASCII encoding.
-        /// </summary>
-        private static void SendString(string text)
-        {
-            byte[] buffer = Encoding.ASCII.GetBytes(text);
-            ClientSocket.Send(buffer, 0, buffer.Length, SocketFlags.None);
-        }
-        private static void SendObject(object obj)
-        {
-            byte[] buffer = BinarySerializer.ObjectToByteArray(obj);
-            ClientSocket.Send(buffer, 0, buffer.Length, SocketFlags.None);
-        }
-
+      
         public static void ReceiveResponse(Task current)
         {
             var buffer = new byte[2048];
@@ -123,13 +122,55 @@ namespace ThesisClient
                     currentTask = Task.none;
                 }
             }
+            else if(current == Task.quiz)//1st step of sending quiz
+            {
+                string text = Encoding.ASCII.GetString(data);
+                if(text.ToLower() == "yes")
+                {
+                    SendString("quizaccept");
+                    ReceiveResponse(Task.quiz);
+                }
+                else if(text.ToLower() == "no")
+                {
+                    QuizIsAvailable = false;
+                    currentTask = Task.none;
+                }
+                else if (text.ToLower() == "ok")
+                {
+                    SendString("accepted");
+                    ReceiveResponse(Task.quizAccept);
+                }
+            }
+            else if(current == Task.quizAccept)//2nd step ofo sending quiz
+            {
+                // quiz = BinarySerializer.ByteArrayToQuiz(buffer);
+                string json = Encoding.ASCII.GetString(data);
+                var quiz = JsonConvert.DeserializeObject<QuizData>(json);
+                var items = JsonConvert.DeserializeObject<List<QuizItem>>(quiz.quizitems);
+   
+                SendString("done");
+                QuizIsAvailable = true;
+                currentTask = Task.none;
+            }
             else
             {
                 string text = Encoding.ASCII.GetString(data);
                 //Console.WriteLine(text);
             }
         }
- 
+        /// <summary>
+        /// Sends a string to the server with ASCII encoding.
+        /// </summary>
+        private static void SendString(string text)
+        {
+            byte[] buffer = Encoding.ASCII.GetBytes(text);
+            ClientSocket.Send(buffer, 0, buffer.Length, SocketFlags.None);
+        }
+        private static void SendObject(object obj)
+        {
+            byte[] buffer = BinarySerializer.ObjectToByteArray(obj);
+            ClientSocket.Send(buffer, 0, buffer.Length, SocketFlags.None);
+        }
         /// <summary>
         /// Close socket and exit program.
         /// </summary>
