@@ -122,6 +122,11 @@ namespace Thesis
         }
         //End teachers Data
         //Student Data
+        public static int GetStudentID(string passcode)
+        {
+            var studentsdata = db.Table<StudentTable>().Where(i => i.student_passcode == passcode).FirstOrDefault();
+            return studentsdata.student_id;
+        }
         public static string GetStudentFirstName(int id) //get the id first then the rest using the retrieved id
         {
             var studentsdata = db.Table<StudentTable>().Where(i => i.student_id == id).FirstOrDefault();
@@ -132,6 +137,7 @@ namespace Thesis
             var studentsdata = db.Table<StudentTable>().Where(i => i.student_id == id).FirstOrDefault();
             return studentsdata.student_lastname;
         }
+      
         public static int GetStudentTeachersID(int id)
         {
             var studentsdata = db.Table<StudentTable>().Where(i => i.student_id == id).FirstOrDefault();

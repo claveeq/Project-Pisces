@@ -24,14 +24,15 @@ namespace ThesisClient.Activities
         public QuizItemFragment quizItemFragment;
         public EndQuizFragment endQuizFragment;
         public QuizManager quizManager;
+        public string studentPasscode;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.Quiz);
             initViews();
             // Create your application here 
-            string passcode = Intent.GetStringExtra("passcode") ?? "Data not available";
-            quizManager = new QuizManager(passcode, ClientController.quizData.Title, ClientController.quizItem);
+            studentPasscode = Intent.GetStringExtra("passcode") ?? "Data not available";
+            quizManager = new QuizManager(studentPasscode, ClientController.quizData.Title, ClientController.quizItem);
         }
 
         private void initViews()

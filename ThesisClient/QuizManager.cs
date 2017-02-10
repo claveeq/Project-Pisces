@@ -56,7 +56,9 @@ namespace ThesisClient
         }
         public void SendQuiz()
         {
-            ClientController.doneQuizData = new QuizData(title, items);
+            var quizData = new QuizData(title, items);
+            quizData.Passcode = studentPasscode;
+            ClientController.doneQuizData = quizData;
             ClientController.SendRequest(Task.quizDone);
         } 
     }

@@ -25,19 +25,21 @@ namespace Thesis.Fragments
         QuizSpinnerAdapter quizSpinnerAdapter;
         QuizManager quizManager;
         string quizName;
+
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             // Create your fragment here
         }
+
         public override void OnActivityCreated(Bundle savedInstanceState)
         {
             base.OnActivityCreated(savedInstanceState);
             dashActivity = Activity as DashboardActivity;
             classManager = dashActivity.GetClassManager;
-            quizManager = new QuizManager(classManager.GetTeacher.GetID);
+            quizManager = dashActivity.quizManager;
 
-            btnStartQuiz = View.FindViewById<Button>(Resource.Id.fragment_home_active_btnStartQuiz);
+              btnStartQuiz = View.FindViewById<Button>(Resource.Id.fragment_home_active_btnStartQuiz);
             btnEnd = View.FindViewById<Button>(Resource.Id.fragment_home_active_btnEndClass);
             spQuizzes = View.FindViewById<Spinner>(Resource.Id.fragment_home_active_spQuizzes);
             quizSpinnerAdapter = new QuizSpinnerAdapter(dashActivity, quizManager.GetAllQuizzes());
@@ -50,7 +52,7 @@ namespace Thesis.Fragments
 
         private void SpQuizzes_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
-            var teachersSubject = quizManager.GetTeachersSubjects();
+            var teachersSubject =  quizManager.GetTeachersSubjects();
             quizName = quizSpinnerAdapter.GetQuizName(e.Position);
         }
 
@@ -61,7 +63,7 @@ namespace Thesis.Fragments
                 quizManager.DeserializeQuiz(quizName);
                 quizManager.StartQuiz();
                 classManager.QuizIsActive = true;
-                dashActivity.ReplaceFragment(dashActivity.activeHomeFragment);
+                dashActivity.ReplaceFragment(dashActivity.activeQuizFragment);
             }
         }
 

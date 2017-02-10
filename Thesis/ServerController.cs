@@ -38,6 +38,7 @@ namespace Thesis
         //public static  AttendanceTimer timer;
         //QUIZ
         public static QuizData quizData;
+        public static List<QuizData> QuizDoneItems = new List<QuizData>();
         public static List<AuthStudent> GetActiveStudents {
             get { return Students; }
         }
@@ -245,6 +246,7 @@ namespace Thesis
                         string json = Encoding.ASCII.GetString(recBuf);
                         var quizDone = JsonConvert.DeserializeObject<QuizData>(json);
                         quizDone.DezerializeListItems();
+                        QuizDoneItems.Add(quizDone);
                         // quizItem = JsonConvert.DeserializeObject<List<QuizItem>>(quizData.quizitems);
                     }
                     catch(Exception)

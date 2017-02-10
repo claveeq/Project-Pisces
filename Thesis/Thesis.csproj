@@ -150,11 +150,13 @@
     <Compile Include="Fragments\SubjectFragment.cs" />
     <Compile Include="JsonSerializer.cs" />
     <Compile Include="Model\Attendance.cs" />
+    <Compile Include="Model\CorrectAnswers.cs" />
     <Compile Include="Model\QuizData.cs" />
     <Compile Include="Model\Lecture.cs" />
     <Compile Include="Model\Quiz.cs" />
     <Compile Include="Model\QuizDataItem.cs" />
     <Compile Include="Model\QuizItem.cs" />
+    <Compile Include="Model\StudentQuizScore.cs" />
     <Compile Include="QuizFragments\FinilizeQuizFragment.cs" />
     <Compile Include="QuizFragments\ManageQuizzesFragment.cs" />
     <Compile Include="QuizFragments\QuestionItemFragment.cs" />

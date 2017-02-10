@@ -9,11 +9,11 @@ public class QuizData
     //string title;
     public List<QuizItem> items;
     //int timer; 
-
+    public string Passcode { get; set; }
     public string Title { get; set; }
     public string quizitems { get; set; }
 
-    public QuizData(string title, List<QuizItem> items, bool removeAnswers)
+    public QuizData(string title, List<QuizItem> items, bool removeAnswers = false)
     {
         //    this.title = title;
         //    this.items = RemoveAnswersInTheList(items);

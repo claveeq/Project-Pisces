@@ -2346,7 +2346,7 @@ namespace Thesis
 			public const int fragment_activequiz_btnEndQuiz = 2131099785;
 			
 			// aapt resource value: 0x7f060088
-			public const int fragment_activequiz_btnSaveScores = 2131099784;
+			public const int fragment_activequiz_btnExportScores = 2131099784;
 			
 			// aapt resource value: 0x7f06008a
 			public const int fragment_activequiz_gvStudentScores = 2131099786;

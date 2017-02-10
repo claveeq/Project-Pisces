@@ -17,11 +17,10 @@ namespace Thesis.Adapter
 
         Context context;
 
-        public QuizScoreAdapter(Context context)
+        public QuizScoreAdapter(Context context, List<QuizData> QuizData)
         {
             this.context = context;
         }
-
 
         public override Java.Lang.Object GetItem(int position)
         {

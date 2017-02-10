@@ -44,7 +44,8 @@ namespace ThesisClient.Fragment
             {
                 btnJoinClass.Enabled = false;
                 ClientController.context = dashActivity;
-                ClientController.Student = new AuthStudent("Clave", etPasscode.Text);
+                dashActivity.authStudent = new AuthStudent("MacAddress", etPasscode.Text);
+                ClientController.Student = dashActivity.authStudent;
                 ClientController.SendRequest(Task.login);
                 dashActivity.studentManager.Status = appStatus.active;
                 dashActivity.ReplaceFragment(dashActivity.activeHomeFragment);

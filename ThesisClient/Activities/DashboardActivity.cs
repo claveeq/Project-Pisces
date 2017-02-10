@@ -36,7 +36,7 @@ namespace ThesisClient.Activities
         public StudentManager studentManager;
         public AccountFragment accountFragment;
 
-        public AuthStudent student;
+        public AuthStudent authStudent;
         public Settings settings;
         protected override void OnCreate(Bundle savedInstanceState)
         {

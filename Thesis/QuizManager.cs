@@ -23,14 +23,16 @@ namespace Thesis
     public class QuizManager
     {
         Quiz quiz;
+        
         int _teachersID; //get the teachers id
         DateTime _dateCreated;
         List<string> quiznames;
-      
-
+        List<StudentQuizScore> scores = new List<StudentQuizScore>();
         public int currentItemNo = 1;
 
         public Quiz Quiz { get { return quiz; } }
+
+        List<CorrectAnswers> correct;
 
         public QuizManager(int teachersid)
         {
@@ -70,6 +72,12 @@ namespace Thesis
             QuizItem quizitem = Quiz.GetQuizitems.Where(x => x.ItemNo == currentItemNo).FirstOrDefault();
             return quizitem;
         }
+
+        internal void EndQuiz()
+        {
+            currentItemNo = 1;
+        }
+
         public void DeleteItem(int itemNo)
         {
             var item = quiz.GetQuizitems.Where(x => x.ItemNo == itemNo).FirstOrDefault();
@@ -83,12 +91,19 @@ namespace Thesis
 
         public void StartQuiz()
         {
-            QuizData quizdata = new QuizData(quiz.Title, quiz.GetQuizitems, true);
+            QuizData quizdata = new QuizData(quiz.Title, Quiz.GetQuizitems, true);
             ServerController.quizData = quizdata; //to start the quiz, set it to the server
         }
-        public void CheckQuiz()
+        public List<StudentQuizScore> CheckQuiz()
         {
-
+            scores.Clear();
+            foreach(var item in ServerController.QuizDoneItems)
+            {
+                StudentQuizScore student = new StudentQuizScore(item.Passcode, _teachersID, item.items, quiz.GetQuizitems);
+                student.CheckItem(correct);
+                scores.Add(student);
+            }
+            return scores;
         }
         public void AddItem(string question, string a, string b, string c, string d, string answer)
         {
@@ -106,7 +121,12 @@ namespace Thesis
 
         public void DeserializeQuiz(string filename)
         {
+            correct = new List<CorrectAnswers>();
             quiz = BinarySerializer.DataFileToQuizObj(filename);
+            foreach(var item in quiz.GetQuizitems)
+            {
+                correct.Add(new CorrectAnswers(item.ItemNo,item.Answer));
+            }
         }
         
         public List<string> GetAllQuizzes()

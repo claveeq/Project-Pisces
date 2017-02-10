@@ -45,7 +45,7 @@ namespace Thesis.Activities
         ClassroomManager classManager;
         Teacher loggedOnUser;
         List<Subject> Subjects;
-
+        public QuizManager quizManager;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -89,6 +89,7 @@ namespace Thesis.Activities
             ServerController.context = this;
             Toast.MakeText(this, "Welcome " + loggedOnUser.GetFullName + "!", ToastLength.Long).Show();
             //var list = FragmentManager.FindFragmentById<SubjectFragment>(Resource.Layout.fragment_subjects); //for communicating with fragments
+            quizManager = new QuizManager(classManager.GetTeacher.GetID);
         }
 
         public ClassroomManager GetClassManager { get { return classManager; } }

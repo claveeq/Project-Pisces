@@ -7,7 +7,7 @@
         android:text="Export Score to CSV File"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/fragment_activequiz_btnSaveScores" />
+        android:id="@+id/fragment_activequiz_btnExportScores" />
     <Button
         android:text="End Quiz"
         android:layout_width="match_parent"

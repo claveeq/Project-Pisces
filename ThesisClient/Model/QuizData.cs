@@ -9,7 +9,7 @@ public class QuizData
     //string title;
     public List<QuizItem> items;
     //int timer; 
-
+    public string Passcode { get; set; }
     public string Title { get; set; }
     public string quizitems { get; set; }
 

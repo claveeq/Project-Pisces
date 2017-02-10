@@ -16,6 +16,7 @@ namespace ThesisClient.Fragment
 {
     public class ActiveHomeFragment : Android.App.Fragment
     {
+        DashboardActivity dashActivity;
         Button btnScan;
 
         public override void OnCreate(Bundle savedInstanceState)
@@ -26,6 +27,7 @@ namespace ThesisClient.Fragment
         public override void OnActivityCreated(Bundle savedInstanceState)
         {
             base.OnActivityCreated(savedInstanceState);
+            dashActivity = Activity as DashboardActivity;
             btnScan = View.FindViewById<Button>(Resource.Id.fragment_home_active_btnScan);
 
             btnScan.Click += BtnScan_Click;
@@ -37,7 +39,7 @@ namespace ThesisClient.Fragment
             if(ClientController.QuizIsAvailable)
             {
                 Intent intent = new Intent(Activity, typeof(QuizActivity));
-                intent.PutExtra("passcode", "dfsd");
+                intent.PutExtra("passcode", dashActivity.authStudent.GetPasscode);
                 StartActivity(intent);
             }
         }
