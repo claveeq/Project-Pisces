@@ -4,13 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:minWidth="25px"
-    android:minHeight="25px">
+    android:minHeight="25px"
+    android:background="#F5F5F5">
     <Button
         android:text="Date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/fragment_attendance_btnDateDialog"
-        android:background="?android:attr/selectableItemBackground"/>
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_margin="10dp" />
     <ListView
         android:minWidth="25px"
         android:minHeight="25px"

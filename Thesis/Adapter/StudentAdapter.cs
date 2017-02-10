@@ -84,11 +84,11 @@ namespace Thesis.Adapter
             //fill in your items //attendance status
             switch(_students[position].Status)
             {
-                default://absebt
+                default://absent
                     holder.ImageStatus.SetImageResource(Resource.Drawable.ic_account_box_grey_800_24dp);
                     break;
                 case 2://present
-                    holder.ImageStatus.SetImageResource(Resource.Drawable.ic_account_box_amber_900_24dp);
+                    holder.ImageStatus.SetImageResource(Resource.Drawable.ic_account_box_lime_A700_24dp);
                     break;
                 case 3://late
                     holder.ImageStatus.SetImageResource(Resource.Drawable.ic_account_box_amber_200_24dp);

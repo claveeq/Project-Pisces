@@ -4,11 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:minWidth="25px"
-    android:minHeight="25px">
+    android:minHeight="25px"
+    android:background="#F5F5F5">
     <FrameLayout
         android:minWidth="25px"
         android:minHeight="25px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/frame_createQuiz_frame" />
+        android:id="@+id/frame_createQuiz_frame"
+        android:layout_margin="5dp" />
 </LinearLayout>
