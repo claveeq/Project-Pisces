@@ -13,7 +13,8 @@ using System.Collections.Generic;
 namespace ThesisClient
 { 
     enum Task { login, quiz, none, exit,
-        quizAccept
+        quizAccept,
+        quizDone
     }
 
     static class ClientController
@@ -30,6 +31,10 @@ namespace ThesisClient
 
         public static QuizData quiz;
         public static bool QuizIsAvailable = false;
+        //quiz items
+        public static QuizData quizData;
+        public static List<QuizItem> quizItem;
+        public static QuizData doneQuizData;
         public static bool ConnectToServer(string iPddress)
         {
             //int attempts = 0;
@@ -83,6 +88,12 @@ namespace ThesisClient
             {
                 currentTask = Task.quiz;
                 SendString("quiz");
+                ReceiveResponse(currentTask);
+            }
+            else if(task == Task.quizDone)
+            {
+                currentTask = Task.quizDone;
+                SendString("quizdone");
                 ReceiveResponse(currentTask);
             }
             else if(task == Task.exit)
@@ -145,12 +156,25 @@ namespace ThesisClient
             {
                 // quiz = BinarySerializer.ByteArrayToQuiz(buffer);
                 string json = Encoding.ASCII.GetString(data);
-                var quiz = JsonConvert.DeserializeObject<QuizData>(json);
-                var items = JsonConvert.DeserializeObject<List<QuizItem>>(quiz.quizitems);
+                quizData = JsonConvert.DeserializeObject<QuizData>(json);
+                quizItem = JsonConvert.DeserializeObject<List<QuizItem>>(quizData.quizitems);
    
                 SendString("done");
                 QuizIsAvailable = true;
                 currentTask = Task.none;
+            }
+            else if(current == Task.quizDone)//2nd step ofo sending quiz
+            {
+                string text = Encoding.ASCII.GetString(data);
+                if(text.ToLower() == "ok")
+                {
+                    var json = JsonConvert.SerializeObject(doneQuizData);
+                    SendString(json);
+                }
+                else if(text.ToLower() == "true")
+                {
+                    currentTask = Task.none;
+                }
             }
             else
             {

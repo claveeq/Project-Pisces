@@ -38,13 +38,13 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="5dp" />
             <TextView
-               android:layout_width="fill_parent"
-               android:layout_height="wrap_content"
-               android:textAppearance="?android:attr/textAppearanceLarge"
-               android:textColor="#333333"
-               android:id="@+id/fragment_quizinfo_tvDescription"
-               android:layout_gravity="center_horizontal"
-               android:layout_marginLeft="5dp" />
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#333333"
+                android:id="@+id/fragment_quizinfo_tvDescription"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="5dp" />
             <Button
                 android:text="Start the Quiz"
                 android:layout_width="match_parent"

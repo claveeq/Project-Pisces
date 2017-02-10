@@ -124,6 +124,7 @@
     <Compile Include="Activities\RegisterActivity.cs" />
     <Compile Include="Adapter\AttendanceAdapter.cs" />
     <Compile Include="Adapter\QuizAdapter.cs" />
+    <Compile Include="Adapter\QuizScoreAdapter.cs" />
     <Compile Include="Adapter\QuizSpinnerAdapter.cs" />
     <Compile Include="Adapter\StudentAdapter.cs" />
     <Compile Include="Adapter\SubjectAdapter.cs" />
@@ -139,6 +140,7 @@
     <Compile Include="Fragments\AccountFragment.cs" />
     <Compile Include="Fragments\ActiveHomeFragment.cs" />
     <Compile Include="Fragments\ActiveStudentsFragment.cs" />
+    <Compile Include="Fragments\ActiveQuizFragment.cs" />
     <Compile Include="Fragments\AddStudentFragment.cs" />
     <Compile Include="Fragments\AddSubjectFragment.cs" />
     <Compile Include="Fragments\AttendanceFragment.cs" />
@@ -253,6 +255,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\item_attendance.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\fragment_active_quiz.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

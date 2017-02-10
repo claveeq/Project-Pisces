@@ -60,7 +60,8 @@ namespace Thesis.Fragments
             {
                 quizManager.DeserializeQuiz(quizName);
                 quizManager.StartQuiz();
-           
+                classManager.QuizIsActive = true;
+                dashActivity.ReplaceFragment(dashActivity.activeHomeFragment);
             }
         }
 

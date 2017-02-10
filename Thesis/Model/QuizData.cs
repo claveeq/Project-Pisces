@@ -7,18 +7,20 @@ using System.Collections.Generic;
 public class QuizData
 {
     //string title;
-    //List<QuizItem> items;
+    public List<QuizItem> items;
     //int timer; 
 
     public string Title { get; set; }
-
-    //   public List<QuizItem> quizitems { get; set; }
     public string quizitems { get; set; }
-    public QuizData(string title, List<QuizItem> items)
+
+    public QuizData(string title, List<QuizItem> items, bool removeAnswers)
     {
         //    this.title = title;
         //    this.items = RemoveAnswersInTheList(items);
         Title = title;
+        if(removeAnswers)
+            RemoveAnswersInTheList(items);
+
         quizitems = JsonConvert.SerializeObject(items);
         // quizitems = RemoveAnswersInTheList(items); 
     }
@@ -27,10 +29,14 @@ public class QuizData
         var newQuizItems = new List<QuizItem>();
         foreach(var item in items)
         {
-            item.Answer = string.Empty;
-            //      QuizDataItem quizitem = new QuizDataItem(item.ItemNo, item.Question, item.AnsA, item.AnsB, item.AnsC, item.AnsD, item.Answer);
+            item.Answer = string.Empty;        
             newQuizItems.Add(item);
         }
         return newQuizItems;
+    }
+
+    public void DezerializeListItems()
+    {
+        items = JsonConvert.DeserializeObject<List<QuizItem>>(quizitems);
     }
 }

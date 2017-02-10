@@ -10,15 +10,34 @@ using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using ThesisClient.Activities;
 
 namespace ThesisClient.QuizFragments
 {
     public class EndQuizFragment : Android.App.Fragment
     {
+        QuizActivity quizActivity;
+        QuizManager quizManager;
+
+        Button btnEnqQuiz;
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             // Create your fragment here
+        }
+        public override void OnActivityCreated(Bundle savedInstanceState)
+        {
+            base.OnActivityCreated(savedInstanceState);
+            quizActivity = Activity as QuizActivity;
+            quizManager = quizActivity.quizManager;
+            btnEnqQuiz = View.FindViewById<Button>(Resource.Id.fragment_quiz_btnDone);
+            btnEnqQuiz.Click += BtnEnqQuiz_Click;
+        }
+
+        private void BtnEnqQuiz_Click(object sender, EventArgs e)
+        {
+            quizManager.SendQuiz();
+            quizActivity.Finish();
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)

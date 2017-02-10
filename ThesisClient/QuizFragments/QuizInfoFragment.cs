@@ -12,12 +12,13 @@ using Android.Views;
 using Android.Widget;
 using ThesisClient.Activities;
 
+
 namespace ThesisClient.QuizFragments
 {
     public class QuizInfoFragment : Android.App.Fragment
     {
+        QuizManager quizManager;
         QuizActivity quizActivity;
-
         Button btnStart;
         TextView tvTitle;
         TextView tvDescription;
@@ -31,6 +32,8 @@ namespace ThesisClient.QuizFragments
         {
             base.OnActivityCreated(savedInstanceState);
             quizActivity = Activity as QuizActivity;
+            quizManager = quizActivity.quizManager;
+
             btnStart = View.FindViewById<Button>(Resource.Id.fragment_quizinfo_btnStart);
             tvTitle = View.FindViewById<TextView>(Resource.Id.fragment_quizinfo_tvTitle);
             tvDescription = View.FindViewById<TextView>(Resource.Id.fragment_quizinfo_tvTitle);

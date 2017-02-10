@@ -15,7 +15,8 @@ using Thesis.Model;
 namespace Thesis
 {
     enum task { login, quiz, assignments, letures, none, exit,
-        quizAccept
+        quizAccept,
+        quizDone
     }
     
     static class ServerController
@@ -164,6 +165,12 @@ namespace Thesis
                     current.Send(data);
                     currentTask = task.quizAccept;
                 }
+                else if(text.ToLower() == "quizdone")
+                {
+                    byte[] data = Encoding.ASCII.GetBytes("ok");
+                    current.Send(data);
+                    currentTask = task.quizDone;
+                }
                 else if(text.ToLower() == "exit") // Client wants to exit gracefully
                 {
                     // Always Shutdown before closing
@@ -230,6 +237,25 @@ namespace Thesis
                     {
                         currentTask = task.none;
                     } 
+                }
+                else if(currentTask == task.quizDone)
+                {
+                    try
+                    {
+                        string json = Encoding.ASCII.GetString(recBuf);
+                        var quizDone = JsonConvert.DeserializeObject<QuizData>(json);
+                        quizDone.DezerializeListItems();
+                        // quizItem = JsonConvert.DeserializeObject<List<QuizItem>>(quizData.quizitems);
+                    }
+                    catch(Exception)
+                    {
+
+                        current.Send(Encoding.ASCII.GetBytes("false"));
+                    }
+                    finally
+                    {
+                        current.Send(Encoding.ASCII.GetBytes("true"));
+                    }                  
                 }
             }
             current.BeginReceive(buffer, 0, BUFFER_SIZE, SocketFlags.None, ReceiveCallback, current);

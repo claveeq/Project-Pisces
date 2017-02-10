@@ -27,6 +27,7 @@ namespace Thesis
         //private List<Student> _activeStudents; //students who joined the class
         private List<Student> _subjectStudents; //students who are enrolled in a subject
         private bool classroomIsActive = false; //active is when the teacher starts the server
+        private bool quizIsActive = false;
         //FOR QUIZ
 
 
@@ -51,6 +52,11 @@ namespace Thesis
         public bool ClassroomIsActive {
             get { return classroomIsActive; }
             set { classroomIsActive = value; }
+        }
+        public bool QuizIsActive
+        {
+            get { return quizIsActive; }
+            set { quizIsActive = value; }
         }
         public Teacher GetTeacher { get { return _teacher; } }
         public List<Subject> GetSubjects { get { return _teachersSubjects; } }

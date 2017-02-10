@@ -37,6 +37,7 @@ namespace Thesis.Activities
         public AddSubjectFragment AddSubjectFragment;
         public AddStudentFragment AddStudentFragment;
         public QuizFragment QuizFragment;
+        public ActiveQuizFragment activeQuizFragment;
         public AttendanceFragment AttendanceFragment;
         public Stack<Fragment> stackFragments;
         public Fragment currentFragment = new Fragment();
@@ -112,6 +113,7 @@ namespace Thesis.Activities
             AddSubjectFragment = new AddSubjectFragment();
             AddStudentFragment = new AddStudentFragment();
             QuizFragment = new QuizFragment();
+            activeQuizFragment = new ActiveQuizFragment();
             AttendanceFragment = new AttendanceFragment();
             stackFragments = new Stack<Fragment>();
         }
@@ -197,8 +199,16 @@ namespace Thesis.Activities
                 case (Resource.Id.nav_home):
                     if(classManager.ClassroomIsActive)
                     {
-                        ReplaceFragment(activeHomeFragment);
-                        SupportActionBar.Title = "Active Dashboard";
+                        if(classManager.QuizIsActive)
+                        {
+                            ReplaceFragment(activeQuizFragment);
+                            SupportActionBar.Title = "Quiz";
+                        }
+                        else
+                        {
+                            ReplaceFragment(activeHomeFragment);
+                            SupportActionBar.Title = "Active Dashboard";
+                        }
                     }
                     else
                     {

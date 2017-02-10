@@ -23,13 +23,15 @@ namespace ThesisClient.Activities
         public QuizInfoFragment quizInfoFragment;
         public QuizItemFragment quizItemFragment;
         public EndQuizFragment endQuizFragment;
-
+        public QuizManager quizManager;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.Quiz);
             initViews();
-            // Create your application here
+            // Create your application here 
+            string passcode = Intent.GetStringExtra("passcode") ?? "Data not available";
+            quizManager = new QuizManager(passcode, ClientController.quizData.Title, ClientController.quizItem);
         }
 
         private void initViews()
@@ -51,9 +53,10 @@ namespace ThesisClient.Activities
             if(fragment.IsVisible)
                 return;
             var trans = FragmentManager.BeginTransaction();
-            trans.Replace(Resource.Id.fragmentContainer, fragment);
+            trans.Replace(Resource.Id.quiz_flQuizContainer, fragment);
             trans.AddToBackStack(null);
             trans.Commit();
+
             currentFragment = fragment;
         }
     }

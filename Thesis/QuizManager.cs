@@ -83,9 +83,7 @@ namespace Thesis
 
         public void StartQuiz()
         {
-            QuizData quizdata = new QuizData(quiz.Title, quiz.GetQuizitems);
-            var dfdf = JsonConvert.SerializeObject(quiz.GetQuizitems);
-            var dfsd = JsonConvert.DeserializeObject<List<QuizItem>>(dfdf);
+            QuizData quizdata = new QuizData(quiz.Title, quiz.GetQuizitems, true);
             ServerController.quizData = quizdata; //to start the quiz, set it to the server
         }
         public void CheckQuiz()
