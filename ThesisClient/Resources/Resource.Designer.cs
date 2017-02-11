@@ -2111,8 +2111,8 @@ namespace ThesisClient
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f060090
-			public const int action0 = 2131099792;
+			// aapt resource value: 0x7f060093
+			public const int action0 = 2131099795;
 			
 			// aapt resource value: 0x7f06005e
 			public const int action_bar = 2131099742;
@@ -2138,8 +2138,8 @@ namespace ThesisClient
 			// aapt resource value: 0x7f06005f
 			public const int action_context_bar = 2131099743;
 			
-			// aapt resource value: 0x7f060094
-			public const int action_divider = 2131099796;
+			// aapt resource value: 0x7f060097
+			public const int action_divider = 2131099799;
 			
 			// aapt resource value: 0x7f060003
 			public const int action_menu_divider = 2131099651;
@@ -2186,8 +2186,8 @@ namespace ThesisClient
 			// aapt resource value: 0x7f060047
 			public const int buttonPanel = 2131099719;
 			
-			// aapt resource value: 0x7f060091
-			public const int cancel_action = 2131099793;
+			// aapt resource value: 0x7f060094
+			public const int cancel_action = 2131099796;
 			
 			// aapt resource value: 0x7f06002c
 			public const int center = 2131099692;
@@ -2201,8 +2201,8 @@ namespace ThesisClient
 			// aapt resource value: 0x7f060055
 			public const int checkbox = 2131099733;
 			
-			// aapt resource value: 0x7f060097
-			public const int chronometer = 2131099799;
+			// aapt resource value: 0x7f06009a
+			public const int chronometer = 2131099802;
 			
 			// aapt resource value: 0x7f060035
 			public const int clip_horizontal = 2131099701;
@@ -2258,8 +2258,8 @@ namespace ThesisClient
 			// aapt resource value: 0x7f06001d
 			public const int end = 2131099677;
 			
-			// aapt resource value: 0x7f06009c
-			public const int end_padder = 2131099804;
+			// aapt resource value: 0x7f06009f
+			public const int end_padder = 2131099807;
 			
 			// aapt resource value: 0x7f060026
 			public const int enterAlways = 2131099686;
@@ -2315,35 +2315,35 @@ namespace ThesisClient
 			// aapt resource value: 0x7f060082
 			public const int fragment_home_teahchersIPAddress = 2131099778;
 			
-			// aapt resource value: 0x7f060081
-			public const int fragment_home_teahchersIPAddress = 2131099777;
-			
-			// aapt resource value: 0x7f06008c
-			public const int fragment_quiz_btnA = 2131099788;
-			
-			// aapt resource value: 0x7f06008d
-			public const int fragment_quiz_btnB = 2131099789;
-			
-			// aapt resource value: 0x7f06008e
-			public const int fragment_quiz_btnC = 2131099790;
-			
 			// aapt resource value: 0x7f06008f
-			public const int fragment_quiz_btnD = 2131099791;
+			public const int fragment_quiz_btnA = 2131099791;
+			
+			// aapt resource value: 0x7f060090
+			public const int fragment_quiz_btnB = 2131099792;
+			
+			// aapt resource value: 0x7f060091
+			public const int fragment_quiz_btnC = 2131099793;
+			
+			// aapt resource value: 0x7f060092
+			public const int fragment_quiz_btnD = 2131099794;
+			
+			// aapt resource value: 0x7f060087
+			public const int fragment_quiz_btnDone = 2131099783;
 			
 			// aapt resource value: 0x7f060086
 			public const int fragment_quiz_btnTakeQuiz = 2131099782;
 			
 			// aapt resource value: 0x7f06008c
-			public const int fragment_quiz_tvQuestion = 2131099788;
-			
-			// aapt resource value: 0x7f06008b
-			public const int fragment_quiz_tvQuestion = 2131099787;
-			
-			// aapt resource value: 0x7f06008c
-			public const int fragment_quiz_tvQuestion = 2131099788;
+			public const int fragment_quiz_tvItemNo = 2131099788;
 			
 			// aapt resource value: 0x7f06008d
-			public const int fragment_quiz_tvTimer = 2131099789;
+			public const int fragment_quiz_tvQuestion = 2131099789;
+			
+			// aapt resource value: 0x7f06008e
+			public const int fragment_quiz_tvTimer = 2131099790;
+			
+			// aapt resource value: 0x7f06008b
+			public const int fragment_quizinfo_btnStart = 2131099787;
 			
 			// aapt resource value: 0x7f06008a
 			public const int fragment_quizinfo_tvDescription = 2131099786;
@@ -2354,14 +2354,11 @@ namespace ThesisClient
 			// aapt resource value: 0x7f060088
 			public const int fragment_quizinfo_tvTitle = 2131099784;
 			
-			// aapt resource value: 0x7f060087
-			public const int fragment_quizinfo_tvTitle = 2131099783;
-			
-			// aapt resource value: 0x7f06009e
-			public const int group_Main = 2131099806;
-			
 			// aapt resource value: 0x7f0600a1
-			public const int group_SubMain = 2131099809;
+			public const int group_Main = 2131099809;
+			
+			// aapt resource value: 0x7f0600a3
+			public const int group_SubMain = 2131099811;
 			
 			// aapt resource value: 0x7f060005
 			public const int home = 2131099653;
@@ -2378,8 +2375,11 @@ namespace ThesisClient
 			// aapt resource value: 0x7f060042
 			public const int image = 2131099714;
 			
-			// aapt resource value: 0x7f06009b
-			public const int info = 2131099803;
+			// aapt resource value: 0x7f06006d
+			public const int imageView1 = 2131099757;
+			
+			// aapt resource value: 0x7f06009e
+			public const int info = 2131099806;
 			
 			// aapt resource value: 0x7f060000
 			public const int item_touch_helper_previous_elevation = 2131099648;
@@ -2387,11 +2387,11 @@ namespace ThesisClient
 			// aapt resource value: 0x7f060030
 			public const int left = 2131099696;
 			
-			// aapt resource value: 0x7f060095
-			public const int line1 = 2131099797;
+			// aapt resource value: 0x7f060098
+			public const int line1 = 2131099800;
 			
-			// aapt resource value: 0x7f060099
-			public const int line3 = 2131099801;
+			// aapt resource value: 0x7f06009c
+			public const int line3 = 2131099804;
 			
 			// aapt resource value: 0x7f06000b
 			public const int listMode = 2131099659;
@@ -2399,8 +2399,8 @@ namespace ThesisClient
 			// aapt resource value: 0x7f060044
 			public const int list_item = 2131099716;
 			
-			// aapt resource value: 0x7f060093
-			public const int media_actions = 2131099795;
+			// aapt resource value: 0x7f060096
+			public const int media_actions = 2131099798;
 			
 			// aapt resource value: 0x7f06001e
 			public const int middle = 2131099678;
@@ -2411,32 +2411,29 @@ namespace ThesisClient
 			// aapt resource value: 0x7f060016
 			public const int multiply = 2131099670;
 			
-			// aapt resource value: 0x7f0600a5
-			public const int nav_About = 2131099813;
-			
-			// aapt resource value: 0x7f0600a2
-			public const int nav_Account = 2131099810;
+			// aapt resource value: 0x7f0600a7
+			public const int nav_About = 2131099815;
 			
 			// aapt resource value: 0x7f0600a4
-			public const int nav_HelpAndFeedback = 2131099812;
-			
-			// aapt resource value: 0x7f0600a3
-			public const int nav_Settings = 2131099811;
+			public const int nav_Account = 2131099812;
 			
 			// aapt resource value: 0x7f0600a6
-			public const int nav_add = 2131099814;
+			public const int nav_HelpAndFeedback = 2131099814;
 			
-			// aapt resource value: 0x7f0600a7
-			public const int nav_delete = 2131099815;
+			// aapt resource value: 0x7f0600a5
+			public const int nav_Settings = 2131099813;
 			
 			// aapt resource value: 0x7f0600a8
-			public const int nav_edit = 2131099816;
+			public const int nav_add = 2131099816;
 			
-			// aapt resource value: 0x7f06009f
-			public const int nav_home = 2131099807;
+			// aapt resource value: 0x7f0600a9
+			public const int nav_delete = 2131099817;
 			
-			// aapt resource value: 0x7f0600a0
-			public const int nav_quiz = 2131099808;
+			// aapt resource value: 0x7f0600aa
+			public const int nav_edit = 2131099818;
+			
+			// aapt resource value: 0x7f0600a2
+			public const int nav_home = 2131099810;
 			
 			// aapt resource value: 0x7f060073
 			public const int nav_view = 2131099763;
@@ -2468,8 +2465,8 @@ namespace ThesisClient
 			// aapt resource value: 0x7f060007
 			public const int progress_horizontal = 2131099655;
 			
-			// aapt resource value: 0x7f06009d
-			public const int quiz_flQuizContainer = 2131099805;
+			// aapt resource value: 0x7f0600a0
+			public const int quiz_flQuizContainer = 2131099808;
 			
 			// aapt resource value: 0x7f060057
 			public const int radio = 2131099735;
@@ -2567,8 +2564,8 @@ namespace ThesisClient
 			// aapt resource value: 0x7f060032
 			public const int start = 2131099698;
 			
-			// aapt resource value: 0x7f060092
-			public const int status_bar_latest_event_content = 2131099794;
+			// aapt resource value: 0x7f060095
+			public const int status_bar_latest_event_content = 2131099797;
 			
 			// aapt resource value: 0x7f060058
 			public const int submenuarrow = 2131099736;
@@ -2579,11 +2576,11 @@ namespace ThesisClient
 			// aapt resource value: 0x7f06000d
 			public const int tabMode = 2131099661;
 			
-			// aapt resource value: 0x7f06009a
-			public const int text = 2131099802;
+			// aapt resource value: 0x7f06009d
+			public const int text = 2131099805;
 			
-			// aapt resource value: 0x7f060098
-			public const int text2 = 2131099800;
+			// aapt resource value: 0x7f06009b
+			public const int text2 = 2131099803;
 			
 			// aapt resource value: 0x7f060050
 			public const int textSpacerNoButtons = 2131099728;
@@ -2591,8 +2588,8 @@ namespace ThesisClient
 			// aapt resource value: 0x7f06007d
 			public const int text_input_password_toggle = 2131099773;
 			
-			// aapt resource value: 0x7f060096
-			public const int time = 2131099798;
+			// aapt resource value: 0x7f060099
+			public const int time = 2131099801;
 			
 			// aapt resource value: 0x7f060046
 			public const int title = 2131099718;

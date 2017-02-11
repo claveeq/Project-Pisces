@@ -139,10 +139,10 @@ namespace ThesisClient.Activities
                     }
                     SupportActionBar.Title = "Dashboard";
                     break;
-                case (Resource.Id.nav_quiz):
-                    ReplaceFragment(quizFragment);
-                    SupportActionBar.Title = "Quiz";
-                    break;
+                //case (Resource.Id.nav_quiz):
+                //    ReplaceFragment(quizFragment);
+                //    SupportActionBar.Title = "Quiz";
+                //    break;
                 case (Resource.Id.nav_Account):
                     ReplaceFragment(accountFragment);
                     SupportActionBar.Title = "Account";

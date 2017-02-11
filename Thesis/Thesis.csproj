@@ -262,6 +262,9 @@
     <AndroidResource Include="Resources\layout\fragment_active_quiz.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\item_quizScore.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Authentication.axml">

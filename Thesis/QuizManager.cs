@@ -32,7 +32,7 @@ namespace Thesis
 
         public Quiz Quiz { get { return quiz; } }
 
-        List<CorrectAnswers> correct;
+        public   List<CorrectAnswers> correct;
 
         public QuizManager(int teachersid)
         {

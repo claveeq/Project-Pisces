@@ -14,11 +14,11 @@ namespace Thesis.Model
 {
     public class StudentQuizScore
     {
-        string passcode;
-        string name;
+        public string passcode;
+        public string name;
         int teachersID;
-        int score = 0;
-        List<QuizItem> items;
+        public int score = 0;
+        public List<QuizItem> items;
         List<QuizItem> correctItems;
         public StudentQuizScore(string passcode,int teachersID,  List<QuizItem> items, List<QuizItem> correctItems)
         {

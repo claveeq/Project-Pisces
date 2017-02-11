@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <Button
-        android:text="Export Score to CSV File"
+        android:text="Refresh List"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/fragment_activequiz_btnExportScores" />
@@ -13,10 +13,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/fragment_activequiz_btnEndQuiz" />
-    <GridView
+    <ListView
         android:minWidth="25px"
         android:minHeight="25px"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/fragment_activequiz_gvStudentScores" />
+        android:layout_height="match_parent"
+        android:id="@+id/fragment_activequiz_lvTuizScoreItems" />
 </LinearLayout>

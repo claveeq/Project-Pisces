@@ -135,5 +135,6 @@ namespace Thesis.Adapter
         public ImageView ImageStatus { get; set; }
         public ImageView inTheSubject { get; set; }
         public TextView Name { get; set; }
+    
     }
 }

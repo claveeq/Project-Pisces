@@ -9,17 +9,19 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Thesis.Model;
 
 namespace Thesis.Adapter
 {
-    class QuizScoreAdapter : BaseAdapter
+    class QuizScoreAdapter : BaseAdapter<StudentQuizScore>
     {
-
+        List<StudentQuizScore> quizData;
         Context context;
 
-        public QuizScoreAdapter(Context context, List<QuizData> QuizData)
+        public QuizScoreAdapter(Context context, List<StudentQuizScore> QuizData)
         {
             this.context = context;
+            quizData = QuizData; 
         }
 
         public override Java.Lang.Object GetItem(int position)
@@ -46,14 +48,16 @@ namespace Thesis.Adapter
                 var inflater = context.GetSystemService(Context.LayoutInflaterService).JavaCast<LayoutInflater>();
                 //replace with your item and your holder items
                 //comment back in
-                //view = inflater.Inflate(Resource.Layout.item, parent, false);
-                //holder.Title = view.FindViewById<TextView>(Resource.Id.text);
+                view = inflater.Inflate(Resource.Layout.item_quizScore, parent, false);
+                holder.Name = view.FindViewById<TextView>(Resource.Id.item__quizscore_name);
+                holder.Score = view.FindViewById<TextView>(Resource.Id.item__quizscore_score);
                 view.Tag = holder;
             }
 
 
             //fill in your items
-            //holder.Title.Text = "new text here";
+            holder.Name.Text = "Name: " + quizData[position].name;
+            holder.Score.Text = "Score: " + quizData[position].score.ToString() + "/"+ quizData[position].items.Count;
 
             return view;
         }
@@ -63,15 +67,22 @@ namespace Thesis.Adapter
         {
             get
             {
-                return 0;
+                return quizData.Count;
             }
         }
 
+        public override StudentQuizScore this[int position]
+        {
+            get
+            {
+                return quizData[position];
+            }
+        }
     }
 
     class QuizScoreAdapterViewHolder : Java.Lang.Object
     {
-        //Your adapter views to re-use
-        //public TextView Title { get; set; }
+        public TextView Name { get; set; }
+        public TextView Score { get; set; }
     }
 }

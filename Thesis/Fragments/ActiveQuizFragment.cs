@@ -11,6 +11,7 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Thesis.Activities;
+using Thesis.Adapter;
 
 namespace Thesis.Fragments
 {
@@ -21,7 +22,8 @@ namespace Thesis.Fragments
         QuizManager quizManager;
         Button btnExportScores;
         Button btnEndQuiz;
-        GridView gvStudentScores;
+        ListView lvTuizScoreItems;
+        QuizScoreAdapter quizScoreAdapter;
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -37,7 +39,11 @@ namespace Thesis.Fragments
 
             btnExportScores = View.FindViewById<Button>(Resource.Id.fragment_activequiz_btnExportScores);
             btnEndQuiz = View.FindViewById<Button>(Resource.Id.fragment_activequiz_btnEndQuiz);
-            gvStudentScores = View.FindViewById<GridView>(Resource.Id.fragment_activequiz_gvStudentScores);
+            lvTuizScoreItems = View.FindViewById<ListView>(Resource.Id.fragment_activequiz_lvTuizScoreItems);
+            quizScoreAdapter = new QuizScoreAdapter(dashActivity, quizManager.CheckQuiz());
+            quizScoreAdapter.NotifyDataSetChanged();
+            lvTuizScoreItems.Adapter = quizScoreAdapter;
+
 
             btnExportScores.Click += BtnExportScores_Click;
             btnEndQuiz.Click += BtnEndQuiz_Click;
@@ -52,6 +58,7 @@ namespace Thesis.Fragments
         private void BtnExportScores_Click(object sender, EventArgs e)
         {
             quizManager.CheckQuiz();
+            quizScoreAdapter.NotifyDataSetChanged();
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
