@@ -10,9 +10,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/fragment_quiz_btnCreateQuiz" />
-    <Button
+    <!--<Button
         android:text="Manage Quizzes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/fragment_quiz_btnManageQuizzes" />
+        android:id="@+id/fragment_quiz_btnManageQuizzes" />-->
+    <ListView
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/fragment_quiz_lvQuizzes"
+        android:layout_weight="1" />
+    <android.support.v7.widget.Toolbar xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/fragment_quiz_tbQuiz"
+        android:minHeight="?android:attr/actionBarSize"
+        android:background="?android:attr/colorAccent"
+        android:theme="@android:style/ThemeOverlay.Material.Dark.ActionBar"
+        android:popupTheme="@android:style/ThemeOverlay.Material.Light"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:gravity="top|start" >
+</android.support.v7.widget.Toolbar>
 </LinearLayout>

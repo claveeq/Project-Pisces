@@ -35,10 +35,14 @@ namespace Thesis.Activities
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.CreateQuiz);
             int teachersID = Intent.GetIntExtra("teachersID", 0);
+            string quizTitle = Intent.GetStringExtra("quizTitle");
             IsToManage = Intent.GetBooleanExtra("manage", false);
+           
             fragmentInstantiators();
 
             quizManager = new QuizManager(teachersID);
+            if(quizTitle != null)
+                quizManager.DeserializeQuiz(quizTitle);
         }
 
         private void fragmentInstantiators()
@@ -100,7 +104,6 @@ namespace Thesis.Activities
             Dialog dialog = builder.Create();
             dialog.Show();
             //base.OnBackPressed();
-            }
-        //}
+        }
     }
 }

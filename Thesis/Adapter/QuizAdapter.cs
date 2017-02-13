@@ -9,6 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Android.Graphics;
 
 namespace Thesis.Adapter
 {
@@ -16,6 +17,7 @@ namespace Thesis.Adapter
     {
         List<string> quizzes;
         Context context;
+        int selected = -1; // select nothing
         public QuizAdapter(Context context, List<string> quizzes)
         {
             this.context = context;
@@ -36,6 +38,16 @@ namespace Thesis.Adapter
         {
             return quizzes[position].ToString();
         }
+        public void selectedPosition(int postion)
+        {
+            selected = postion;
+        }
+        public void RefreshList(List<string> List)
+        {
+            quizzes.Clear();
+            quizzes = List;
+            selected = -1;
+        }
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
             var view = convertView;
@@ -55,6 +67,10 @@ namespace Thesis.Adapter
                 view.Tag = holder;
             }
 
+            if(position == selected)
+                holder.Title.SetBackgroundColor(Color.ParseColor("#bbdefb"));
+            else
+                holder.Title.SetBackgroundColor(Color.Transparent);
             //fill in your items
             holder.Title.Text = quizzes[position].ToString();
             //holder.Subject.Text = quizzes[position].GetTeachersID.ToString();
