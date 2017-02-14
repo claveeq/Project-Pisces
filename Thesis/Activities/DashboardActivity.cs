@@ -14,6 +14,7 @@ using Android.Support.V7.App;
 using Android.Support.V4.Widget;
 using Android.Support.Design.Widget;
 using static Android.App.DatePickerDialog;
+using Android.Support.V4.View;
 
 namespace Thesis.Activities
 {
@@ -255,7 +256,7 @@ namespace Thesis.Activities
             switch(item.ItemId)
             {
                 case Android.Resource.Id.Home:
-                    drawerLayout.OpenDrawer(Android.Support.V4.View.GravityCompat.Start);
+                    drawerLayout.OpenDrawer(GravityCompat.Start);
                     return true;
             }
             return base.OnOptionsItemSelected(item);

@@ -31,7 +31,6 @@ namespace Thesis.Fragments
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
             // Create your fragment here
         }
         public override void OnActivityCreated(Bundle savedInstanceState)

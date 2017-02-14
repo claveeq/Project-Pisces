@@ -20,9 +20,7 @@ namespace Thesis.Activities
     public class CreateQuizActivity : Activity
     {
         //Fragment
-        public QuizInfoFragment quizInfoFragment;
         public QuestionItemFragment questionItemFragment;
-        public FinilizeQuizFragment finilizeQuizFragment;
         public ManageQuizzesFragment manageQuizFragment;
         FragmentTransaction trans;
         Stack<Fragment> stackFragments;
@@ -47,23 +45,21 @@ namespace Thesis.Activities
 
         private void fragmentInstantiators()
         {
-            quizInfoFragment = new QuizInfoFragment();
             questionItemFragment = new QuestionItemFragment();
-            finilizeQuizFragment = new FinilizeQuizFragment();
             manageQuizFragment = new ManageQuizzesFragment();
             stackFragments = new Stack<Fragment>();
   
             trans = FragmentManager.BeginTransaction();
-            if(IsToManage)//if true, another fragment will show up for editing previous quizzes
-            {
+            ////if(IsToManage)//if true, another fragment will show up for editing previous quizzes
+            ////{
                 trans.Add(Resource.Id.frame_createQuiz_frame, manageQuizFragment, "manageQuiz");
                 currentFragment = manageQuizFragment;
-            }
-            else
-            { 
-                trans.Add(Resource.Id.frame_createQuiz_frame, quizInfoFragment, "quizinfo");
-                currentFragment = quizInfoFragment;
-            }
+            //}
+            //else
+            //{ 
+            //    trans.Add(Resource.Id.frame_createQuiz_frame, quizInfoFragment, "quizinfo");
+            //    currentFragment = quizInfoFragment;
+            //}
             trans.Commit();
         }
 
@@ -93,8 +89,8 @@ namespace Thesis.Activities
             //else
             //{
             var builder = new Android.Support.V7.App.AlertDialog.Builder(this);
-            builder.SetTitle("Confirm delete");
-            builder.SetMessage("Are you sure you want to exit? The quiz will be voided.");
+            builder.SetTitle("Exit");
+            builder.SetMessage("Sure you want to exit? Any changes will be voided.");
             builder.SetPositiveButton("Yes", (senderAlert, args) => {
                 Finish();
             });

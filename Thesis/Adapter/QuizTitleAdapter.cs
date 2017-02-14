@@ -13,12 +13,12 @@ using Android.Graphics;
 
 namespace Thesis.Adapter
 {
-    class QuizAdapter : BaseAdapter<string>
+    class QuizTitleAdapter : BaseAdapter<string>
     {
         List<string> quizzes;
         Context context;
         int selected = -1; // select nothing
-        public QuizAdapter(Context context, List<string> quizzes)
+        public QuizTitleAdapter(Context context, List<string> quizzes)
         {
             this.context = context;
             this.quizzes = quizzes;
@@ -40,7 +40,7 @@ namespace Thesis.Adapter
         }
         public void selectedPosition(int postion)
         {
-            selected = postion;
+            selected = postion;      
         }
         public void RefreshList(List<string> List)
         {

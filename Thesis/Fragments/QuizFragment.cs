@@ -14,17 +14,16 @@ using Thesis.Activities;
 using Android.Support.V7.App;
 using Thesis.Adapter;
 using Toolbar = Android.Support.V7.Widget.Toolbar;
+using Android.Support.Design.Widget;
 
 namespace Thesis.Fragments
 {
     public class QuizFragment : Fragment
     {
-        Button btnCreateQuiz;
-        Button btnManageQuizzes;
         ListView lvQuizzes;
         Toolbar tbQuiz;
 
-        QuizAdapter quizAdapter;
+        QuizTitleAdapter quizAdapter;
         ClassroomManager classManager;
         DashboardActivity dashActivity;
         Intent intent;
@@ -43,11 +42,9 @@ namespace Thesis.Fragments
             dashActivity = Activity as DashboardActivity;
             classManager = dashActivity.GetClassManager;
             quizManager = new QuizManager(classManager.GetTeacher.GetID);
-            quizAdapter = new QuizAdapter(dashActivity, quizManager.GetAllQuizzes());
+            quizAdapter = new QuizTitleAdapter(dashActivity, quizManager.GetAllQuizzes());
 
-            btnCreateQuiz = View.FindViewById<Button>(Resource.Id.fragment_quiz_btnCreateQuiz);
             tbQuiz = View.FindViewById<Toolbar>(Resource.Id.fragment_quiz_tbQuiz);
-            //btnManageQuizzes = View.FindViewById<Button>(Resource.Id.fragment_quiz_btnManageQuizzes);
             lvQuizzes = View.FindViewById<ListView>(Resource.Id.fragment_quiz_lvQuizzes);
             lvQuizzes.Adapter = quizAdapter;
             lvQuizzes.ItemClick += LvQuizzes_ItemClick;
@@ -55,14 +52,11 @@ namespace Thesis.Fragments
             tbQuiz.InflateMenu(Resource.Menu.quiz_tools_menu);
             tbQuiz.MenuItemClick += TbQuiz_MenuItemClick;
    
-            btnCreateQuiz.Click += delegate
-            {
-              
-            };
         }
 
         private void LvQuizzes_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
+          //  quizAdapter.RefreshList(quizManager.GetAllQuizzes());
             quizName = quizManager.GetAllQuizzes()[e.Position];
             quizAdapter.selectedPosition(e.Position);
             quizAdapter.NotifyDataSetChanged();
@@ -73,41 +67,49 @@ namespace Thesis.Fragments
             //react to click here and swap fragments or navigate
             switch(e.Item.ItemId)
             {
-                case (Resource.Id.nav_toggle):
-                    //toggle student if he/she is in the class or not
-                    if(classManager.CurrentSubject.ID == 0)
-                    {
-                        //Snackbar.Make(View, "Sorry. Can't do that here, remember:)", Snackbar.LengthShort).Show();
-                        return;
-                    }
-                    //selectedStudent.toggleInThisSubject();
-                    //studentAdapter.NotifyDataSetChanged();
+                case (Resource.Id.nav_refresh)://CREATE NEW QUIZ
+                    quizAdapter.RefreshList(quizManager.GetAllQuizzes());
+                    quizAdapter.NotifyDataSetChanged();
                     break;
-                case (Resource.Id.nav_add):
+                case (Resource.Id.nav_openFolder)://CREATE NEW QUIZ
+
+                    break;
+                case (Resource.Id.nav_add)://CREATE NEW QUIZ
                     //navigate to add fragment
                     intent = new Intent(dashActivity, typeof(CreateQuizActivity));
                     intent.PutExtra("teachersID", classManager.GetTeacher.GetID);
                     StartActivity(intent);
                     break;
-                case (Resource.Id.nav_delete):
-                    //var builder = new AlertDialog.Builder(Activity);
-                    //builder.SetTitle("Confirm delete");
-                    ////builder.SetMessage("Sure you want to delete " + selectedStudent.GetFirstName + "?");
-                    //builder.SetPositiveButton("Delete", (senderAlert, args) =>
-                    //{
-                    //    classManager.DeleteStudent(selectedStudent);
-                    //    studentAdapter.NotifyDataSetChanged();
-                    //    Snackbar.Make(View, "Student Deleted", Snackbar.LengthShort).Show();
-                    //});
-                    //builder.SetNegativeButton("Cancel", (senderAlert, args) =>
-                    //{
-                    //    Snackbar.Make(View, "Canceled", Snackbar.LengthShort).Show();
-                    //});
+                case (Resource.Id.nav_delete)://DELETE A QUIZ
+                    if(quizName == null)
+                    {
+                        Snackbar.Make(View, "Choose a Quiz you want to delete.", Snackbar.LengthShort).Show();
+                        return;
+                    }
+                    var builder = new Android.Support.V7.App.AlertDialog.Builder(Activity);
+                    builder.SetTitle("Confirm delete");
+                    builder.SetMessage("Are you sure you want to delete " + quizName  + " quiz?");
+                    builder.SetPositiveButton("Delete", (senderAlert, args) =>
+                    {
+                        quizManager.DeleteQuiz(quizName);
+                        quizAdapter.RefreshList(quizManager.GetAllQuizzes());
+                        quizAdapter.NotifyDataSetChanged();
+                        Snackbar.Make(View, "Quiz Deleted", Snackbar.LengthShort).Show();
+                    });
+                    builder.SetNegativeButton("Cancel", (senderAlert, args) =>
+                    {
+                        Snackbar.Make(View, "Canceled", Snackbar.LengthShort).Show();
+                    });
 
-                    //Dialog dialog = builder.Create();
-                    //dialog.Show();
+                    Dialog dialog = builder.Create();
+                    dialog.Show();
                     break;
-                case (Resource.Id.nav_edit):
+                case (Resource.Id.nav_edit)://MODIFY A QUIZ
+                    if(quizName == null)
+                    {
+                        Snackbar.Make(View, "Choose a Quiz you want to modify.", Snackbar.LengthShort).Show();
+                        return;
+                    }
                     intent = new Intent(dashActivity, typeof(CreateQuizActivity));
                     intent.PutExtra("teachersID", classManager.GetTeacher.GetID);
                     intent.PutExtra("quizTitle", quizName);

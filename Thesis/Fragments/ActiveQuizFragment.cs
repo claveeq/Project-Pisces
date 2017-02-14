@@ -43,7 +43,6 @@ namespace Thesis.Fragments
             quizScoreAdapter.NotifyDataSetChanged();
             lvTuizScoreItems.Adapter = quizScoreAdapter;
 
-
             btnExportScores.Click += BtnExportScores_Click;
             btnEndQuiz.Click += BtnEndQuiz_Click;
         }

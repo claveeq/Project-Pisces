@@ -119,9 +119,9 @@ namespace Thesis.QuizFragments
             btnPrevious.Click += BtnPrevious_Click;
             btnDelete.Click += BtnDelete_Click;
             ClearItems();
-            if(quizManager.Quiz != null)//if managing quiz
-                PopulateViews(quizManager.itemNavigation(quizitemNavigation.previous));
-
+            //if(quizManager.Quiz != null)//if managing quiz{
+            //    PopulateViews(quizManager.itemNavigation(quizitemNavigation.none));
+              
         }
 
         private void BtnDelete_Click(object sender, EventArgs e)
@@ -143,7 +143,11 @@ namespace Thesis.QuizFragments
                 Snackbar.Make(btnNext, "Choose an answer!", Snackbar.LengthShort).Show();
                 return;
             }
-            var quizCount = quizManager.GetQuizItems.Count;//total count of quizitems
+            int quizCount;
+            if(quizManager.Quiz != null)
+                quizCount = quizManager.GetQuizItems.Count;//total count of quizitems
+            else
+                quizCount = 0;
             if(quizCount == 0 || quizCount < quizManager.currentItemNo)
             {
                 quizManager.AddItem(etQuestion.Text, etA.Text, etB.Text, etC.Text, etD.Text, correctAnswer);
@@ -171,7 +175,7 @@ namespace Thesis.QuizFragments
 
         private void BtnEnd_Click(object sender, EventArgs e)
         {
-            quizActivity.ReplaceFragment(quizActivity.finilizeQuizFragment);
+            quizActivity.ReplaceFragment(quizActivity.manageQuizFragment);
         }
         private bool radioButtonSelected()
         {
