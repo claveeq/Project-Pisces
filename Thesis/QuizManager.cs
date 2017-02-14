@@ -151,7 +151,8 @@ namespace Thesis
                 correct.Add(new CorrectAnswers(item.ItemNo,item.Answer));
             }
         }
-        
+        public List<string> GetStingQuizzes {  get { return quiznames;  }  }
+
         public List<string> GetAllQuizzes()
         {
             string folderlocation;

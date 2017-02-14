@@ -42,10 +42,9 @@ namespace Thesis.Adapter
         {
             selected = postion;      
         }
-        public void RefreshList(List<string> List)
+        public void ResetList()
         {
             quizzes.Clear();
-            quizzes = List;
             selected = -1;
         }
         public override View GetView(int position, View convertView, ViewGroup parent)

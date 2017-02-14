@@ -61,21 +61,27 @@ namespace Thesis.Fragments
             quizAdapter.selectedPosition(e.Position);
             quizAdapter.NotifyDataSetChanged();
         }
-
+        private void reset()
+        {
+            quizName = string.Empty;
+            quizAdapter.ResetList();
+            quizManager.GetAllQuizzes();
+            quizAdapter.NotifyDataSetChanged();
+        }
         private void TbQuiz_MenuItemClick(object sender, Toolbar.MenuItemClickEventArgs e)
         {
             //react to click here and swap fragments or navigate
             switch(e.Item.ItemId)
             {
-                case (Resource.Id.nav_refresh)://CREATE NEW QUIZ
-                    quizAdapter.RefreshList(quizManager.GetAllQuizzes());
-                    quizAdapter.NotifyDataSetChanged();
+                case (Resource.Id.nav_refresh)://Refesh quiz list
+                    reset();
                     break;
                 case (Resource.Id.nav_openFolder)://CREATE NEW QUIZ
 
                     break;
                 case (Resource.Id.nav_add)://CREATE NEW QUIZ
                     //navigate to add fragment
+                    reset();
                     intent = new Intent(dashActivity, typeof(CreateQuizActivity));
                     intent.PutExtra("teachersID", classManager.GetTeacher.GetID);
                     StartActivity(intent);
@@ -92,8 +98,7 @@ namespace Thesis.Fragments
                     builder.SetPositiveButton("Delete", (senderAlert, args) =>
                     {
                         quizManager.DeleteQuiz(quizName);
-                        quizAdapter.RefreshList(quizManager.GetAllQuizzes());
-                        quizAdapter.NotifyDataSetChanged();
+                        reset();
                         Snackbar.Make(View, "Quiz Deleted", Snackbar.LengthShort).Show();
                     });
                     builder.SetNegativeButton("Cancel", (senderAlert, args) =>
@@ -105,7 +110,7 @@ namespace Thesis.Fragments
                     dialog.Show();
                     break;
                 case (Resource.Id.nav_edit)://MODIFY A QUIZ
-                    if(quizName == null)
+                    if(quizName == string.Empty)
                     {
                         Snackbar.Make(View, "Choose a Quiz you want to modify.", Snackbar.LengthShort).Show();
                         return;
@@ -115,6 +120,7 @@ namespace Thesis.Fragments
                     intent.PutExtra("quizTitle", quizName);
                     intent.PutExtra("manage", true);
                     StartActivity(intent);
+                    reset();
                     break;
             }
         }
