@@ -20,6 +20,7 @@ namespace Thesis.Model
         public int score = 0;
         public List<QuizItem> items;
         List<QuizItem> correctItems;
+
         public StudentQuizScore(string passcode,int teachersID,  List<QuizItem> items, List<QuizItem> correctItems)
         {
             this.passcode = passcode;

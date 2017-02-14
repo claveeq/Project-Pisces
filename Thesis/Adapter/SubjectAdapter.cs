@@ -12,7 +12,7 @@ namespace Thesis.Adapter
     {
         private Context context;
         private List<Subject> _subjects;
-        int selected;
+        int selected = -1;
 
         public SubjectAdapter(Context context, List<Subject> subject)
         {

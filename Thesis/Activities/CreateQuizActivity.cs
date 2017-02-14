@@ -20,9 +20,7 @@ namespace Thesis.Activities
     public class CreateQuizActivity : Activity
     {
         //Fragment
-        public QuizInfoFragment quizInfoFragment;
         public QuestionItemFragment questionItemFragment;
-        public FinilizeQuizFragment finilizeQuizFragment;
         public ManageQuizzesFragment manageQuizFragment;
         FragmentTransaction trans;
         Stack<Fragment> stackFragments;
@@ -35,31 +33,35 @@ namespace Thesis.Activities
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.CreateQuiz);
             int teachersID = Intent.GetIntExtra("teachersID", 0);
+            string quizTitle = Intent.GetStringExtra("quizTitle");
             IsToManage = Intent.GetBooleanExtra("manage", false);
+           
             fragmentInstantiators();
 
             quizManager = new QuizManager(teachersID);
+            if(quizTitle != null)
+                quizManager.DeserializeQuiz(quizTitle);
         }
 
         private void fragmentInstantiators()
         {
-            quizInfoFragment = new QuizInfoFragment();
             questionItemFragment = new QuestionItemFragment();
-            finilizeQuizFragment = new FinilizeQuizFragment();
             manageQuizFragment = new ManageQuizzesFragment();
             stackFragments = new Stack<Fragment>();
   
             trans = FragmentManager.BeginTransaction();
-            if(IsToManage)//if true, another fragment will show up for editing previous quizzes
-            {
-                trans.Add(Resource.Id.frame_createQuiz_frame, manageQuizFragment, "manageQuiz");
+            ////if(IsToManage)//if true, another fragment will show up for editing previous quizzes
+            ////{
+            //trans.Add(Resource.Id.frame_createQuiz_frame, questionItemFragment, "itemQuiz");
+            //trans.Hide(questionItemFragment);
+            trans.Add(Resource.Id.frame_createQuiz_frame, manageQuizFragment, "manageQuiz");
                 currentFragment = manageQuizFragment;
-            }
-            else
-            { 
-                trans.Add(Resource.Id.frame_createQuiz_frame, quizInfoFragment, "quizinfo");
-                currentFragment = quizInfoFragment;
-            }
+            //}
+            //else
+            //{ 
+            //    trans.Add(Resource.Id.frame_createQuiz_frame, quizInfoFragment, "quizinfo");
+            //    currentFragment = quizInfoFragment;
+            //}
             trans.Commit();
         }
 
@@ -78,7 +80,27 @@ namespace Thesis.Activities
             currentFragment = fragment;
 
         }
+        public void ShowFragment(Fragment fragment)
+        {
+            if(fragment.IsVisible)
+            {
+                return;
+            }
 
+            var fragmentTx = FragmentManager.BeginTransaction();
+
+            fragment.View.BringToFront();
+            currentFragment.View.BringToFront();
+
+            fragmentTx.Hide(currentFragment);
+            fragmentTx.Show(fragment);
+
+            fragmentTx.AddToBackStack(null);
+            stackFragments.Push(currentFragment);
+            fragmentTx.Commit();
+
+            currentFragment = fragment;
+        }
         public override void OnBackPressed()
         {          
             //if(FragmentManager.BackStackEntryCount > 0)
@@ -89,8 +111,8 @@ namespace Thesis.Activities
             //else
             //{
             var builder = new Android.Support.V7.App.AlertDialog.Builder(this);
-            builder.SetTitle("Confirm delete");
-            builder.SetMessage("Are you sure you want to exit? The quiz will be voided.");
+            builder.SetTitle("Exit");
+            builder.SetMessage("Sure you want to exit? Any changes will be voided.");
             builder.SetPositiveButton("Yes", (senderAlert, args) => {
                 Finish();
             });
@@ -100,7 +122,6 @@ namespace Thesis.Activities
             Dialog dialog = builder.Create();
             dialog.Show();
             //base.OnBackPressed();
-            }
-        //}
+        }
     }
 }

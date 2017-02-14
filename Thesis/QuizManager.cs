@@ -16,7 +16,9 @@ using Newtonsoft.Json;
 
 namespace Thesis
 {
-    public enum quizitemNavigation { next, previous, add ,delete}
+    public enum quizitemNavigation { next, previous, add ,delete,
+        none
+    }
     /*The most important thing in this object is to set the field quiz because
      * to avoid error. The said field is commonly used in most of the methods;
     */
@@ -29,7 +31,7 @@ namespace Thesis
         List<string> quiznames;
         List<StudentQuizScore> scores = new List<StudentQuizScore>();
         public int currentItemNo = 1;
-
+        public string currentSubject;
         public Quiz Quiz { get { return quiz; } }
 
         public   List<CorrectAnswers> correct;
@@ -41,9 +43,9 @@ namespace Thesis
             quiznames = new List<string>();
         }
 
-        public void CreateQuiz(string title, string subject)
+        public void CreateQuiz(string title)
         {
-            quiz = new Quiz(_teachersID, title, _dateCreated, new List<QuizItem>(), subject);
+            quiz = new Quiz(_teachersID, title, _dateCreated, new List<QuizItem>());
         }
 
         public List<Subject> GetTeachersSubjects()
@@ -68,11 +70,32 @@ namespace Thesis
                     //if(1 < currentItemNo)
                     //    currentItemNo -= 1;
                     break;
+                case quizitemNavigation.none:
+                    break;
             }
             QuizItem quizitem = Quiz.GetQuizitems.Where(x => x.ItemNo == currentItemNo).FirstOrDefault();
             return quizitem;
         }
+        public void DeleteQuiz(string quizName)
+        {
+            string folderlocation;
+            if(Android.OS.Environment.ExternalStorageState.Equals(Android.OS.Environment.MediaMounted))
+                folderlocation = Android.OS.Environment.ExternalStorageDirectory.Path;
+            else
+                folderlocation = Android.OS.Environment.DirectoryDocuments;
 
+            folderlocation += @"/Quizzes/" + _teachersID + "/";
+            if(!Directory.Exists(folderlocation))
+                Directory.CreateDirectory(folderlocation);
+
+            // string file = @"/*.dat";
+
+            string filepath = folderlocation;
+            //DirectoryInfo d = new DirectoryInfo(folderlocation);
+            string[] files = Directory.GetFiles(folderlocation);
+
+            File.Delete(folderlocation + quizName + ".dat");
+        }
         internal void EndQuiz()
         {
             currentItemNo = 1;
@@ -114,6 +137,24 @@ namespace Thesis
 
         public List<QuizItem> GetQuizItems { get { return quiz.GetQuizitems; } }
 
+        public void OpenQuizScoresFolder(Activity activity)
+        {
+            string folderlocation;
+            if(Android.OS.Environment.ExternalStorageState.Equals(Android.OS.Environment.MediaMounted))
+                folderlocation = Android.OS.Environment.ExternalStorageDirectory.Path;
+            else
+                folderlocation = Android.OS.Environment.DirectoryDocuments;
+
+            folderlocation += @"/Quiz Scores/" + _teachersID.ToString();
+            if(!Directory.Exists(folderlocation))
+                Directory.CreateDirectory(folderlocation);
+
+            Intent intent = new Intent(Intent.ActionView);
+            var uri = Android.Net.Uri.Parse(folderlocation);
+            intent.SetDataAndType(uri, "resource/folder");
+            activity.StartActivity(Intent.CreateChooser(intent, "Quiz Scores"));
+        }
+
         public void SerializeQuiz()
         {
             BinarySerializer.QuizObjToDataFile(quiz);
@@ -122,13 +163,14 @@ namespace Thesis
         public void DeserializeQuiz(string filename)
         {
             correct = new List<CorrectAnswers>();
-            quiz = BinarySerializer.DataFileToQuizObj(filename);
+            quiz = BinarySerializer.DataFileToQuizObj(filename, _teachersID);
             foreach(var item in quiz.GetQuizitems)
             {
                 correct.Add(new CorrectAnswers(item.ItemNo,item.Answer));
             }
         }
-        
+        public List<string> GetStingQuizzes {  get { return quiznames;  }  }
+
         public List<string> GetAllQuizzes()
         {
             string folderlocation;
@@ -137,7 +179,7 @@ namespace Thesis
             else
                 folderlocation = Android.OS.Environment.DirectoryDocuments;
 
-            folderlocation += @"/Quizzes/";
+            folderlocation += @"/Quizzes/" + _teachersID;
             if(!Directory.Exists(folderlocation))
                 Directory.CreateDirectory(folderlocation);
 
@@ -151,11 +193,13 @@ namespace Thesis
                 foreach(var file in files)
                 {
                     FileInfo fi = new FileInfo(file);
-                  //  fi.Name.Replace(fi.Extension, "");
-                    quiznames.Add(fi.Name.Replace(fi.Extension, ""));
+                    //  fi.Name.Replace(fi.Extension, "");
+                    if(!quiznames.Contains(fi.Name.Replace(fi.Extension, "")))
+                        quiznames.Add(fi.Name.Replace(fi.Extension, ""));
                 }
             }
             return quiznames;
         }
+
     }
 }

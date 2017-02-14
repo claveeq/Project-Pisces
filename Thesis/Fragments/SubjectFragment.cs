@@ -14,6 +14,7 @@ using Newtonsoft.Json;
 using Thesis.Activities;
 using Thesis.Adapter;
 using Toolbar = Android.Support.V7.Widget.Toolbar;
+using Android.Support.Design.Widget;
 
 namespace Thesis.Fragments
 {
@@ -44,9 +45,6 @@ namespace Thesis.Fragments
 
             btnToAddSubject.Click += BtnToAddSubject_Click;
 
-            //   subjects = JsonConvert.DeserializeObject<List<Subject>>("subjects");
-            //listSubjects.Adapter = new ArrayAdapter(Activity, Resource.Layout.item_subject, Resource.Id.textView1, data);
-
             dashActivity = (DashboardActivity)Activity;//communicating with activities
             
             classManager = dashActivity.GetClassManager;
@@ -74,9 +72,13 @@ namespace Thesis.Fragments
                     dashActivity.ReplaceFragment(dashActivity.AddStudentFragment);
                     break;
                 case (Resource.Id.nav_delete):
-                    //dashActivity.ShowFragment(dashActivity.AddSubjectFragment);
+                    if(selectedSubject == null)
+                    {
+                        Snackbar.Make(View, "Select a subject first.", Snackbar.LengthShort).Show();
+                        return;
+                    }
                     classManager.DeleteSubject(selectedSubject);
-                   classManager.GetSubjects.Remove(selectedSubject);
+                    classManager.GetSubjects.Remove(selectedSubject);
                     subjectAdapter.NotifyDataSetChanged();
                     break;
                 case (Resource.Id.nav_edit):
@@ -94,7 +96,8 @@ namespace Thesis.Fragments
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             // Use this to return your custom view for this Fragment
-            return inflater.Inflate(Resource.Layout.fragment_subjects, container, false); 
+            View view = inflater.Inflate(Resource.Layout.fragment_subjects, container, false);
+            return view;
         }
     }
 }

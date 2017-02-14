@@ -104,7 +104,7 @@ namespace Thesis
             else
                 folderlocation = Android.OS.Environment.DirectoryDocuments;
 
-            folderlocation += @"/Quizzes";
+            folderlocation += @"/Quizzes/" + quiz.TeachersID;
             if(!Directory.Exists(folderlocation))
                 Directory.CreateDirectory(folderlocation);
 
@@ -116,7 +116,7 @@ namespace Thesis
                 bf.Serialize(stream, quiz);
             }  
         }
-        public static Quiz DataFileToQuizObj(string filename)
+        public static Quiz DataFileToQuizObj(string filename, int teachersID)
         {
             BinaryFormatter bf = new BinaryFormatter();
             bf.Binder = new PreMergeToMergedDeserializationBinder();
@@ -126,7 +126,7 @@ namespace Thesis
             else
                 folderlocation = Android.OS.Environment.DirectoryDocuments;
 
-            folderlocation += @"/Quizzes";
+            folderlocation += @"/Quizzes/" + teachersID;
             if(!Directory.Exists(folderlocation))
                 Directory.CreateDirectory(folderlocation);
 
