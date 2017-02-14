@@ -101,6 +101,17 @@ namespace Thesis
             subjStudentTable.subj_stud_subject_id = 0;
             db.Insert(subjStudentTable);
         }
+
+        internal static void UpdateSubject(Subject selectedSubject)
+        {
+            //List<Subject> students = new List<Student>();
+            //var studentsTable = db.Table<StudentTable>();
+            //var studentData = studentsTable.Where(i => i.student_teachers_id == id);
+            //foreach(var item in studentData)
+            //    students.Add(new Student(item.student_id));
+            //return students;
+        }
+
         public static void InsertSubject(Subject subject)
         {
             SubjectsTable subjectTable = new SubjectsTable();

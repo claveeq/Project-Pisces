@@ -22,12 +22,12 @@ namespace Thesis.Fragments
     {
         EditText editSearch;
         ListView listSubjects;
-        Button btnToAddSubject;
         Subject selectedSubject;
         SubjectAdapter subjectAdapter;
         DashboardActivity dashActivity;
         ClassroomManager classManager;
         string[] data = { };
+
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -39,11 +39,7 @@ namespace Thesis.Fragments
         {
             base.OnActivityCreated(savedInstanceState);
 
-            editSearch = View.FindViewById<EditText>(Resource.Id.editSeach);
-            listSubjects = View.FindViewById<ListView>(Resource.Id.listSubjects);
-            btnToAddSubject = View.FindViewById<Button>(Resource.Id.buttonToAddSubject);
-
-            btnToAddSubject.Click += BtnToAddSubject_Click;
+            listSubjects = View.FindViewById<ListView>(Resource.Id.listSubjects);          
 
             dashActivity = (DashboardActivity)Activity;//communicating with activities
             
@@ -69,7 +65,7 @@ namespace Thesis.Fragments
             switch(e.Item.ItemId)
             {
                 case (Resource.Id.nav_add):
-                    dashActivity.ReplaceFragment(dashActivity.AddStudentFragment);
+                    dashActivity.ReplaceFragment(dashActivity.AddSubjectFragment);
                     break;
                 case (Resource.Id.nav_delete):
                     if(selectedSubject == null)
@@ -81,16 +77,16 @@ namespace Thesis.Fragments
                     classManager.GetSubjects.Remove(selectedSubject);
                     subjectAdapter.NotifyDataSetChanged();
                     break;
-                case (Resource.Id.nav_edit):
-                    //dashActivity.ShowFragment(dashActivity.AddSubjectFragment);
-                    break;
+                //case (Resource.Id.nav_edit):
+                //    if(selectedSubject == null)
+                //    {
+                //        Snackbar.Make(View, "Select a subject first.", Snackbar.LengthShort).Show();
+                //        return;
+                //    }
+                //    classManager.UpdateSubject(selectedSubject);
+                //    dashActivity.ReplaceFragment(dashActivity.AddSubjectFragment);
+                //    break;
             }
-        }
-
-        private void BtnToAddSubject_Click(object sender, EventArgs e)
-        {
-        
-            dashActivity.ReplaceFragment(dashActivity.AddSubjectFragment);
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)

@@ -55,7 +55,11 @@ namespace Thesis.Adapter
             }
 
             //fill in your items
-            holder.SubjectTitle.Text = _subjects[position].GetTitle;
+            //0 means all students and we don't want the user to delete that so we hide it
+            if(_subjects[position].ID != 0)
+                holder.SubjectTitle.Text = _subjects[position].GetTitle;
+            else
+                view.Visibility = ViewStates.Invisible;
 
             if(position == selected)
                 holder.SubjectTitle.SetBackgroundColor(Color.ParseColor("#1565c0"));

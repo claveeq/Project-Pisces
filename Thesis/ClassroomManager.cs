@@ -99,6 +99,11 @@ namespace Thesis
             }
         }
 
+        internal void UpdateSubject(Subject selectedSubject)
+        {
+            DBManager.UpdateSubject(selectedSubject);
+        }
+
         public List<string> GetAllQuizzes()
         {
             string folderlocation;
