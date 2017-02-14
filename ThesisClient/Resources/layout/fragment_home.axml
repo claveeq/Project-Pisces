@@ -1,25 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:minWidth="25px"
-    android:minHeight="25px">
-    <EditText
-        android:hint="Your Teacher's IP Address..."
-        android:layout_gravity="center"
-        android:layout_height="wrap_content"
+    android:minHeight="25px"
+    android:gravity="center"
+    android:layout_centerInParent="true">
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:id="@+id/fragment_home_teahchersIPAddress"/>
-    <EditText
-      android:hint="Your Passcode"
-      android:layout_gravity="center"
-      android:layout_height="wrap_content"
-      android:layout_width="match_parent"
-      android:id="@+id/fragment_home_passcode"/>
-    <Button
-      android:text="Join the Class"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:id="@+id/fragment_home_btn_joinClass" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
+        local:cardElevation="4dp"
+        local:contentPadding="5dp">
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="4dp"
+            android:layout_marginBottom="0.0dp">
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+                <EditText
+                    android:hint="Your Teacher's IP Address..."
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:id="@+id/fragment_home_teahchersIPAddress" />
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+                <EditText
+                    android:hint="Your Passcode"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:id="@+id/fragment_home_passcode" />
+            </android.support.design.widget.TextInputLayout>
+            <Button
+                android:text="Join the Class"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/fragment_home_btn_joinClass" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 </LinearLayout>

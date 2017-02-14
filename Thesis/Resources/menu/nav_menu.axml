@@ -7,33 +7,33 @@
       android:title="Home" />
     <item
       android:id="@+id/nav_students"
-      android:icon="@drawable/ic_home_grey_900_24dp"
+      android:icon="@drawable/ic_school_black_24dp"
       android:title="Students" />
     <item
       android:id="@+id/nav_class"
-      android:icon="@drawable/ic_home_grey_900_24dp"
+      android:icon="@drawable/ic_recent_actors_black_24dp"
       android:title="Subject" />
-    <item
+   <!--<item
       android:id="@+id/nav_attendance"
       android:icon="@drawable/ic_home_grey_900_24dp"
-      android:title="Attendance" />
+      android:title="Attendance" />   -->
     <item
       android:id="@+id/nav_quiz"
-      android:icon="@drawable/ic_home_grey_900_24dp"
+      android:icon="@drawable/ic_library_books_black_24dp"
       android:title="Quiz" />
   </group>
   <group android:checkableBehavior="single" android:id="@+id/group_SubMain">
     <item
       android:id="@+id/nav_Account"
-      android:icon="@drawable/ic_home_grey_900_24dp"
+      android:icon="@drawable/ic_event_note_black_24dp"
       android:title="Account" />
     <item
       android:id="@+id/nav_Settings"
-      android:icon="@drawable/ic_home_grey_900_24dp"
+      android:icon="@drawable/ic_settings_black_24dp"
       android:title="Settings" />
     <item
       android:id="@+id/nav_About"
-      android:icon="@drawable/ic_home_grey_900_24dp"
+      android:icon="@drawable/ic_portrait_black_24dp"
       android:title="About" />
   </group>
 </menu>

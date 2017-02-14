@@ -1,50 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
-              >
+    android:background="#F5F5F5">
+    
+      <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp"
+            local:cardElevation="4dp"
+            local:contentPadding="5dp">
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="4dp"
+                android:layout_marginBottom="0.0dp">
     <TextView
         android:text="Students Table"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView1"
-        android:layout_margin="5dp"/>
+        android:layout_margin="5dp" />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/et_studenttable"
         android:hint=""
-        android:layout_margin="5dp"/>
+        android:layout_margin="5dp" />
     <TextView
         android:text="Subjects Table"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/txtPassword"
-        android:layout_margin="5dp"/>
+        android:layout_margin="5dp" />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/et_subjecttable"
-        android:layout_margin="5dp"/>
+        android:layout_margin="5dp" />
     <TextView
         android:text="Student Subjects Table"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView1"
-        android:layout_margin="5dp"/>
+        android:layout_margin="5dp" />
     <EditText
         android:inputType="textPersonName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/et_tudentsubjec"
-        android:layout_margin="5dp"/>
+        android:layout_margin="5dp" />
     <Button
         android:text="refresh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btn_refresh"
         android:layout_margin="10dp"
-        android:background="@drawable/buttonshape"/>
+        android:background="@drawable/buttonshape" />
+    </LinearLayout>
+    </android.support.v7.widget.CardView>
 </LinearLayout>

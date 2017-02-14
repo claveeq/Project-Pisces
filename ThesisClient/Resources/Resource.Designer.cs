@@ -2078,25 +2078,34 @@ namespace ThesisClient
 			public const int ic_edit_white_24dp = 2130837595;
 			
 			// aapt resource value: 0x7f02005c
-			public const int ic_home_grey_900_24dp = 2130837596;
+			public const int ic_event_note_black_24dp = 2130837596;
 			
 			// aapt resource value: 0x7f02005d
-			public const int ic_menu_white_24dp = 2130837597;
+			public const int ic_home_grey_900_24dp = 2130837597;
 			
 			// aapt resource value: 0x7f02005e
-			public const int ic_remove_white_24dp = 2130837598;
+			public const int ic_menu_white_24dp = 2130837598;
 			
 			// aapt resource value: 0x7f02005f
-			public const int Icon = 2130837599;
+			public const int ic_portrait_black_24dp = 2130837599;
 			
 			// aapt resource value: 0x7f020060
-			public const int navigation_empty_icon = 2130837600;
-			
-			// aapt resource value: 0x7f020062
-			public const int notification_template_icon_bg = 2130837602;
+			public const int ic_remove_white_24dp = 2130837600;
 			
 			// aapt resource value: 0x7f020061
-			public const int PICA = 2130837601;
+			public const int ic_settings_black_24dp = 2130837601;
+			
+			// aapt resource value: 0x7f020062
+			public const int Icon = 2130837602;
+			
+			// aapt resource value: 0x7f020063
+			public const int navigation_empty_icon = 2130837603;
+			
+			// aapt resource value: 0x7f020065
+			public const int notification_template_icon_bg = 2130837605;
+			
+			// aapt resource value: 0x7f020064
+			public const int PICA = 2130837604;
 			
 			static Drawable()
 			{
@@ -2411,26 +2420,23 @@ namespace ThesisClient
 			// aapt resource value: 0x7f060016
 			public const int multiply = 2131099670;
 			
-			// aapt resource value: 0x7f0600a7
-			public const int nav_About = 2131099815;
+			// aapt resource value: 0x7f0600a6
+			public const int nav_About = 2131099814;
 			
 			// aapt resource value: 0x7f0600a4
 			public const int nav_Account = 2131099812;
 			
-			// aapt resource value: 0x7f0600a6
-			public const int nav_HelpAndFeedback = 2131099814;
-			
 			// aapt resource value: 0x7f0600a5
 			public const int nav_Settings = 2131099813;
 			
+			// aapt resource value: 0x7f0600a7
+			public const int nav_add = 2131099815;
+			
 			// aapt resource value: 0x7f0600a8
-			public const int nav_add = 2131099816;
+			public const int nav_delete = 2131099816;
 			
 			// aapt resource value: 0x7f0600a9
-			public const int nav_delete = 2131099817;
-			
-			// aapt resource value: 0x7f0600aa
-			public const int nav_edit = 2131099818;
+			public const int nav_edit = 2131099817;
 			
 			// aapt resource value: 0x7f0600a2
 			public const int nav_home = 2131099810;
