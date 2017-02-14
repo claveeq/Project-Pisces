@@ -25,6 +25,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp">
+              <TextView
+              android:text="Enter a subject:"
+              android:textAppearance="?android:attr/textAppearanceLarge"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:id="@+id/entersubj"
+              android:layout_margin="2dp" />
                 <EditText
                     android:hint="Subject"
                     android:layout_width="match_parent"
@@ -38,5 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:id="@+id/buttonAddSubject"
-        android:background="@drawable/buttonshape" />
+        android:background="@drawable/buttonshape"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
 </LinearLayout>

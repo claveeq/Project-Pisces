@@ -1,26 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:local="http://schemas.android.com/apk/res-auto">
-  <item
+  <group> 
+     <item
      android:id="@+id/nav_toggle"
-     android:icon="@drawable/ic_edit_white_24dp"
+     android:icon="@drawable/icon_student_toggle"
      local:showAsAction="always"
      android:title="Toggle Student in Subject"
      android:layout_gravity="center"/>
-  <item
+  </group>
+
+  <group>
+    <item
       android:id="@+id/nav_add"
-      android:icon="@drawable/ic_add_white_24dp"
+      android:icon="@drawable/icon_student_add"
       local:showAsAction="always" 
       android:title="Add Student"
       android:layout_gravity="center"/>
     <item
       android:id="@+id/nav_delete"
-      android:icon="@drawable/ic_remove_white_24dp"
+      android:icon="@drawable/icon_student_delete"
       local:showAsAction="always" 
       android:title="Delete Student" />
     <item
       android:id="@+id/nav_edit"
-      android:icon="@drawable/ic_edit_white_24dp"
+      android:icon="@drawable/icon_student_edit"
       local:showAsAction="always"
       android:title="Modify Student" />
+   </group>
 </menu>
