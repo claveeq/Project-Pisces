@@ -27,7 +27,6 @@ namespace Thesis.Fragments
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-           
             // Create your fragment here
         }
         public override void OnActivityCreated(Bundle savedInstanceState)
@@ -43,7 +42,6 @@ namespace Thesis.Fragments
             quizScoreAdapter = new QuizScoreAdapter(dashActivity, quizManager.CheckQuiz());
             quizScoreAdapter.NotifyDataSetChanged();
             lvTuizScoreItems.Adapter = quizScoreAdapter;
-
 
             btnExportScores.Click += BtnExportScores_Click;
             btnEndQuiz.Click += BtnEndQuiz_Click;

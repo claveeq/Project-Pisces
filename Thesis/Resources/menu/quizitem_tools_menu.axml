@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:local="http://schemas.android.com/apk/res-auto">
+  <item
+      android:id="@+id/nav_add"
+      android:icon="@drawable/ic_add_white_24dp"
+      local:showAsAction="always"
+      android:title="add quiz"
+      android:layout_gravity="center"
+      android:layout_marginRight="50dp"/>
+  <item
+      android:id="@+id/nav_save"
+      android:icon="@drawable/ic_edit_white_24dp"
+      local:showAsAction="always"
+      android:title="save quiz" />
+</menu>

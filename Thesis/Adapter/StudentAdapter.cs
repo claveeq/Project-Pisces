@@ -96,13 +96,9 @@ namespace Thesis.Adapter
             }
             //if a student is selected
             if(position == selected)
-            {
                 holder.ImageStatus.SetBackgroundColor(Color.ParseColor("#bbdefb"));
-            }
             else
-            {
                 holder.ImageStatus.SetBackgroundColor(Color.Transparent);
-            }
     
             //If the student is in the subject
             if(_students[position].inThisSubjects == true)

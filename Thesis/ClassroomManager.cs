@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using Thesis.Table;
 using System.Timers;
 using System.IO;
+using Android.App;
+using Thesis.Activities;
 
 namespace Thesis
 {
@@ -29,7 +31,6 @@ namespace Thesis
         private bool classroomIsActive = false; //active is when the teacher starts the server
         private bool quizIsActive = false;
         //FOR QUIZ
-
 
         //instantiate the classroom class after the authentication of the teacher
         public ClassroomManager(Teacher teacher)

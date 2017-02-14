@@ -16,19 +16,19 @@ public class Quiz
 {
     private int _teachersID;
     private string _title;
-    private string _subject;
+    //private string _subject;
     private DateTime _dateCreated;
     int item_id;
     //
-    private List<QuizItem> _items;
+    private List<QuizItem> _items = new List<QuizItem>();
 
-    public Quiz(int teachersID,string title, DateTime datecreated, List<QuizItem> items, string subject)
+    public Quiz(int teachersID,string title, DateTime datecreated, List<QuizItem> items)
     {
         _teachersID = teachersID;
         _title = title;
         _dateCreated = datecreated;
         _items = items;
-        _subject = subject;
+       // _subject = subject;
     }
 
     internal void AddItem(QuizItem item)
@@ -37,12 +37,12 @@ public class Quiz
     }
     public List<QuizItem> GetQuizitems { get { return _items; } }
     public int GetCurrentNumber { get { return item_id; }  }
-    public string Subject {
-        get { return _subject; }
-        set { _subject = value; }
-    }
     public string Title {
         get { return _title; }
         set { _title = value; }
+    }
+    public int TeachersID {
+        get { return _teachersID; }
+        set { _teachersID = value; }
     }
 }

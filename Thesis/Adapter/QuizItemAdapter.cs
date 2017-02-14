@@ -12,14 +12,16 @@ using Android.Widget;
 
 namespace Thesis.Adapter
 {
-    class QuizAdapter : BaseAdapter<string>
+    class QuizItemAdapter : BaseAdapter
     {
-        List<string> quizzes;
+
         Context context;
-        public QuizAdapter(Context context, List<string> quizzes)
+        List<QuizItem> items;
+
+        public QuizItemAdapter(Context context, List<QuizItem> items)
         {
             this.context = context;
-            this.quizzes = quizzes;
+            this.items = items;
         }
 
 
@@ -32,33 +34,29 @@ namespace Thesis.Adapter
         {
             return position;
         }
-        public string GetQuizName(int position)
-        {
-            return quizzes[position].ToString();
-        }
+
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
             var view = convertView;
-            QuizzesAdapterViewHolder holder = null;
+            QuizItemAdapterViewHolder holder = null;
 
             if(view != null)
-                holder = view.Tag as QuizzesAdapterViewHolder;
+                holder = view.Tag as QuizItemAdapterViewHolder;
 
             if(holder == null)
             {
-                holder = new QuizzesAdapterViewHolder();
+                holder = new QuizItemAdapterViewHolder();
                 var inflater = context.GetSystemService(Context.LayoutInflaterService).JavaCast<LayoutInflater>();
                 //replace with your item and your holder items
                 //comment back in
-                view = inflater.Inflate(Resource.Layout.item_quiz, parent, false);
-                holder.Title = view.FindViewById<TextView>(Resource.Id.item_quiz_title);
+                //view = inflater.Inflate(Resource.Layout.item, parent, false);
+                //holder.Title = view.FindViewById<TextView>(Resource.Id.text);
                 view.Tag = holder;
             }
 
+
             //fill in your items
-            holder.Title.Text = quizzes[position].ToString();
-            //holder.Subject.Text = quizzes[position].GetTeachersID.ToString();
-            //holder.Subject.Text = quizzes[position].ID.ToString();
+            //holder.Title.Text = "new text here";
 
             return view;
         }
@@ -68,22 +66,15 @@ namespace Thesis.Adapter
         {
             get
             {
-                return quizzes.Count;
+                return items.Count;
             }
         }
 
-        public override string this[int position]
-        {
-            get
-            {
-                return quizzes[position];
-            }
-        }
+    }
 
-        class QuizzesAdapterViewHolder : Java.Lang.Object
-        {
-            //Your adapter views to re-use
-            public TextView Title { get; set; }
-        }
+    class QuizItemAdapterViewHolder : Java.Lang.Object
+    {
+        //Your adapter views to re-use
+        //public TextView Title { get; set; }
     }
 }
