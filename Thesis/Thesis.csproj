@@ -496,6 +496,11 @@
     <AndroidResource Include="Resources\drawable\ic_settings_black_24dp.png" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\menu\quiz_tools_menu.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon_student_add.png" />
   </ItemGroup>
   <ItemGroup>
@@ -508,9 +513,10 @@
     <AndroidResource Include="Resources\drawable\icon_student_toggle.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\menu\quiz_tools_menu.xml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\bg_homeheader.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\bg_quizmenuheader.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

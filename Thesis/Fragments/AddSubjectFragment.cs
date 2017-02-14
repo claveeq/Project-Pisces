@@ -19,6 +19,7 @@ namespace Thesis.Fragments
     {
         EditText editSubject;
         Button btnAddSubject;
+        Button btnBackSubject;
         SubjectFragment subjectFragment;
         DashboardActivity DashActivity;
         ClassroomManager classManager;
@@ -33,12 +34,19 @@ namespace Thesis.Fragments
             base.OnActivityCreated(savedInstanceState);
 
             editSubject = View.FindViewById<EditText>(Resource.Id.editTextSubject);
+            btnBackSubject = View.FindViewById<Button>(Resource.Id.btnBackSubject);
             btnAddSubject = View.FindViewById<Button>(Resource.Id.buttonAddSubject);
             subjectFragment = FragmentManager.FindFragmentByTag<SubjectFragment>("Subject");
 
             btnAddSubject.Click += BtnAddSubject_Click;
+            btnBackSubject.Click += BtnBackSubject_Click;
             DashActivity = (DashboardActivity)Activity;//communicating with activities
             classManager = DashActivity.GetClassManager;
+        }
+
+        private void BtnBackSubject_Click(object sender, EventArgs e)
+        {
+            DashActivity.ReplaceFragment(DashActivity.subjectFragment);
         }
 
         private void BtnAddSubject_Click(object sender, EventArgs e)
