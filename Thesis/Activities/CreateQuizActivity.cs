@@ -52,7 +52,9 @@ namespace Thesis.Activities
             trans = FragmentManager.BeginTransaction();
             ////if(IsToManage)//if true, another fragment will show up for editing previous quizzes
             ////{
-                trans.Add(Resource.Id.frame_createQuiz_frame, manageQuizFragment, "manageQuiz");
+            //trans.Add(Resource.Id.frame_createQuiz_frame, questionItemFragment, "itemQuiz");
+            //trans.Hide(questionItemFragment);
+            trans.Add(Resource.Id.frame_createQuiz_frame, manageQuizFragment, "manageQuiz");
                 currentFragment = manageQuizFragment;
             //}
             //else
@@ -78,7 +80,27 @@ namespace Thesis.Activities
             currentFragment = fragment;
 
         }
+        public void ShowFragment(Fragment fragment)
+        {
+            if(fragment.IsVisible)
+            {
+                return;
+            }
 
+            var fragmentTx = FragmentManager.BeginTransaction();
+
+            fragment.View.BringToFront();
+            currentFragment.View.BringToFront();
+
+            fragmentTx.Hide(currentFragment);
+            fragmentTx.Show(fragment);
+
+            fragmentTx.AddToBackStack(null);
+            stackFragments.Push(currentFragment);
+            fragmentTx.Commit();
+
+            currentFragment = fragment;
+        }
         public override void OnBackPressed()
         {          
             //if(FragmentManager.BackStackEntryCount > 0)

@@ -119,9 +119,16 @@ namespace Thesis.QuizFragments
             btnPrevious.Click += BtnPrevious_Click;
             btnDelete.Click += BtnDelete_Click;
             ClearItems();
-            //if(quizManager.Quiz != null)//if managing quiz{
-            //    PopulateViews(quizManager.itemNavigation(quizitemNavigation.none));
-              
+            // if(quizManager.Quiz != null)//if managing quiz{
+            var item = quizManager.itemNavigation(quizitemNavigation.none);
+            if(item == null)
+            {
+                ClearItems();
+            }
+            else
+            {
+                PopulateViews(item);
+            }
         }
 
         private void BtnDelete_Click(object sender, EventArgs e)

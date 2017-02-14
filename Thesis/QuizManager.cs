@@ -137,6 +137,24 @@ namespace Thesis
 
         public List<QuizItem> GetQuizItems { get { return quiz.GetQuizitems; } }
 
+        public void OpenQuizScoresFolder(Activity activity)
+        {
+            string folderlocation;
+            if(Android.OS.Environment.ExternalStorageState.Equals(Android.OS.Environment.MediaMounted))
+                folderlocation = Android.OS.Environment.ExternalStorageDirectory.Path;
+            else
+                folderlocation = Android.OS.Environment.DirectoryDocuments;
+
+            folderlocation += @"/Quiz Scores/" + _teachersID.ToString();
+            if(!Directory.Exists(folderlocation))
+                Directory.CreateDirectory(folderlocation);
+
+            Intent intent = new Intent(Intent.ActionView);
+            var uri = Android.Net.Uri.Parse(folderlocation);
+            intent.SetDataAndType(uri, "resource/folder");
+            activity.StartActivity(Intent.CreateChooser(intent, "Quiz Scores"));
+        }
+
         public void SerializeQuiz()
         {
             BinarySerializer.QuizObjToDataFile(quiz);
@@ -182,5 +200,6 @@ namespace Thesis
             }
             return quiznames;
         }
+
     }
 }

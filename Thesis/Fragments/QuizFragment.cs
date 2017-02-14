@@ -77,7 +77,7 @@ namespace Thesis.Fragments
                     reset();
                     break;
                 case (Resource.Id.nav_openFolder)://CREATE NEW QUIZ
-
+                    quizManager.OpenQuizScoresFolder(Activity);
                     break;
                 case (Resource.Id.nav_add)://CREATE NEW QUIZ
                     //navigate to add fragment
@@ -110,7 +110,7 @@ namespace Thesis.Fragments
                     dialog.Show();
                     break;
                 case (Resource.Id.nav_edit)://MODIFY A QUIZ
-                    if(quizName == string.Empty)
+                    if(quizName == string.Empty || quizName == null)
                     {
                         Snackbar.Make(View, "Choose a Quiz you want to modify.", Snackbar.LengthShort).Show();
                         return;

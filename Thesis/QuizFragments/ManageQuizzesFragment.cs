@@ -63,30 +63,45 @@ namespace Thesis.QuizFragments
                 rvQuizItems.SetAdapter(quizRecycleViewAdapter);
                 quizRecycleViewAdapter.ItemClick += QuizRecycleViewAdapter_ItemClick;
             }
-            
+            else
+            {
+                quizManager.CreateQuiz(string.Empty);
+            }
             //Toolbar
             tbQuizItem = View.FindViewById<Toolbar>(Resource.Id.fragment_manageQuizzes_tbQuizItems);
             tbQuizItem.InflateMenu(Resource.Menu.quizitem_tools_menu);
             tbQuizItem.MenuItemClick += TbQuiz_MenuItemClick;
+
+
         }
 
         private void TbQuiz_MenuItemClick(object sender, Toolbar.MenuItemClickEventArgs e)
         {
             switch(e.Item.ItemId)
             {
- 
                 case (Resource.Id.nav_add)://CREATE NEW QUIZ
                     //if(quizManager.Quiz != null)
-                    //    quizManager.currentItemNo = quizManager.Quiz.GetQuizitems.Count + 1;
-                    quizManager.CreateQuiz(etQuizTitle.Text);
+                    quizManager.currentItemNo = quizManager.Quiz.GetQuizitems.Count + 1;
                     quizActivity.ReplaceFragment(quizActivity.questionItemFragment);
                     break;
                 case (Resource.Id.nav_save)://DELETE A QUIZ
+                    if(quizManager.Quiz == null)
+                    {
+                        Snackbar.Make(View, "Add Some Items :)", Snackbar.LengthShort).Show();
+                        return;
+                    }
+                    quizManager.Quiz.Title = etQuizTitle.Text;
+                    if(quizManager.Quiz.Title == string.Empty)
+                    {
+                        Snackbar.Make(View, "Write the name of you quiz. :)", Snackbar.LengthShort).Show();
+                        return;
+                    }
                     var builder = new Android.Support.V7.App.AlertDialog.Builder(Activity);
                     builder.SetTitle("Save");
                     builder.SetMessage("Sure you want to modify and save " + quizManager.Quiz.Title + "?");
                     builder.SetPositiveButton("Save", (senderAlert, args) =>
                     {
+                       
                         quizManager.SerializeQuiz();
                         Snackbar.Make(View, "Quiz modified :)", Snackbar.LengthShort).Show();
                         quizActivity.Finish();
@@ -101,9 +116,8 @@ namespace Thesis.QuizFragments
 
         private void QuizRecycleViewAdapter_ItemClick(object sender, QuizRecyleViewAdapterClickEventArgs e)
         {
-            int position = e.Position + 1;
-            quizManager.currentItemNo = position;
-            quizActivity.ReplaceFragment(quizActivity.questionItemFragment);
+            //quizManager.currentItemNo = e.Position + 1;
+            //quizActivity.ReplaceFragment(quizActivity.questionItemFragment);
         }
 
         //private void LvQuizzes_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
