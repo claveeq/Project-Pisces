@@ -66,6 +66,16 @@ namespace Thesis
 
         private void Btnsign_Click(object sender, EventArgs e)
         {
+            if(txtusername.Text == string.Empty)
+            {
+                Snackbar.Make(btnsign, "Type your username above.", Snackbar.LengthShort).Show();
+                return;
+            }
+            if(txtPassword.Text == string.Empty)
+            {
+                Snackbar.Make(btnsign, "Type your password above.", Snackbar.LengthShort).Show();
+                return;
+            }
             Intent intent = new Intent(this, typeof(Activities.DashboardActivity));
             if(Auth.AuthTeacher(txtusername.Text, txtPassword.Text))
             {

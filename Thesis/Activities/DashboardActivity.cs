@@ -58,8 +58,10 @@ namespace Thesis.Activities
             //Setting up toolbar
             SetSupportActionBar(toolbar);
             //Enable support action bar to display hamburger
+
             SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu_white_24dp);
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+
             //initializing fragments in dashboard
             fragmentTx = FragmentManager.BeginTransaction();
             //fragmentTx.Add(Resource.Id.fragmentContainer, accountFragment, "Account");

@@ -22,6 +22,7 @@ namespace Thesis.Fragments
     {
         Spinner spinnerSubject;
         Button btnStartClass;
+        Button btnLogout;
         TextView ipaddress;
         Button btnOpenAttendanceFolder;
         ClassroomManager classManager;
@@ -42,6 +43,7 @@ namespace Thesis.Fragments
             btnStartClass = View.FindViewById<Button>(Resource.Id.buttonStartClass);
             ipaddress = View.FindViewById<TextView>(Resource.Id.fragment_home_ipaddress);
             btnOpenAttendanceFolder = View.FindViewById<Button>(Resource.Id.fragment_btnOpenAttendanceDirectory);
+            btnLogout = View.FindViewById<Button>(Resource.Id.fragment_btnLogout);
             dashActivity = (DashboardActivity)Activity;
             classManager = dashActivity.GetClassManager;
 
@@ -70,6 +72,11 @@ namespace Thesis.Fragments
                  intent.SetDataAndType(uri, "resource/folder");
                  StartActivity(Intent.CreateChooser(intent, "Attendance Folder"));
              };
+            btnLogout.Click += delegate
+            {
+                Activity.StartActivity(typeof(MainActivity));
+                Activity.Finish();
+            };
             ipaddress.Text = ServerController.GetIPAddress(Activity);
         }
 

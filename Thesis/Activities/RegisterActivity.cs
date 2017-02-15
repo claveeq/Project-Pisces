@@ -12,6 +12,7 @@ using Android.Widget;
 using System.IO;
 using SQLite;
 using Thesis.Table;
+using Android.Support.Design.Widget;
 
 namespace Thesis.Activities
 {
@@ -41,6 +42,11 @@ namespace Thesis.Activities
 
         private void Btncreate_Click(object sender, EventArgs e)
         {
+            if(txtUsername.Text == string.Empty || txtPassword.Text == string.Empty || txtFullname.Text == string.Empty)
+            {
+                Snackbar.Make(btncreate, "Please fill in the required fields.", Snackbar.LengthShort).Show();
+                return;
+            }
             if(Auth.CreateTeacher(txtUsername.Text, txtPassword.Text, txtFullname.Text))
             {
                 Finish();

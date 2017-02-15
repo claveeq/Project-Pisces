@@ -22,7 +22,7 @@ namespace Thesis
     static class ServerController
     {
 
-        private static readonly Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, System.Net.Sockets.ProtocolType.Tcp);
+        private static Socket serverSocket;
         private static readonly List<Socket> clientSockets = new List<Socket>();
         private static readonly List<AuthStudent> Students = new List<AuthStudent>();
         private static readonly List<AuthStudent> UnregStudents = new List<AuthStudent>();
@@ -61,6 +61,7 @@ namespace Thesis
             //Custom IP
             try
             {
+                serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, System.Net.Sockets.ProtocolType.Tcp);
                 IPAddress ipaddress = IPAddress.Parse(ip);
                 serverSocket.Bind(new IPEndPoint(ipaddress, PORT));
 
@@ -277,7 +278,7 @@ namespace Thesis
                 socket.Close();
             }
 
-            serverSocket.Close();
+           serverSocket.Close();
         }
     }
 }
