@@ -3,14 +3,14 @@
       xmlns:local="http://schemas.android.com/apk/res-auto">
   <item
    android:id="@+id/nav_refresh"
-   android:icon="@drawable/ic_add_white_24dp"
+   android:icon="@drawable/ic_refresh_white_24dp"
    local:showAsAction="always"
    android:title="Refresh"
    android:layout_gravity="center"
    android:layout_marginRight="50dp"/>
   <item
      android:id="@+id/nav_openFolder"
-     android:icon="@drawable/ic_add_white_24dp"
+     android:icon="@drawable/ic_folder_open_white_24dp"
      local:showAsAction="always"
      android:title="Open Quiz Scores"
      android:layout_gravity="center"

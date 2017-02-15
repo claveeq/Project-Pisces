@@ -2096,55 +2096,64 @@ namespace Thesis
 			public const int ic_event_note_black_24dp = 2130837601;
 			
 			// aapt resource value: 0x7f020062
-			public const int ic_home_grey_900_24dp = 2130837602;
+			public const int ic_folder_open_white_24dp = 2130837602;
 			
 			// aapt resource value: 0x7f020063
-			public const int ic_library_books_black_24dp = 2130837603;
+			public const int ic_home_grey_900_24dp = 2130837603;
 			
 			// aapt resource value: 0x7f020064
-			public const int ic_menu_white_24dp = 2130837604;
+			public const int ic_library_books_black_24dp = 2130837604;
 			
 			// aapt resource value: 0x7f020065
-			public const int ic_portrait_black_24dp = 2130837605;
+			public const int ic_menu_white_24dp = 2130837605;
 			
 			// aapt resource value: 0x7f020066
-			public const int ic_recent_actors_black_24dp = 2130837606;
+			public const int ic_portrait_black_24dp = 2130837606;
 			
 			// aapt resource value: 0x7f020067
-			public const int ic_remove_white_24dp = 2130837607;
+			public const int ic_recent_actors_black_24dp = 2130837607;
 			
 			// aapt resource value: 0x7f020068
-			public const int ic_school_black_24dp = 2130837608;
+			public const int ic_refresh_white_24dp = 2130837608;
 			
 			// aapt resource value: 0x7f020069
-			public const int ic_settings_black_24dp = 2130837609;
+			public const int ic_remove_white_24dp = 2130837609;
 			
 			// aapt resource value: 0x7f02006a
-			public const int Icon = 2130837610;
+			public const int ic_save_white_24dp = 2130837610;
 			
 			// aapt resource value: 0x7f02006b
-			public const int icon_student_add = 2130837611;
+			public const int ic_school_black_24dp = 2130837611;
 			
 			// aapt resource value: 0x7f02006c
-			public const int icon_student_delete = 2130837612;
+			public const int ic_settings_black_24dp = 2130837612;
 			
 			// aapt resource value: 0x7f02006d
-			public const int icon_student_edit = 2130837613;
+			public const int Icon = 2130837613;
 			
 			// aapt resource value: 0x7f02006e
-			public const int icon_student_toggle = 2130837614;
+			public const int icon_student_add = 2130837614;
 			
 			// aapt resource value: 0x7f02006f
-			public const int navigation_empty_icon = 2130837615;
-			
-			// aapt resource value: 0x7f020072
-			public const int notification_template_icon_bg = 2130837618;
+			public const int icon_student_delete = 2130837615;
 			
 			// aapt resource value: 0x7f020070
-			public const int PICA_StudLogo = 2130837616;
+			public const int icon_student_edit = 2130837616;
 			
 			// aapt resource value: 0x7f020071
-			public const int pica_teacherlogo = 2130837617;
+			public const int icon_student_toggle = 2130837617;
+			
+			// aapt resource value: 0x7f020072
+			public const int navigation_empty_icon = 2130837618;
+			
+			// aapt resource value: 0x7f020075
+			public const int notification_template_icon_bg = 2130837621;
+			
+			// aapt resource value: 0x7f020073
+			public const int PICA_StudLogo = 2130837619;
+			
+			// aapt resource value: 0x7f020074
+			public const int pica_teacherlogo = 2130837620;
 			
 			static Drawable()
 			{
