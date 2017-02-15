@@ -16,7 +16,7 @@ using Android.Content;
 using Newtonsoft.Json;
 namespace Thesis
 {
-    [Activity(Label = "Thesis", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "PICA Professor", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     { 
         EditText txtusername;

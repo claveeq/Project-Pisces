@@ -183,15 +183,27 @@ namespace Thesis.Activities
 
         public override void OnBackPressed()
         {
-            //if(FragmentManager.BackStackEntryCount>0)
-            //{
-            //    FragmentManager.PopBackStack();
-            //    currentFragment = stackFragments.Pop();
-            //}
-            //else
-            //{
-            //    base.OnBackPressed();
-            //}
+            var builder = new Android.Support.V7.App.AlertDialog.Builder(this);
+            builder.SetTitle("Wait!");
+            if(classManager.ClassroomIsActive)
+            {
+                builder.SetMessage("Are you sure you want to quit? We will save the class attendance for you.");
+                builder.SetPositiveButton("Yes", (senderAlert, args) => {
+                    classManager.SaveAttendanceToCSV();
+                    this.FinishAffinity();
+                });
+                builder.SetNegativeButton("Cancel", (senderAlert, args) => {});
+            }
+            else
+            {
+                builder.SetMessage("Are you sure you want to quit?");
+                builder.SetPositiveButton("Yes", (senderAlert, args) => {
+                    this.FinishAffinity();
+                });
+                builder.SetNegativeButton("Cancel", (senderAlert, args) => { });
+            }
+            Dialog dialog = builder.Create();
+            dialog.Show();
         }
     
         private void NavigationView_NavigationItemSelected(object sender, NavigationView.NavigationItemSelectedEventArgs e)

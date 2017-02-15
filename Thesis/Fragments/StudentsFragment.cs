@@ -68,7 +68,7 @@ namespace Thesis.Fragments
                     //toggle student if he/she is in the class or not
                     if(selectedSubject.ID == 0)
                     {
-                        Snackbar.Make(View, "Try changing subject first :)", Snackbar.LengthShort).Show();
+                        Snackbar.Make(View, "Try changing the subject first :)", Snackbar.LengthShort).Show();
                         return;
                     }
                     selectedStudent.toggleInThisSubject();

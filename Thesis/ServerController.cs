@@ -23,7 +23,7 @@ namespace Thesis
     {
 
         private static Socket serverSocket;
-        private static readonly List<Socket> clientSockets = new List<Socket>();
+        private static List<Socket> clientSockets = new List<Socket>();
         private static readonly List<AuthStudent> Students = new List<AuthStudent>();
         private static readonly List<AuthStudent> UnregStudents = new List<AuthStudent>();
         private const int BUFFER_SIZE = 2048;
@@ -112,6 +112,8 @@ namespace Thesis
 
         private static void ReceiveCallback(IAsyncResult AR)
         {
+     
+          
             Socket current = (Socket)AR.AsyncState;
        
             int received;
@@ -121,13 +123,13 @@ namespace Thesis
                 received = current.EndReceive(AR);
 
             }
-            catch(SocketException)
+            catch(Exception)
             {
                 //txtbx.Text += "Client forcefully disconnected" + Environment.NewLine;
                 // Don't shutdown because the socket may be disposed and its disconnected anyway.
-                current.Close();
                 clientSockets.Remove(current);
-              //  Students.Remove(student);
+                current.Close();
+                //  Students.Remove(student);
                 return;
             }
 
@@ -272,13 +274,19 @@ namespace Thesis
         /// </summary>
         public static void CloseAllSockets()
         {
-            foreach(Socket socket in clientSockets)
+            try
             {
-                socket.Shutdown(SocketShutdown.Both);
-                socket.Close();
+                foreach(Socket socket in clientSockets)
+                {
+                    socket.Shutdown(SocketShutdown.Both);
+                    socket.Close();
+                }
+            }
+            finally
+            {
+                serverSocket.Close();
             }
 
-           serverSocket.Close();
         }
     }
 }

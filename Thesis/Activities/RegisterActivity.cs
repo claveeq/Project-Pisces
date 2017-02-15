@@ -47,9 +47,22 @@ namespace Thesis.Activities
                 Snackbar.Make(btncreate, "Please fill in the required fields.", Snackbar.LengthShort).Show();
                 return;
             }
+            if(Auth.TeacherExist(txtUsername.Text))
+            {
+                Snackbar.Make(btncreate, "The username you have entered is already exist in this app. Try a different username.", Snackbar.LengthLong).Show();
+                return;
+            }
             if(Auth.CreateTeacher(txtUsername.Text, txtPassword.Text, txtFullname.Text))
             {
-                Finish();
+                var builder = new AlertDialog.Builder(this);
+                builder.SetTitle("Registration");
+                builder.SetMessage( "Account Successfully Created, "+ txtFullname.Text + "!");
+                builder.SetPositiveButton("Let's start", (senderAlert, args) => {
+                    Finish();
+                });
+                Dialog dialog = builder.Create();
+                dialog.Show();
+
             } 
         }
     }

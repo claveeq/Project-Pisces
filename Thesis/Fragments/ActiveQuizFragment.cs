@@ -50,7 +50,7 @@ namespace Thesis.Fragments
         {
             quizManager.EndQuiz();
             classManager.QuizIsActive = false;
-            dashActivity.ReplaceFragment(dashActivity.activeQuizFragment);
+            dashActivity.ReplaceFragment(dashActivity.activeHomeFragment);
         }
 
         private void BtnExportScores_Click(object sender, EventArgs e)

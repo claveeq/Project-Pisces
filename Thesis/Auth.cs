@@ -58,12 +58,35 @@ namespace Thesis
                 string dpPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "local.db3"); //Call Database  
                 var db = new SQLiteConnection(dpPath);
                 var tbl = db.Table<StudentTable>(); //Call Table                           /*                var data1 = data.Where(x => x.student_passcode == txtusername.Text && x.password == txtPassword.Text).FirstOrDefault(); *///Linq Query  
-                var data1 = tbl.Where( x => x.student_passcode == passcode).FirstOrDefault();
+                var data1 = tbl.Where(x => x.student_passcode == passcode).FirstOrDefault();
                 //returns true if the account dosn't exist
                 if(data1 == null)
                 {
                     return false;
-                } 
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
+        }
+        public static bool TeacherExist(string username)
+        {
+            try
+            {
+                string dpPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "local.db3"); //Call Database  
+                var db = new SQLiteConnection(dpPath);
+                var tbl = db.Table<TeacherLoginTable>(); //Call Table                        
+                var data1 = tbl.Where(x => x.username == username).FirstOrDefault();
+                //returns true if the account exist
+                if(data1 == null)
+                {
+                    return false;
+                }
                 else
                 {
                     return true;
@@ -90,7 +113,7 @@ namespace Thesis
 
         //    var data = db.Table<StudentTable>(); 
         //    var data1 = data.Where(x => x.student_passcode == student.GetPasscode).FirstOrDefault();
-     
+
         //    db.CreateTable<SubjectStudentsTable>();
         //    SubjectStudentsTable subjStudentTable = new SubjectStudentsTable();
         //    subjStudentTable.subj_stud_student_id = data1.student_id;

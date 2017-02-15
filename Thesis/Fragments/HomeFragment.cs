@@ -22,6 +22,7 @@ namespace Thesis.Fragments
     {
         Spinner spinnerSubject;
         Button btnStartClass;
+        Button btnRefreshIP;
         Button btnLogout;
         TextView ipaddress;
         Button btnOpenAttendanceFolder;
@@ -42,6 +43,7 @@ namespace Thesis.Fragments
             spinnerSubject = View.FindViewById<Spinner>(Resource.Id.spinnerSubjectsHome);
             btnStartClass = View.FindViewById<Button>(Resource.Id.buttonStartClass);
             ipaddress = View.FindViewById<TextView>(Resource.Id.fragment_home_ipaddress);
+            btnRefreshIP = View.FindViewById<Button>(Resource.Id.fragment_home_btRefresIP);
             btnOpenAttendanceFolder = View.FindViewById<Button>(Resource.Id.fragment_btnOpenAttendanceDirectory);
             btnLogout = View.FindViewById<Button>(Resource.Id.fragment_btnLogout);
             dashActivity = (DashboardActivity)Activity;
@@ -52,7 +54,10 @@ namespace Thesis.Fragments
 
             var adapter = new SubjectSpinnerAdapter(Activity, classManager.GetSubjects);
             spinnerSubject.Adapter = adapter;
-
+            btnRefreshIP.Click += delegate
+            {
+                ipaddress.Text = ServerController.GetIPAddress(Activity);
+            };
             btnStartClass.Click += BtnStartClass_Click;
             spinnerSubject.ItemSelected += SpinnerSubject_ItemSelected;
             btnOpenAttendanceFolder.Click += delegate
@@ -89,6 +94,7 @@ namespace Thesis.Fragments
         {
             if(classManager.StartClass(ipaddress.Text, 5))//TO Be Added
             {
+                classManager.ClassroomIsActive = true;
                 dashActivity.ReplaceFragment(dashActivity.activeHomeFragment);
             }
             else

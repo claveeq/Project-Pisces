@@ -21,11 +21,12 @@ namespace Thesis.Fragments
         DashboardActivity dashActivity;
         Button btnEnd;
         Button btnStartQuiz;
+        Button btnOpenQuizScores;
         Spinner spQuizzes;
         QuizSpinnerAdapter quizSpinnerAdapter;
         QuizManager quizManager;
         string quizName;
-
+        
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -41,13 +42,21 @@ namespace Thesis.Fragments
 
               btnStartQuiz = View.FindViewById<Button>(Resource.Id.fragment_home_active_btnStartQuiz);
             btnEnd = View.FindViewById<Button>(Resource.Id.fragment_home_active_btnEndClass);
+            btnOpenQuizScores = View.FindViewById<Button>(Resource.Id.fragment_home_active_btnOpenQuizScoresFolder);
             spQuizzes = View.FindViewById<Spinner>(Resource.Id.fragment_home_active_spQuizzes);
             quizSpinnerAdapter = new QuizSpinnerAdapter(dashActivity, quizManager.GetAllQuizzes());
+        
             spQuizzes.Adapter = quizSpinnerAdapter;
 
             btnStartQuiz.Click += BtnStartQuiz_Click;
             btnEnd.Click += Buttond_Click;
+            btnOpenQuizScores.Click += BtnOpenQuizScores_Click;
             spQuizzes.ItemSelected += SpQuizzes_ItemSelected;
+        }
+
+        private void BtnOpenQuizScores_Click(object sender, EventArgs e)
+        {
+            quizManager.OpenQuizScoresFolder(Activity);
         }
 
         private void SpQuizzes_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
