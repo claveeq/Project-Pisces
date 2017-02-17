@@ -13,6 +13,8 @@ using SQLite;
 using System.IO;
 using Thesis.Table;
 using SQLite;
+using Thesis.Model;
+
 namespace Thesis
 {
     public static class DBManager
@@ -30,6 +32,7 @@ namespace Thesis
                 db.CreateTable<TeacherLoginTable>();
                 db.CreateTable<SubjectStudentsTable>();
                 db.CreateTable<StudentTable>();
+                db.CreateTable<AssignmentTable>();
                 //Creating default subject for all students; 
                 var teacherdata = db.Table<TeacherLoginTable>().Where(i => i.username == teacher.GetUsername).FirstOrDefault();
                 if(teacherdata == null)
@@ -71,6 +74,7 @@ namespace Thesis
             return subjects;
         }
 
+      
         public static List<Student> GetTeachersStudents(int id)
         {
             List<Student> students = new List<Student>();
@@ -80,6 +84,8 @@ namespace Thesis
                 students.Add(new Student(item.student_id));
             return students;
         }
+
+        
 
         public static void InsertStudent(Student student, int teachersID)
         {
@@ -220,7 +226,41 @@ namespace Thesis
             db.Delete(subject_id);
 
         }
+        //Assignments
+        internal static void AddAssignment(string etTitle, string etDescription, string dateCreated,string subject, int teachersid)
+        {
 
+            db.CreateTable<AssignmentTable>();
+            AssignmentTable assignment = new AssignmentTable();
+            assignment.assignment_title = etTitle;
+            assignment.assignment_description = etDescription;
+            assignment.assignment_teachersID = teachersid;
+            assignment.assignment_dateCreated = dateCreated;
+            assignment.assignment_subject = subject;
+            db.Insert(assignment);
+        }
+        internal static List<Assignment> GetAssignments( int teachersid)
+        {
+            List<Assignment> assignment = new List<Assignment>();
+            var assignmentTbl = db.Table<AssignmentTable>();
+            var assignmentData = assignmentTbl.Where(i => i.assignment_teachersID == teachersid);
+            if(assignmentData == null)
+                return assignment;
+           
+            foreach(var item in assignmentData)
+            {
+                Assignment ass = new Assignment(item.assignment_title, item.assignment_description, DateTime.Parse(item.assignment_dateCreated), item.assignment_subject);
+                ass.ID = item.assignment_id;
+                assignment.Add(ass);
+            }
+            return assignment;
+        }
+        internal static void DeleteAssignment(Assignment selectedAssignment)
+        {
+            var assignment = db.Table<AssignmentTable>()
+                .Where(i => i.assignment_id == selectedAssignment.ID).FirstOrDefault();
+            db.Delete(assignment);
+        }
         //other utilities
         public static int CountStudentTable()
         {

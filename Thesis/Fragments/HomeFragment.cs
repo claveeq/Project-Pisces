@@ -79,8 +79,19 @@ namespace Thesis.Fragments
              };
             btnLogout.Click += delegate
             {
-                Activity.StartActivity(typeof(MainActivity));
-                Activity.Finish();
+                var builder = new Android.Support.V7.App.AlertDialog.Builder(dashActivity);
+                builder.SetTitle("Confirm Logout!");
+                builder.SetMessage("Are you sure you want to logout?");
+                builder.SetPositiveButton("Yes", (senderAlert, args) => {
+
+                    Activity.StartActivity(typeof(MainActivity));
+                    Activity.Finish();
+                });
+                builder.SetNegativeButton("Cancel", (senderAlert, args) => { });
+
+                Dialog dialog = builder.Create();
+                dialog.Show();
+    
             };
             ipaddress.Text = ServerController.GetIPAddress(Activity);
         }

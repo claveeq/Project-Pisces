@@ -18,7 +18,7 @@ using ThesisClient.Model;
 
 namespace ThesisClient.Activities
 {
-    [Activity(Label = "DashboardActivity", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "PICA Student", MainLauncher = true, Icon = "@drawable/icon")]
     public class DashboardActivity : AppCompatActivity
     {
         Toolbar toolbar;
@@ -63,8 +63,8 @@ namespace ThesisClient.Activities
             toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
             SetSupportActionBar(toolbar);
             //Enable support action bar to display hamburger
-            SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu_white_24dp);
-            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+            //SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu_white_24dp);
+            //SupportActionBar.SetDisplayHomeAsUpEnabled(true);
             //instantiate fragments
             homeFragment = new HomeFragment();
             activeHomeFragment = new ActiveHomeFragment();

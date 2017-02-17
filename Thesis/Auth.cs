@@ -23,6 +23,7 @@ namespace Thesis
             db.CreateTable<TeacherLoginTable>();
             db.CreateTable<SubjectStudentsTable>();
             db.CreateTable<StudentTable>();
+            db.CreateTable<AttendanceTable>();
             output += "\n Database Created....";
             return output;
         }

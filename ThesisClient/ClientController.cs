@@ -198,12 +198,11 @@ namespace ThesisClient
         /// <summary>
         /// Close socket and exit program.
         /// </summary>
-        private static void Exit()
+        public static void Exit()
         {
             SendString("exit"); // Tell the server we are exiting
             ClientSocket.Shutdown(SocketShutdown.Both);
-            ClientSocket.Close();
-            Environment.Exit(0);
+            ClientSocket.Close();         
         }
     }
 }

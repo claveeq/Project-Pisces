@@ -12,6 +12,7 @@ using Android.Views;
 using Android.Widget;
 using Thesis.Activities;
 using Thesis.Adapter;
+using Android.Support.Design.Widget;
 
 namespace Thesis.Fragments
 {
@@ -67,6 +68,11 @@ namespace Thesis.Fragments
 
         private void BtnStartQuiz_Click(object sender, EventArgs e)
         {
+            if(quizName == string.Empty || quizName == null)
+            {
+                Snackbar.Make(btnStartQuiz, "Choose a Quiz", Snackbar.LengthShort).Show();
+                return;
+            }
             if(classManager.ClassroomIsActive)
             {
                 quizManager.DeserializeQuiz(quizName);
@@ -78,11 +84,11 @@ namespace Thesis.Fragments
 
         private void Buttond_Click(object sender, EventArgs e)
         {
+
             classManager.SaveAttendanceToCSV();
             classManager.ClassroomIsActive = false;
             ServerController.CloseAllSockets();
             dashActivity.ReplaceFragment(dashActivity.homeFragment);
-            Toast.MakeText(dashActivity, classManager.activateIsLate.ToString(), ToastLength.Short).Show();
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)

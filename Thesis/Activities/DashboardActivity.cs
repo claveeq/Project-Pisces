@@ -18,7 +18,7 @@ using Android.Support.V4.View;
 
 namespace Thesis.Activities
 {
-    [Activity(Label = "DashboardActivity")]
+    [Activity(Label = "PICA Student")]
     public class DashboardActivity : AppCompatActivity, IOnDateSetListener
     {
         //       
@@ -38,6 +38,9 @@ namespace Thesis.Activities
         public AddSubjectFragment AddSubjectFragment;
         public AddStudentFragment AddStudentFragment;
         public QuizFragment QuizFragment;
+        public AssignmentsFragment assignmentFragment;
+        public AddAssignmentsFragment addAssignmentFragment;
+        public LecturesFragment lecturesFragment;
         public ActiveQuizFragment activeQuizFragment;
         public AttendanceFragment AttendanceFragment;
         public Stack<Fragment> stackFragments;
@@ -117,6 +120,9 @@ namespace Thesis.Activities
             AddSubjectFragment = new AddSubjectFragment();
             AddStudentFragment = new AddStudentFragment();
             QuizFragment = new QuizFragment();
+            assignmentFragment = new AssignmentsFragment();
+            addAssignmentFragment = new AddAssignmentsFragment();
+            lecturesFragment = new LecturesFragment();
             activeQuizFragment = new ActiveQuizFragment();
             AttendanceFragment = new AttendanceFragment();
             stackFragments = new Stack<Fragment>();
@@ -253,10 +259,14 @@ namespace Thesis.Activities
                     ReplaceFragment(QuizFragment);
                     SupportActionBar.Title = "Quiz";
                     break;
-                //case (Resource.Id.nav_attendance):
-                //    ReplaceFragment(AttendanceFragment);
-                //    SupportActionBar.Title = "Attendance";
-                //    break;
+                case (Resource.Id.nav_assignments):
+                    ReplaceFragment(assignmentFragment);
+                    SupportActionBar.Title = "Assignments";
+                    break;
+                case (Resource.Id.nav_lectures):
+                    ReplaceFragment(lecturesFragment);
+                    SupportActionBar.Title = "Lectures";
+                    break;
                 case (Resource.Id.nav_Account):
                     ReplaceFragment(accountFragment);
                     SupportActionBar.Title = "Account";

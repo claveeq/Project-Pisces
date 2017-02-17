@@ -49,6 +49,8 @@ namespace Thesis.Fragments
         private void BtnEndQuiz_Click(object sender, EventArgs e)
         {
             quizManager.EndQuiz();
+            quizManager.SaveQuizToCSV(quizManager.CheckQuiz());
+       //     ServerController.QuizDoneItems = null; 
             classManager.QuizIsActive = false;
             dashActivity.ReplaceFragment(dashActivity.activeHomeFragment);
         }

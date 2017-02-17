@@ -42,6 +42,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/fragment_manageQuizzes_lvQuizzes" />-->
+    <TextView
+        android:text="Tip: Hold icons for 2 seconds to see description."
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView1" />
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -58,5 +64,5 @@
         android:popupTheme="@android:style/ThemeOverlay.Material.Light"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="top|start" />
+        android:gravity="bottom" />
 </LinearLayout>

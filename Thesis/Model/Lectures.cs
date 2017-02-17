@@ -10,13 +10,9 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-namespace Thesis
+namespace Thesis.Model
 {
-    class Assignment
+    class Lectures
     {
-        private string _title;
-        private DateTime _dateCreated;
-        private DateTime _deadlineSubmission;
-        private string _fileLocation;
     }
 }

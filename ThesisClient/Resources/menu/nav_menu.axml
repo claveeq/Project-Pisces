@@ -5,7 +5,7 @@
       android:icon="@drawable/ic_home_grey_900_24dp"
       android:title="Home" />
   </group>
-  <group android:checkableBehavior="single" android:id="@+id/group_SubMain">
+ <group android:checkableBehavior="single" android:id="@+id/group_SubMain">
     <item
       android:id="@+id/nav_Account"
       android:icon="@drawable/ic_event_note_black_24dp"
@@ -14,7 +14,7 @@
       android:id="@+id/nav_Settings"
       android:icon="@drawable/ic_settings_black_24dp"
       android:title="Settings" />
-    <!--  <item
+    <item
       android:id="@+id/nav_HelpAndFeedback"
       android:icon="@drawable/ic_home_grey_900_24dp"
       android:title="Help &amp; Feedback" />-->

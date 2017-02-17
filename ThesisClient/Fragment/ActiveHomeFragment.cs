@@ -18,7 +18,7 @@ namespace ThesisClient.Fragment
     {
         DashboardActivity dashActivity;
         Button btnScan;
-
+        Button btnLogout;
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -29,8 +29,24 @@ namespace ThesisClient.Fragment
             base.OnActivityCreated(savedInstanceState);
             dashActivity = Activity as DashboardActivity;
             btnScan = View.FindViewById<Button>(Resource.Id.fragment_home_active_btnScan);
-
+            btnLogout = View.FindViewById<Button>(Resource.Id.fragment_home_active_btnLogout);
             btnScan.Click += BtnScan_Click;
+            btnLogout.Click += BtnLogout_Click;
+        }
+
+        private void BtnLogout_Click(object sender, EventArgs e)
+        {
+            var builder = new Android.Support.V7.App.AlertDialog.Builder(Activity);
+            builder.SetTitle("Wait!");
+            builder.SetMessage("Are you sure you want to logout?");
+            builder.SetPositiveButton("Yes", (senderAlert, args) => {
+                ClientController.Exit();
+                dashActivity.ReplaceFragment(dashActivity.homeFragment);
+            });
+            builder.SetNegativeButton("Cancel", (senderAlert, args) => { });
+
+            Dialog dialog = builder.Create();
+            dialog.Show();
         }
 
         private void BtnScan_Click(object sender, EventArgs e)

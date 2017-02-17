@@ -76,6 +76,7 @@ namespace Thesis
             QuizItem quizitem = Quiz.GetQuizitems.Where(x => x.ItemNo == currentItemNo).FirstOrDefault();
             return quizitem;
         }
+
         public void DeleteQuiz(string quizName)
         {
             string folderlocation;
@@ -144,8 +145,7 @@ namespace Thesis
                 folderlocation = Android.OS.Environment.ExternalStorageDirectory.Path;
             else
                 folderlocation = Android.OS.Environment.DirectoryDocuments;
-
-            folderlocation += @"/Quiz Scores/" + _teachersID.ToString();
+            folderlocation += @"/PICAScores/" + _teachersID.ToString();
             if(!Directory.Exists(folderlocation))
                 Directory.CreateDirectory(folderlocation);
 
@@ -154,7 +154,39 @@ namespace Thesis
             intent.SetDataAndType(uri, "resource/folder");
             activity.StartActivity(Intent.CreateChooser(intent, "Quiz Scores"));
         }
+        public void SaveQuizToCSV(List<StudentQuizScore> list)
+        {
+            string folderlocation;
+            if(Android.OS.Environment.ExternalStorageState.Equals(Android.OS.Environment.MediaMounted))
+                folderlocation = Android.OS.Environment.ExternalStorageDirectory.Path;
+            else
+                folderlocation = Android.OS.Environment.DirectoryDocuments;
 
+            folderlocation += @"/PICAScores/" + _teachersID.ToString();
+            if(!Directory.Exists(folderlocation))
+                Directory.CreateDirectory(folderlocation);
+
+            StreamWriter writer;
+
+            string file = @"/" + DateTime.Now.ToString("yyyy-MM-dd") + "_" + DateTime.Now.ToString("h-mm-tt") + "_" + ServerController.quizData.Title + ".csv";
+            using(writer = new StreamWriter(folderlocation + file, false))
+            {
+
+                writer.WriteLine("DATE: " + DateTime.Now.ToString("yyyy-MM-dd"));
+                writer.WriteLine("Subject: " + ServerController.quizData.Title);
+                writer.WriteLine("Teacher: " + DBManager.GetTeachersFullname(_teachersID));
+                writer.WriteLine();
+                writer.WriteLine("ID,Student Name,Score");
+                int id = 1;
+                foreach(var student in list)
+                {
+                    string fullname = student.name;
+                    string score = student.score.ToString();
+
+                    writer.WriteLine("{0},{1},{2}", id++, fullname, score);
+                }
+            }
+        }
         public void SerializeQuiz()
         {
             BinarySerializer.QuizObjToDataFile(quiz);

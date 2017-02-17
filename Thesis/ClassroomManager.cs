@@ -6,6 +6,8 @@ using System.Timers;
 using System.IO;
 using Android.App;
 using Thesis.Activities;
+using Android.Widget;
+using Thesis.Model;
 
 namespace Thesis
 {
@@ -49,6 +51,15 @@ namespace Thesis
             _subjectStudents = new List<Student>();
             //_currentActiveSubject = null;
         }
+        //assignments
+        internal void AddAssignments(string etTitle, Subject selectedSubject, string etDescription)
+        {
+            DBManager.AddAssignment(etTitle, etDescription, DateTime.Now.ToString(),selectedSubject.GetTitle, _teacher.GetID);
+        }
+        public List<Assignment> GetAssignments()
+        {
+            return  DBManager.GetAssignments(GetTeacher.GetID);
+        }
         //Properties
         public bool ClassroomIsActive {
             get { return classroomIsActive; }
@@ -60,6 +71,12 @@ namespace Thesis
             set { quizIsActive = value; }
         }
         public Teacher GetTeacher { get { return _teacher; } }
+
+        internal void DeleteAssignment(Assignment selectedAssignment)
+        {
+            DBManager.DeleteAssignment(selectedAssignment);
+        }
+
         public List<Subject> GetSubjects { get { return _teachersSubjects; } }
         public List<Student> GetTeachersStudents { get { return _allStudents; } }
 

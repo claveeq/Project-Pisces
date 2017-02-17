@@ -131,6 +131,7 @@
     <Compile Include="Activities\CreateQuizActivity.cs" />
     <Compile Include="Activities\DashboardActivity.cs" />
     <Compile Include="Activities\RegisterActivity.cs" />
+    <Compile Include="Adapter\AssignmentAdapter.cs" />
     <Compile Include="Adapter\AttendanceAdapter.cs" />
     <Compile Include="Adapter\QuizItemAdapter.cs" />
     <Compile Include="Adapter\QuizTitleAdapter.cs" />
@@ -139,7 +140,6 @@
     <Compile Include="Adapter\StudentAdapter.cs" />
     <Compile Include="Adapter\SubjectAdapter.cs" />
     <Compile Include="Adapter\SubjectSpinnerAdapter.cs" />
-    <Compile Include="Assignment.cs" />
     <Compile Include="AttendanceTimer.cs" />
     <Compile Include="Auth.cs" />
     <Compile Include="AuthStudent.cs" />
@@ -148,21 +148,26 @@
     <Compile Include="DataContractAttribute.cs" />
     <Compile Include="DBManager.cs" />
     <Compile Include="Fragments\AccountFragment.cs" />
+    <Compile Include="Fragments\AddAssignmentsFragment.cs" />
     <Compile Include="Fragments\ActiveHomeFragment.cs" />
     <Compile Include="Fragments\ActiveStudentsFragment.cs" />
     <Compile Include="Fragments\ActiveQuizFragment.cs" />
     <Compile Include="Fragments\AddStudentFragment.cs" />
     <Compile Include="Fragments\AddSubjectFragment.cs" />
+    <Compile Include="Fragments\AssignmentsFragment.cs" />
     <Compile Include="Fragments\AttendanceFragment.cs" />
     <Compile Include="Fragments\HomeFragment.cs" />
+    <Compile Include="Fragments\LecturesFragment.cs" />
     <Compile Include="Fragments\QuizFragment.cs" />
     <Compile Include="Fragments\StudentsFragment.cs" />
     <Compile Include="Fragments\SubjectFragment.cs" />
     <Compile Include="Helper\QuizItemData.cs" />
     <Compile Include="Helper\QuizRecyleViewAdapter.cs" />
     <Compile Include="JsonSerializer.cs" />
+    <Compile Include="Model\Assignment.cs" />
     <Compile Include="Model\Attendance.cs" />
     <Compile Include="Model\CorrectAnswers.cs" />
+    <Compile Include="Model\Lectures.cs" />
     <Compile Include="Model\QuizData.cs" />
     <Compile Include="Model\Lecture.cs" />
     <Compile Include="Model\Quiz.cs" />
@@ -174,6 +179,7 @@
     <Compile Include="QuizManager.cs" />
     <Compile Include="Student.cs" />
     <Compile Include="Subject.cs" />
+    <Compile Include="Table\AssignmentTable.cs" />
     <Compile Include="Table\AttendanceTable.cs" />
     <Compile Include="Table\StudentTable.cs" />
     <Compile Include="Table\SubjectsTable.cs" />
@@ -273,6 +279,21 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\menu\quizitem_tools_menu.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\fragment_assignment.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\fragment_lectures.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\menu\assignment_tools_menu.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\fragment_assignment_add.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\item_assignments.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -493,18 +514,6 @@
     <AndroidResource Include="Resources\drawable\ic_settings_black_24dp.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\icon_student_add.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\icon_student_delete.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\icon_student_edit.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\icon_student_toggle.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\menu\quiz_tools_menu.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
@@ -568,6 +577,54 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_save_white_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\bg_homeheader.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\bg_quizmenuheader.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\icon_student_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\icon_student_delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\icon_student_edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\icon_student_toggle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-mdpi\ic_format_list_bulleted_white_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_format_list_bulleted_white_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_format_list_bulleted_white_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_format_list_bulleted_white_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_format_list_bulleted_white_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-mdpi\ic_import_contacts_white_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_import_contacts_white_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_import_contacts_white_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_import_contacts_white_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_import_contacts_white_24dp.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -41,7 +41,7 @@ namespace ThesisClient.QuizFragments
         private void Timer()//1000 = 1s
         {
             timer = new Timer();
-            timer.Interval = 1000;
+            timer.Interval = 10000;
             timer.Elapsed += Timer_Elapsed;
             timer.Start();
             tvTimer.Text = count.ToString();

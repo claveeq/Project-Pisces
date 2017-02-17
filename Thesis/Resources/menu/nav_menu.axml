@@ -21,19 +21,27 @@
       android:id="@+id/nav_quiz"
       android:icon="@drawable/ic_library_books_black_24dp"
       android:title="Quiz" />
+    <item
+      android:id="@+id/nav_assignments"
+      android:icon="@drawable/ic_format_list_bulleted_white_24dp"
+      android:title="Assignments" />
+    <item
+      android:id="@+id/nav_lectures"
+      android:icon="@drawable/ic_import_contacts_white_24dp"
+      android:title="Lectures" />
   </group>
   <group android:checkableBehavior="single" android:id="@+id/group_SubMain">
     <item
       android:id="@+id/nav_Account"
       android:icon="@drawable/ic_event_note_black_24dp"
-      android:title="Account" />
-    <item
+      android:title="Local Database" />
+    <!--<item
       android:id="@+id/nav_Settings"
       android:icon="@drawable/ic_settings_black_24dp"
       android:title="Settings" />
     <item
       android:id="@+id/nav_About"
       android:icon="@drawable/ic_portrait_black_24dp"
-      android:title="About" />
+      android:title="About" />-->
   </group>
 </menu>
