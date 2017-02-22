@@ -35,7 +35,8 @@ namespace ThesisClient.Activities
         public AccountSetupFragment accountSetupFragment;
         public StudentManager studentManager;
         public AccountFragment accountFragment;
-
+        public AssignmentFragment assignmentFragment;
+        public LectureFragment lectureFragment;
         public AuthStudent authStudent;
         public Settings settings;
         protected override void OnCreate(Bundle savedInstanceState)
@@ -44,10 +45,16 @@ namespace ThesisClient.Activities
             SetContentView(Resource.Layout.Dashboard);
           
             //Create your application here
-     
+            
             if(BinarySerializer.SettingsExist())
             {
                 settings = BinarySerializer.DeserializeSettings();
+                ClientController.assignments = settings.propAssignment;
+            }
+            else
+            {
+                settings = new Settings();
+                BinarySerializer.SerializeSettings(settings); 
             }
             if(settings != null)
             {
@@ -62,28 +69,30 @@ namespace ThesisClient.Activities
             navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
             toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
             SetSupportActionBar(toolbar);
-            //Enable support action bar to display hamburger
-            //SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu_white_24dp);
-            //SupportActionBar.SetDisplayHomeAsUpEnabled(true);
-            //instantiate fragments
+          //  Enable support action bar to display hamburger
+            SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu_white_24dp);
+            SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+           // instantiate fragments
             homeFragment = new HomeFragment();
             activeHomeFragment = new ActiveHomeFragment();
             settingsFragment = new SettingsFragment();
             quizFragment = new QuizFragment();
+            assignmentFragment = new AssignmentFragment();
+            lectureFragment = new LectureFragment();   
             accountSetupFragment = new AccountSetupFragment();
             accountFragment = new AccountFragment();
             fragmentTx = FragmentManager.BeginTransaction();
 
-            if(settings != null)
-            {
+            //if(settings != null)
+            //{
                 fragmentTx.Add(Resource.Id.fragmentContainer, homeFragment, "Home");
                 currentFragment = homeFragment;
-            }
-            else
-            {
-                fragmentTx.Add(Resource.Id.fragmentContainer, accountSetupFragment, "Setup");
-                currentFragment = accountSetupFragment;
-            }
+            //}
+            //else
+            //{
+            //    fragmentTx.Add(Resource.Id.fragmentContainer, accountSetupFragment, "Setup");
+            //    currentFragment = accountSetupFragment;
+            //}
            
             fragmentTx.Commit();
             stackFragments = new Stack<Android.App.Fragment>();
@@ -128,10 +137,10 @@ namespace ThesisClient.Activities
                     //   ShowFragment(homeFragment);
                     if(studentManager.Status == appStatus.inactive)
                     {
-                        if(BinarySerializer.SettingsExist())
-                            ReplaceFragment(homeFragment);
-                        else
-                            ReplaceFragment(accountSetupFragment);
+                        //if(BinarySerializer.SettingsExist())
+                        ReplaceFragment(homeFragment);
+                        //else
+                        //    ReplaceFragment(accountSetupFragment);
                     }
                     else
                     {
@@ -139,10 +148,14 @@ namespace ThesisClient.Activities
                     }
                     SupportActionBar.Title = "Dashboard";
                     break;
-                //case (Resource.Id.nav_quiz):
-                //    ReplaceFragment(quizFragment);
-                //    SupportActionBar.Title = "Quiz";
-                //    break;
+                case (Resource.Id.nav_assigment):
+                    ReplaceFragment(assignmentFragment);
+                    SupportActionBar.Title = "Assignments";
+                    break;
+                case (Resource.Id.nav_lectures):
+                    ReplaceFragment(lectureFragment);
+                    SupportActionBar.Title = "Lectures";
+                    break;
                 case (Resource.Id.nav_Account):
                     ReplaceFragment(accountFragment);
                     SupportActionBar.Title = "Account";

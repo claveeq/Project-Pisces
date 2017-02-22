@@ -12,7 +12,6 @@ using Android.Widget;
 using SQLite;
 using System.IO;
 using Thesis.Table;
-using SQLite;
 using Thesis.Model;
 
 namespace Thesis
@@ -118,6 +117,7 @@ namespace Thesis
             //return students;
         }
 
+   
         public static void InsertSubject(Subject subject)
         {
             SubjectsTable subjectTable = new SubjectsTable();
@@ -255,12 +255,31 @@ namespace Thesis
             }
             return assignment;
         }
+
+        public static List<Assignment> GetAssignments(string subject, int teachersid)
+        {
+            List<Assignment> assignment = new List<Assignment>();
+            var assignmentTbl = db.Table<AssignmentTable>();
+            var assignmentData = assignmentTbl.Where(i => i.assignment_teachersID == teachersid && i.assignment_subject == subject);
+            if(assignmentData == null)
+                return assignment;
+
+            foreach(var item in assignmentData)
+            {
+                Assignment ass = new Assignment(item.assignment_title, item.assignment_description, DateTime.Parse(item.assignment_dateCreated), item.assignment_subject);
+                ass.ID = item.assignment_id;
+                assignment.Add(ass);
+            }
+            return assignment;
+        }
+
         internal static void DeleteAssignment(Assignment selectedAssignment)
         {
             var assignment = db.Table<AssignmentTable>()
                 .Where(i => i.assignment_id == selectedAssignment.ID).FirstOrDefault();
             db.Delete(assignment);
         }
+
         //other utilities
         public static int CountStudentTable()
         {

@@ -39,6 +39,8 @@ namespace Thesis
         //QUIZ
         public static QuizData quizData;
         public static List<QuizData> QuizDoneItems = new List<QuizData>();
+        //ASSIGNMENT
+        public static List<Assignment> assignments = new List<Assignment>();
         public static List<AuthStudent> GetActiveStudents {
             get { return Students; }
         }
@@ -147,13 +149,13 @@ namespace Thesis
                     currentTask = task.login;
                     //txtbx.Text += "sent: ok" + Environment.NewLine;
                     byte[] data = Encoding.ASCII.GetBytes("ok");
-                    current.Send(data);  
+                    current.Send(data);
 
                 }
                 else if(text.ToLower() == "quiz") // Send ok and Send Quiz
                 {
                     if(quizData != null)
-                    {      
+                    {
                         byte[] data = Encoding.ASCII.GetBytes("yes");
                         current.Send(data);
                     }
@@ -174,6 +176,12 @@ namespace Thesis
                     byte[] data = Encoding.ASCII.GetBytes("ok");
                     current.Send(data);
                     currentTask = task.quizDone;
+                }
+                else if(text.ToLower() == "assignment")
+                {
+                    byte[] data = Encoding.ASCII.GetBytes("ok");
+                    current.Send(data);
+                    currentTask = task.assignments;
                 }
                 else if(text.ToLower() == "exit") // Client wants to exit gracefully
                 {
@@ -250,7 +258,7 @@ namespace Thesis
                         var quizDone = JsonConvert.DeserializeObject<QuizData>(json);
                         quizDone.DezerializeListItems();
                         QuizDoneItems.Add(quizDone);
-                        // quizItem = JsonConvert.DeserializeObject<List<QuizItem>>(quizData.quizitems);
+                        //quizItem = JsonConvert.DeserializeObject<List<QuizItem>>(quizData.quizitems);
                     }
                     catch(Exception)
                     {
@@ -261,6 +269,18 @@ namespace Thesis
                     {
                         current.Send(Encoding.ASCII.GetBytes("true"));
                     }                  
+                }
+                else if(currentTask == task.assignments)
+                {
+                    try
+                    {
+                        var json = JsonConvert.SerializeObject(assignments);
+                        current.Send(Encoding.ASCII.GetBytes(json));
+                    }
+                    catch(Exception)
+                    {
+                       
+                    }
                 }
             }
             current.BeginReceive(buffer, 0, BUFFER_SIZE, SocketFlags.None, ReceiveCallback, current);
@@ -281,6 +301,10 @@ namespace Thesis
                     socket.Shutdown(SocketShutdown.Both);
                     socket.Close();
                 }
+            }
+            catch(Exception)
+            {
+
             }
             finally
             {

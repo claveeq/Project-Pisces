@@ -16,10 +16,17 @@ namespace ThesisClient.Model
     public class Settings
     {
         string passcode;
+        List<Assignment> _assignment;
 
         public string Passcode {
             get { return passcode; }
             set { passcode = value; }
+        }
+
+        public List<Assignment> propAssignment
+        {
+            get { return _assignment; }
+            set { _assignment = value; }
         }
     }
 }

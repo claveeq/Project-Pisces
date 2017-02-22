@@ -19,6 +19,7 @@ namespace ThesisClient.Fragment
         DashboardActivity dashActivity;
         Button btnScan;
         Button btnLogout;
+        Button btnAssignment;
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -30,8 +31,16 @@ namespace ThesisClient.Fragment
             dashActivity = Activity as DashboardActivity;
             btnScan = View.FindViewById<Button>(Resource.Id.fragment_home_active_btnScan);
             btnLogout = View.FindViewById<Button>(Resource.Id.fragment_home_active_btnLogout);
+            btnAssignment = View.FindViewById<Button>(Resource.Id.fragment_home_active_btnAssignment);
             btnScan.Click += BtnScan_Click;
             btnLogout.Click += BtnLogout_Click;
+            btnAssignment.Click += BtnAssignment_Click;
+        }
+
+        private void BtnAssignment_Click(object sender, EventArgs e)
+        {
+            ClientController.SendRequest(Task.assignment);
+            dashActivity.studentManager.SaveAssignment(ClientController.assignments);
         }
 
         private void BtnLogout_Click(object sender, EventArgs e)

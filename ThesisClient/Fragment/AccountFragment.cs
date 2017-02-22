@@ -19,7 +19,6 @@ namespace ThesisClient.Fragment
         EditText etPasscode;
         Button btnSetup;
         DashboardActivity dashActivity;
-        StudentManager studentManager;
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);

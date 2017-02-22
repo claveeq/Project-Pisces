@@ -55,6 +55,7 @@ namespace Thesis
         internal void AddAssignments(string etTitle, Subject selectedSubject, string etDescription)
         {
             DBManager.AddAssignment(etTitle, etDescription, DateTime.Now.ToString(),selectedSubject.GetTitle, _teacher.GetID);
+            ServerController.assignments = DBManager.GetAssignments(_currentActiveSubject.GetTitle, _teacher.GetID);
         }
         public List<Assignment> GetAssignments()
         {
@@ -75,6 +76,7 @@ namespace Thesis
         internal void DeleteAssignment(Assignment selectedAssignment)
         {
             DBManager.DeleteAssignment(selectedAssignment);
+            ServerController.assignments = DBManager.GetAssignments(_currentActiveSubject.GetTitle, _teacher.GetID);
         }
 
         public List<Subject> GetSubjects { get { return _teachersSubjects; } }
@@ -95,6 +97,8 @@ namespace Thesis
         {
             if(ServerController.FireUp(ipaddress))
             {
+                ServerController.assignments = DBManager.GetAssignments(CurrentSubject.GetTitle, GetTeacher.GetID);
+
                 this.lateIn = lateIn;
                ClassroomIsActive = true;
 
@@ -107,7 +111,7 @@ namespace Thesis
                 timer.Elapsed += OnTimedEvent;
                 timer.Enabled = true;
                 timer.Start();
-                SaveAttendanceToCSV();
+               // SaveAttendanceToCSV();
                 return true;
             }
             else

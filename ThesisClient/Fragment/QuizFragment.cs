@@ -15,7 +15,7 @@ namespace ThesisClient.Fragment
 {
     public class QuizFragment : Android.App.Fragment
     {
-        Intent intent;
+
         Button btnTakeQuiz;
         public override void OnCreate(Bundle savedInstanceState)
         {

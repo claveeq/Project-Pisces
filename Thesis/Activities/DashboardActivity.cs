@@ -18,7 +18,7 @@ using Android.Support.V4.View;
 
 namespace Thesis.Activities
 {
-    [Activity(Label = "PICA Student")]
+    [Activity(Label = "PICA Professor")]
     public class DashboardActivity : AppCompatActivity, IOnDateSetListener
     {
         //       
@@ -48,7 +48,7 @@ namespace Thesis.Activities
         //Essential Classes
         ClassroomManager classManager;
         Teacher loggedOnUser;
-        List<Subject> Subjects;
+
         public QuizManager quizManager;
         protected override void OnCreate(Bundle savedInstanceState)
         {

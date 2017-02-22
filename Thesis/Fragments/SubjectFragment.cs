@@ -20,7 +20,6 @@ namespace Thesis.Fragments
 {
     public class SubjectFragment : Fragment
     {
-        EditText editSearch;
         ListView listSubjects;
         Subject selectedSubject;
         SubjectAdapter subjectAdapter;

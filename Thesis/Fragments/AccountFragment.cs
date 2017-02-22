@@ -20,23 +20,10 @@ namespace Thesis.Fragments
         EditText studentsubject;
         Button refresh;
 
-        Teacher teacher;
-
-        string username;
-        string password;
-        string fullName;
-
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
-            // Create your fragment here
-         
-            //txtPassword = View.FindViewById<EditText>(Resource.Id.txtPassword);
-            //txtfullName = View.FindViewById<EditText>(Resource.Id.txtFullName);
-            //btnSave = View.FindViewById<Button>(Resource.Id.buttonSave);
-
-            //btnSave.Click += BtnSave_Click;
         }
         public override void OnActivityCreated(Bundle savedInstanceState)
         {

@@ -9,12 +9,14 @@ using Android.App;
 using Android.Content;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using ThesisClient.Model;
 
 namespace ThesisClient
 { 
     enum Task { login, quiz, none, exit,
         quizAccept,
-        quizDone
+        quizDone,
+        assignment
     }
 
     static class ClientController
@@ -35,6 +37,8 @@ namespace ThesisClient
         public static QuizData quizData;
         public static List<QuizItem> quizItem;
         public static QuizData doneQuizData;
+        //Assignment;
+        public static List<Assignment> assignments = new List<Assignment>();
         public static bool ConnectToServer(string iPddress)
         {
             //int attempts = 0;
@@ -94,6 +98,12 @@ namespace ThesisClient
             {
                 currentTask = Task.quizDone;
                 SendString("quizdone");
+                ReceiveResponse(currentTask);
+            }
+            else if(task == Task.assignment)
+            {
+                currentTask = Task.assignment;
+                SendString("assignment");
                 ReceiveResponse(currentTask);
             }
             else if(task == Task.exit)
@@ -176,6 +186,20 @@ namespace ThesisClient
                     currentTask = Task.none;
                 }
             }
+            else if(current == Task.assignment)//2nd step ofo sending quiz
+            {
+                string text = Encoding.ASCII.GetString(data);
+                if(text.ToLower() == "ok")
+                {
+                    SendString("true");                
+                }
+                else
+                {
+                    assignments = JsonConvert.DeserializeObject<List<Assignment>>(text);
+                    currentTask = Task.none;
+                }
+            }
+
             else
             {
                 string text = Encoding.ASCII.GetString(data);

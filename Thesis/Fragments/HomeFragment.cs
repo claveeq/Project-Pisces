@@ -28,7 +28,7 @@ namespace Thesis.Fragments
         Button btnOpenAttendanceFolder;
         ClassroomManager classManager;
         DashboardActivity dashActivity;
-        Timer timer;
+     
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);

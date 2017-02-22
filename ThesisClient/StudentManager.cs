@@ -30,5 +30,11 @@ namespace ThesisClient
             get { return _status; }
             set { _status = value; }
         }
+
+        public void SaveAssignment(List<Assignment> assignments)
+        {
+            settings.propAssignment = assignments;
+            BinarySerializer.SerializeSettings(settings);
+        }
     }
 }
