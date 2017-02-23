@@ -170,7 +170,7 @@ namespace Thesis
             }
         }
         // retrieving current subject
-
+         
         public Subject CurrentSubject
         {
             get { return _currentActiveSubject; }
@@ -188,7 +188,7 @@ namespace Thesis
             else
                 folderlocation = Android.OS.Environment.DirectoryDocuments;
 
-            folderlocation += @"/PICAttendance";
+            folderlocation += @"/Attendance/" + _teacher.GetFullName;
             if(!Directory.Exists(folderlocation))
                 Directory.CreateDirectory(folderlocation);
 
@@ -222,7 +222,37 @@ namespace Thesis
                 }
             }
         }
-    
+
+        public List<string> GetLecturesFileNames()
+        {
+            string folderlocation;
+            if(Android.OS.Environment.ExternalStorageState.Equals(Android.OS.Environment.MediaMounted))
+                folderlocation = Android.OS.Environment.ExternalStorageDirectory.Path;
+            else
+                folderlocation = Android.OS.Environment.DirectoryDocuments;
+
+            folderlocation += @"/Lectures/" + _teacher.GetFullName +@"/";
+            if(!Directory.Exists(folderlocation))
+                Directory.CreateDirectory(folderlocation);
+
+            // string file = @"/*.dat";
+
+            string filepath = folderlocation;
+            //DirectoryInfo d = new DirectoryInfo(folderlocation);
+            string[] files = Directory.GetFiles(folderlocation);
+            var filenames = new List<string>();
+            if(files != null)
+            {
+                foreach(var file in files)
+                {
+                    FileInfo fi = new FileInfo(file);
+                    //  fi.Name.Replace(fi.Extension, "");
+                    filenames.Add(fi.Name);
+                }
+            }
+            return filenames;
+        }
+
         //------------------------Inactive/Active--------------------------//
 
         public void DeleteStudent(Student student)

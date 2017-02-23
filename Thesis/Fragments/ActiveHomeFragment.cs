@@ -24,7 +24,9 @@ namespace Thesis.Fragments
         Button btnStartQuiz;
         Button btnOpenQuizScores;
         Spinner spQuizzes;
+        Spinner spLectures;
         QuizSpinnerAdapter quizSpinnerAdapter;
+        LecturesAdapter lecturesAdapter;
         QuizManager quizManager;
         string quizName;
         
@@ -45,9 +47,13 @@ namespace Thesis.Fragments
             btnEnd = View.FindViewById<Button>(Resource.Id.fragment_home_active_btnEndClass);
             btnOpenQuizScores = View.FindViewById<Button>(Resource.Id.fragment_home_active_btnOpenQuizScoresFolder);
             spQuizzes = View.FindViewById<Spinner>(Resource.Id.fragment_home_active_spQuizzes);
+            spLectures = View.FindViewById<Spinner>(Resource.Id.fragment_home_active_spLectures);
+
             quizSpinnerAdapter = new QuizSpinnerAdapter(dashActivity, quizManager.GetAllQuizzes());
-        
             spQuizzes.Adapter = quizSpinnerAdapter;
+
+            lecturesAdapter = new LecturesAdapter(dashActivity, classManager.GetLecturesFileNames());
+            spLectures.Adapter = lecturesAdapter;
 
             btnStartQuiz.Click += BtnStartQuiz_Click;
             btnEnd.Click += Buttond_Click;
