@@ -35,7 +35,7 @@ namespace Thesis.Fragments
             dashActivity = Activity as DashboardActivity;
             classManager = dashActivity.GetClassManager;
             quizManager = dashActivity.quizManager;
-
+            ServerController.quizManager = quizManager;
             btnExportScores = View.FindViewById<Button>(Resource.Id.fragment_activequiz_btnExportScores);
             btnEndQuiz = View.FindViewById<Button>(Resource.Id.fragment_activequiz_btnEndQuiz);
             lvTuizScoreItems = View.FindViewById<ListView>(Resource.Id.fragment_activequiz_lvTuizScoreItems);

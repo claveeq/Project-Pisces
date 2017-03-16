@@ -10,13 +10,16 @@ using Android.Content;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using ThesisClient.Model;
+using System.IO;
 
 namespace ThesisClient
 { 
     enum Task { login, quiz, none, exit,
         quizAccept,
         quizDone,
-        assignment
+        assignment,
+        lecture,
+        lectureAccept
     }
 
     static class ClientController
@@ -37,8 +40,11 @@ namespace ThesisClient
         public static QuizData quizData;
         public static List<QuizItem> quizItem;
         public static QuizData doneQuizData;
+        public static TextView tvscores;
         //Assignment;
         public static List<Assignment> assignments = new List<Assignment>();
+        //Lectures;
+        public static string lectureFileName;
         public static bool ConnectToServer(string iPddress)
         {
             //int attempts = 0;
@@ -106,6 +112,12 @@ namespace ThesisClient
                 SendString("assignment");
                 ReceiveResponse(currentTask);
             }
+            else if(task == Task.lecture)
+            {
+                currentTask = Task.lecture;
+                SendString("lecture");
+                ReceiveResponse(currentTask);
+            }
             else if(task == Task.exit)
             {
                 Exit();
@@ -115,7 +127,8 @@ namespace ThesisClient
       
         public static void ReceiveResponse(Task current)
         {
-            var buffer = new byte[2048];
+
+            var buffer = new byte[50000];
             int received = ClientSocket.Receive(buffer, SocketFlags.None);
             if(received == 0)
                 return;
@@ -180,9 +193,15 @@ namespace ThesisClient
                 {
                     var json = JsonConvert.SerializeObject(doneQuizData);
                     SendString(json);
+                    ReceiveResponse(Task.quizDone);
                 }
-                else if(text.ToLower() == "true")
+                else if(text.ToLower() == "false")
                 {
+                    currentTask = Task.none;
+                }
+                else
+                {
+                    tvscores.Text = text;
                     currentTask = Task.none;
                 }
             }
@@ -191,7 +210,8 @@ namespace ThesisClient
                 string text = Encoding.ASCII.GetString(data);
                 if(text.ToLower() == "ok")
                 {
-                    SendString("true");                
+                    SendString("true");
+                    ReceiveResponse(Task.assignment);
                 }
                 else
                 {
@@ -199,10 +219,31 @@ namespace ThesisClient
                     currentTask = Task.none;
                 }
             }
-
+            else if(current == Task.lecture)//2nd step ofo sending quiz
+            {  
+                if(Encoding.ASCII.GetString(data).ToLower() == "ok")
+                {
+                    SendString("true");
+                    ReceiveResponse(Task.lecture);
+                }
+                else
+                {
+                    //  assignments = JsonConvert.DeserializeObject<List<Assignment>>(text);
+                    lectureFileName = Encoding.ASCII.GetString(data);
+                    SendString("acceptlect");
+                    ReceiveResponse(Task.lectureAccept);
+                }
+            }
+            else if(current == Task.lectureAccept)//2nd step ofo sending quiz
+            {
+                BinarySerializer.ByteArrayToFile(lectureFileName, data);
+                lectureFileName = string.Empty;
+                currentTask = Task.none;
+            }
             else
             {
                 string text = Encoding.ASCII.GetString(data);
+                currentTask = Task.none;
                 //Console.WriteLine(text);
             }
         }

@@ -141,6 +141,7 @@ namespace ThesisClient.QuizFragments
             {
 
                 timer.Stop();
+
                 quizActivity.ReplaceFragment(quizActivity.endQuizFragment);
             }
                

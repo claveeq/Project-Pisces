@@ -28,7 +28,7 @@ namespace Thesis.Fragments
         Button btnOpenAttendanceFolder;
         ClassroomManager classManager;
         DashboardActivity dashActivity;
-     
+        
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -48,7 +48,6 @@ namespace Thesis.Fragments
             btnLogout = View.FindViewById<Button>(Resource.Id.fragment_btnLogout);
             dashActivity = (DashboardActivity)Activity;
             classManager = dashActivity.GetClassManager;
-
 
             spinnerSubject.Prompt = "Select Subject...";
 

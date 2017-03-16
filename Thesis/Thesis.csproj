@@ -300,6 +300,9 @@
     <AndroidResource Include="Resources\layout\item_lectures.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\menu\lectures_tools_menu.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Authentication.axml">

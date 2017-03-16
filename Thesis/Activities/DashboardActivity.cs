@@ -96,6 +96,7 @@ namespace Thesis.Activities
             Toast.MakeText(this, "Welcome " + loggedOnUser.GetFullName + "!", ToastLength.Long).Show();
             //var list = FragmentManager.FindFragmentById<SubjectFragment>(Resource.Layout.fragment_subjects); //for communicating with fragments
             quizManager = new QuizManager(classManager.GetTeacher.GetID);
+            ServerController.quizManager = quizManager;
         }
 
         public ClassroomManager GetClassManager { get { return classManager; } }

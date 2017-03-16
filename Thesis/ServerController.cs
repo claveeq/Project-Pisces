@@ -2,9 +2,11 @@
 using Android.Content;
 using Android.Net.Wifi;
 using Android.Widget;
+
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -14,7 +16,7 @@ using Thesis.Model;
 
 namespace Thesis
 {
-    enum task { login, quiz, assignments, letures, none, exit,
+    enum task { login, quiz, assignments, lecture, none, exit,
         quizAccept,
         quizDone
     }
@@ -26,7 +28,7 @@ namespace Thesis
         private static List<Socket> clientSockets = new List<Socket>();
         private static readonly List<AuthStudent> Students = new List<AuthStudent>();
         private static readonly List<AuthStudent> UnregStudents = new List<AuthStudent>();
-        private const int BUFFER_SIZE = 2048;
+        private const int BUFFER_SIZE = 50000;
         private const int PORT = 8080; //NEW 100 before
         private static readonly byte[] buffer = new byte[BUFFER_SIZE];
         
@@ -39,11 +41,14 @@ namespace Thesis
         //QUIZ
         public static QuizData quizData;
         public static List<QuizData> QuizDoneItems = new List<QuizData>();
+        public static QuizManager quizManager;
         //ASSIGNMENT
         public static List<Assignment> assignments = new List<Assignment>();
         public static List<AuthStudent> GetActiveStudents {
             get { return Students; }
         }
+        //LECTURE
+        public static string ServingLecture;
 
         public static string GetIPAddress(Context context)
         {
@@ -183,6 +188,12 @@ namespace Thesis
                     current.Send(data);
                     currentTask = task.assignments;
                 }
+                else if(text.ToLower() == "lecture")
+                {
+                    byte[] data = Encoding.ASCII.GetBytes("ok");
+                    current.Send(data);
+                    currentTask = task.lecture;
+                }
                 else if(text.ToLower() == "exit") // Client wants to exit gracefully
                 {
                     // Always Shutdown before closing
@@ -252,34 +263,64 @@ namespace Thesis
                 }
                 else if(currentTask == task.quizDone)
                 {
+                    QuizData quizDone;
+                    StudentQuizScore score;
                     try
                     {
                         string json = Encoding.ASCII.GetString(recBuf);
-                        var quizDone = JsonConvert.DeserializeObject<QuizData>(json);
+                        quizDone = JsonConvert.DeserializeObject<QuizData>(json);
                         quizDone.DezerializeListItems();
                         QuizDoneItems.Add(quizDone);
+                        quizManager.CheckQuiz();
                         //quizItem = JsonConvert.DeserializeObject<List<QuizItem>>(quizData.quizitems);
+                        score = quizManager.GetScores.Find(x => x.passcode == quizDone.Passcode);
+                        current.Send(Encoding.ASCII.GetBytes(score.score.ToString()));
                     }
                     catch(Exception)
                     {
-
                         current.Send(Encoding.ASCII.GetBytes("false"));
+                        currentTask = task.none;
                     }
                     finally
                     {
-                        current.Send(Encoding.ASCII.GetBytes("true"));
+                        currentTask = task.none;
                     }                  
                 }
                 else if(currentTask == task.assignments)
                 {
                     try
                     {
-                        var json = JsonConvert.SerializeObject(assignments);
-                        current.Send(Encoding.ASCII.GetBytes(json));
+                        if(Encoding.ASCII.GetString(recBuf) == "true")
+                        {
+                            var json = JsonConvert.SerializeObject(assignments);
+                            current.Send(Encoding.ASCII.GetBytes(json));
+                            currentTask = task.none;
+                        }
                     }
                     catch(Exception)
                     {
                        
+                    }
+                }
+                else if(currentTask == task.lecture)
+                {
+                    try
+                    {
+                        if(Encoding.ASCII.GetString(recBuf) == "true")
+                        {
+                            current.Send(Encoding.ASCII.GetBytes(ServingLecture));
+                        }
+                        else if(Encoding.ASCII.GetString(recBuf) == "acceptlect")
+                        {
+                            var byteLecture = BinarySerializer.FileToByteArray(ServingLecture, classManager.GetTeacher.GetFullName);
+                            current.Send(byteLecture);
+                            BinarySerializer.ByteArrayToFile("sdf.doc", byteLecture);
+                            currentTask = task.none;
+                        }
+                    }
+                    catch(Exception)
+                    {
+
                     }
                 }
             }

@@ -18,7 +18,7 @@ namespace ThesisClient.QuizFragments
     {
         QuizActivity quizActivity;
         QuizManager quizManager;
-
+        TextView tvScores;
         Button btnEnqQuiz;
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -32,11 +32,13 @@ namespace ThesisClient.QuizFragments
             quizManager = quizActivity.quizManager;
             btnEnqQuiz = View.FindViewById<Button>(Resource.Id.fragment_quiz_btnDone);
             btnEnqQuiz.Click += BtnEnqQuiz_Click;
+            tvScores = View.FindViewById<TextView>(Resource.Id.fragment_quiz_tvScore);
+            ClientController.tvscores = tvScores;
+            quizManager.SendQuiz();
         }
-
+ 
         private void BtnEnqQuiz_Click(object sender, EventArgs e)
         {
-            quizManager.SendQuiz();
             quizActivity.Finish();
         }
 

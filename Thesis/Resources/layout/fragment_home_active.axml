@@ -29,7 +29,7 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/fragment_home_ipaddress" />
+                android:id="@+id/fragment_home_active_ipaddress" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
     <android.support.v7.widget.CardView xmlns:local="http://schemas.android.com/apk/res-auto"
@@ -85,6 +85,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/fragment_home_active_btnShareLecture" />
+            <TextView
+                android:text="currentSharedLecture"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/fragment_home_active_tvCurrentSharedLecture" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
     <android.support.v7.widget.CardView xmlns:local="http://schemas.android.com/apk/res-auto"

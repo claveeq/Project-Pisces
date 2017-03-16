@@ -40,7 +40,7 @@ namespace Thesis.Fragments
             dashActivity = (DashboardActivity)Activity;
             classManager = dashActivity.GetClassManager;
             etTitle = View.FindViewById<EditText>(Resource.Id.fragment_assignment_etTitle);
-            etDescription = View.FindViewById<EditText>(Resource.Id.fragment_assignment_etTitle);
+            etDescription = View.FindViewById<EditText>(Resource.Id.fragment_assignment_etDescription);
             spSubjects = View.FindViewById<Spinner>(Resource.Id.fragment_assignment_spSubject);
             btnAssignment = View.FindViewById<Button>(Resource.Id.fragment_assignment_btnAssignment);
             subjectSpinnerAdapter = new SubjectSpinnerAdapter(dashActivity, classManager.GetSubjects);

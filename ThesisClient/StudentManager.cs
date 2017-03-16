@@ -10,6 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using ThesisClient.Model;
+using System.IO;
 
 namespace ThesisClient
 {
@@ -35,6 +36,33 @@ namespace ThesisClient
         {
             settings.propAssignment = assignments;
             BinarySerializer.SerializeSettings(settings);
+        }
+
+        public List<string> GetLecturesFileNames()
+        {
+            string folderlocation;
+            if(Android.OS.Environment.ExternalStorageState.Equals(Android.OS.Environment.MediaMounted))
+                folderlocation = Android.OS.Environment.ExternalStorageDirectory.Path;
+            else
+                folderlocation = Android.OS.Environment.DirectoryDocuments;
+
+            folderlocation += @"/Lectures/";
+            if(!Directory.Exists(folderlocation))
+                Directory.CreateDirectory(folderlocation);
+
+            string filepath = folderlocation;
+            string[] files = Directory.GetFiles(folderlocation);
+            var filenames = new List<string>();
+            if(files != null)
+            {
+                foreach(var file in files)
+                {
+                    FileInfo fi = new FileInfo(file);
+                    //  fi.Name.Replace(fi.Extension, "");
+                    filenames.Add(fi.Name);
+                }
+            }
+            return filenames;
         }
     }
 }

@@ -149,23 +149,25 @@ namespace Thesis
             if(!Directory.Exists(folderlocation))
                 Directory.CreateDirectory(folderlocation);
             var filelocation = folderlocation + filename;
+            var bytes = File.ReadAllBytes(filelocation);
+            return bytes; //return the byte data
 
-            FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read);
-
-            // Create a byte array of file stream length
-            byte[] filedata = new byte[fs.Length];
-
-            //Read block of bytes from stream into the byte array
-            fs.Read(filedata, 0, Convert.ToInt32(fs.Length));
-
-            //Close the File Stream
-            fs.Close();
-            return filedata; //return the byte data
         }
 
-        public static void ByteArrayToFile()
+        public static void ByteArrayToFile(string filename, byte[] documentFile)
         {
+            string folderlocation;
+            if(Android.OS.Environment.ExternalStorageState.Equals(Android.OS.Environment.MediaMounted))
+                folderlocation = Android.OS.Environment.ExternalStorageDirectory.Path;
+            else
+                folderlocation = Android.OS.Environment.DirectoryDocuments;
 
+            folderlocation += @"/Lectures/";
+            if(!Directory.Exists(folderlocation))
+                Directory.CreateDirectory(folderlocation);
+            var filelocation = folderlocation + filename;
+
+            File.WriteAllBytes(filelocation, documentFile);
         }
     }
 }

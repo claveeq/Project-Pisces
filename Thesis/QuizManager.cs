@@ -34,6 +34,8 @@ namespace Thesis
         public string currentSubject;
         public Quiz Quiz { get { return quiz; } }
 
+        public List<StudentQuizScore> GetScores { get { return scores; } }
+
         public   List<CorrectAnswers> correct;
 
         public QuizManager(int teachersid)

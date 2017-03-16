@@ -10,7 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-namespace Thesis.Adapter
+namespace ThesisClient.Adapter
 {
     class LecturesAdapter : BaseAdapter
     {
@@ -28,11 +28,7 @@ namespace Thesis.Adapter
         {
             return position;
         }
-        public void refresh(List<string> lectures)
-        {
-            this.lectures.Clear();
-            this.lectures = lectures;
-        }
+
         public override long GetItemId(int position)
         {
             return position;

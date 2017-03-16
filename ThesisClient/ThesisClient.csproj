@@ -113,6 +113,7 @@
     <Compile Include="Activities\DashboardActivity.cs" />
     <Compile Include="Activities\QuizActivity.cs" />
     <Compile Include="Adapter\AssignmentAdapter.cs" />
+    <Compile Include="Adapter\LecturesAdapter.cs" />
     <Compile Include="BinarySerializer.cs" />
     <Compile Include="ClientController.cs" />
     <Compile Include="Fragment\AccountFragment.cs" />
@@ -189,6 +190,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\item_assignments.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\item_lectures.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

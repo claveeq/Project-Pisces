@@ -156,10 +156,10 @@ namespace ThesisClient.Activities
                     ReplaceFragment(lectureFragment);
                     SupportActionBar.Title = "Lectures";
                     break;
-                case (Resource.Id.nav_Account):
-                    ReplaceFragment(accountFragment);
-                    SupportActionBar.Title = "Account";
-                    break;
+               // case (Resource.Id.nav_Account):
+                 //   ReplaceFragment(accountFragment);
+                 //   SupportActionBar.Title = "Account";
+                  //  break;
             }
             drawerLayout.CloseDrawers();
         }

@@ -20,6 +20,8 @@ namespace ThesisClient.Fragment
         Button btnScan;
         Button btnLogout;
         Button btnAssignment;
+        Button btnLecture;
+
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -32,9 +34,17 @@ namespace ThesisClient.Fragment
             btnScan = View.FindViewById<Button>(Resource.Id.fragment_home_active_btnScan);
             btnLogout = View.FindViewById<Button>(Resource.Id.fragment_home_active_btnLogout);
             btnAssignment = View.FindViewById<Button>(Resource.Id.fragment_home_active_btnAssignment);
+            btnLecture = View.FindViewById<Button>(Resource.Id.fragment_home_active_btnLectures);
             btnScan.Click += BtnScan_Click;
             btnLogout.Click += BtnLogout_Click;
             btnAssignment.Click += BtnAssignment_Click;
+            btnLecture.Click += BtnLecture_Click;
+        }
+
+        private void BtnLecture_Click(object sender, EventArgs e)
+        {
+            ClientController.SendRequest(Task.lecture);
+            // like assignment
         }
 
         private void BtnAssignment_Click(object sender, EventArgs e)

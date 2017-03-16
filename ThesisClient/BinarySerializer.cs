@@ -174,5 +174,20 @@ namespace ThesisClient
         //        return quiz;
         //    }
         //}
+        public static void ByteArrayToFile(string filename, byte[] documentFile)
+        {
+            string folderlocation;
+            if(Android.OS.Environment.ExternalStorageState.Equals(Android.OS.Environment.MediaMounted))
+                folderlocation = Android.OS.Environment.ExternalStorageDirectory.Path;
+            else
+                folderlocation = Android.OS.Environment.DirectoryDocuments;
+
+            folderlocation += @"/Lectures/";
+            if(!Directory.Exists(folderlocation))
+                Directory.CreateDirectory(folderlocation);
+            var filelocation = folderlocation + filename;
+
+            File.WriteAllBytes(filelocation, documentFile);
+        }
     }
 }
